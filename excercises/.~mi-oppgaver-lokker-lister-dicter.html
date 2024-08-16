@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Noen oppgaver om løkker, lister og dict’er &#8212; Databehandling og -analyse</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'excercises/.~mi-oppgaver-lokker-lister-dicter';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Databehandling og -analyse med Python og OpenRefine
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Del I - Kom i gang!</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../kapittel1.html">1. Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kapittel2.html">2. Jupyter Notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del II - Grunnleggende Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../kapittel3.html">3. Variabler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kapittel4.html">4. Betinget programmering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kapittel5.html">5. Løkker, lister, tupler, og dict’er</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kapittel6.html">6. Funksjoner</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del III - Databehandling- og analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../kapittel7.html">7. Vasking av data med OpenRefine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kapittel8.html">8. Dataanalyse med Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kapittel9.html">9. Visualisering med Plotly</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del IV - Innlasting og forbehandling av data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../kapittel10.html">10. Innhenting av data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/excercises/.~mi-oppgaver-lokker-lister-dicter.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Noen oppgaver om løkker, lister og dict’er</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ti-heltall">1. Ti heltall</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-en-liste-med-til-heltall">1.1 Lag en liste med til heltall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-den-femte-element-i-listen">1.2 Skriv ut den femte element i listen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-for-lokke-for-a-skrive-ut-alle-tallene">1.3 Bruk en for-løkke for å skrive ut alle tallene</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-resultatet-av-tallene-multiplisert-med-seg-selv">1.4 Skriv ut resultatet av tallene multiplisert med seg selv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-tallene-som-er-storre-enn-en-oppgitt-tall">1.5 Skriv ut tallene som er større enn en oppgitt tall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regner-ut-summen-av-tallene-i-listen">1.6 Regner ut summen av tallene i listen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finn-gjennomsnittet-av-tallene">1.7 Finn gjennomsnittet av tallene</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finn-den-storste-tall-i-listen">1.8 Finn den største tall i listen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplikasjonstabell">2. Multiplikasjonstabell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#brageprisen">3. Brageprisen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-dict-for-a-lagre-data-om-de-siste-seks-vinnere-av-brageprisen-https-no-wikipedia-org-wiki-brageprisen-arstall-er-nokkelen-og-navnet-pa-vinneren-er-verdien">3.1 Bruk en dict for å lagre data om de siste seks vinnere av Brageprisen (https://no.wikipedia.org/wiki/Brageprisen). Årstall er nøkkelen og navnet på vinneren er verdien.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-for-lokke-for-a-skrive-ut-arstall-og-vinneren">3.2 Bruk en for-løkke for å skrive ut årstall og vinneren</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-vinneren-av-brageprisen-i-2020">3.3 Skriv ut vinneren av  Brageprisen i 2020</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finn-ut-om-nina-lykke-har-vunnet-prisen">3.4 Finn ut om Nina Lykke har vunnet prisen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oscarvinnere">4. Oscarvinnere</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-liste-av-dictionaries-strukturen-for-a-beskrive-noen-filmer-som-har-vunnet-oscar-for-beste-film-https-no-wikipedia-org-wiki-oscar-for-beste-film-hvilke-attributter-skal-tas-med-ar-tittel-regissor">4.1 Bruk en liste av dictionaries-strukturen for å beskrive noen filmer som har vunnet Oscar for beste film (https://no.wikipedia.org/wiki/Oscar_for_beste_film). Hvilke attributter skal tas med? År, tittel, regissør, …?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-alle-filmene">4.2 Skriv ut alle filmene</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-filmdetaljer-fra-et-gitt-ar">4.3 Skriv ut filmdetaljer fra et gitt år</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hvordan-vil-du-har-lagt-til-skuespillere-som-har-spilt-i-filmene">4.4 Hvordan vil du har lagt til skuespillere som har spilt i filmene?</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="noen-oppgaver-om-lokker-lister-og-dict-er">
+<h1>Noen oppgaver om løkker, lister og dict’er<a class="headerlink" href="#noen-oppgaver-om-lokker-lister-og-dict-er" title="Permalink to this heading">#</a></h1>
+<section id="ti-heltall">
+<h2>1. Ti heltall<a class="headerlink" href="#ti-heltall" title="Permalink to this heading">#</a></h2>
+<section id="lag-en-liste-med-til-heltall">
+<h3>1.1 Lag en liste med til heltall<a class="headerlink" href="#lag-en-liste-med-til-heltall" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="skriv-ut-den-femte-element-i-listen">
+<h3>1.2 Skriv ut den femte element i listen<a class="headerlink" href="#skriv-ut-den-femte-element-i-listen" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="bruk-en-for-lokke-for-a-skrive-ut-alle-tallene">
+<h3>1.3 Bruk en for-løkke for å skrive ut alle tallene<a class="headerlink" href="#bruk-en-for-lokke-for-a-skrive-ut-alle-tallene" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="skriv-ut-resultatet-av-tallene-multiplisert-med-seg-selv">
+<h3>1.4 Skriv ut resultatet av tallene multiplisert med seg selv<a class="headerlink" href="#skriv-ut-resultatet-av-tallene-multiplisert-med-seg-selv" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="skriv-ut-tallene-som-er-storre-enn-en-oppgitt-tall">
+<h3>1.5 Skriv ut tallene som er større enn en oppgitt tall<a class="headerlink" href="#skriv-ut-tallene-som-er-storre-enn-en-oppgitt-tall" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="regner-ut-summen-av-tallene-i-listen">
+<h3>1.6 Regner ut summen av tallene i listen<a class="headerlink" href="#regner-ut-summen-av-tallene-i-listen" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="finn-gjennomsnittet-av-tallene">
+<h3>1.7 Finn gjennomsnittet av tallene<a class="headerlink" href="#finn-gjennomsnittet-av-tallene" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="finn-den-storste-tall-i-listen">
+<h3>1.8 Finn den største tall i listen<a class="headerlink" href="#finn-den-storste-tall-i-listen" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="multiplikasjonstabell">
+<h2>2. Multiplikasjonstabell<a class="headerlink" href="#multiplikasjonstabell" title="Permalink to this heading">#</a></h2>
+<p>Bruk to for-lokker sammen med range() for å skrive ut en multiplikasjonstabell (fra 1 x 1 til 10 x 10) som begynner slik:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="n">x</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">3</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">4</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">5</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">6</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">7</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">8</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">9</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="mi">1</span> <span class="n">x</span> <span class="mi">10</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="mi">2</span> <span class="n">x</span> <span class="mi">1</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="mi">2</span> <span class="n">x</span> <span class="mi">2</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="mi">2</span> <span class="n">x</span> <span class="mi">3</span> <span class="o">=</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</section>
+<section id="brageprisen">
+<h2>3. Brageprisen<a class="headerlink" href="#brageprisen" title="Permalink to this heading">#</a></h2>
+<section id="bruk-en-dict-for-a-lagre-data-om-de-siste-seks-vinnere-av-brageprisen-https-no-wikipedia-org-wiki-brageprisen-arstall-er-nokkelen-og-navnet-pa-vinneren-er-verdien">
+<h3>3.1 Bruk en dict for å lagre data om de siste seks vinnere av Brageprisen (https://no.wikipedia.org/wiki/Brageprisen). Årstall er nøkkelen og navnet på vinneren er verdien.<a class="headerlink" href="#bruk-en-dict-for-a-lagre-data-om-de-siste-seks-vinnere-av-brageprisen-https-no-wikipedia-org-wiki-brageprisen-arstall-er-nokkelen-og-navnet-pa-vinneren-er-verdien" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="bruk-en-for-lokke-for-a-skrive-ut-arstall-og-vinneren">
+<h3>3.2 Bruk en for-løkke for å skrive ut årstall og vinneren<a class="headerlink" href="#bruk-en-for-lokke-for-a-skrive-ut-arstall-og-vinneren" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="skriv-ut-vinneren-av-brageprisen-i-2020">
+<h3>3.3 Skriv ut vinneren av  Brageprisen i 2020<a class="headerlink" href="#skriv-ut-vinneren-av-brageprisen-i-2020" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="finn-ut-om-nina-lykke-har-vunnet-prisen">
+<h3>3.4 Finn ut om Nina Lykke har vunnet prisen<a class="headerlink" href="#finn-ut-om-nina-lykke-har-vunnet-prisen" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+<section id="oscarvinnere">
+<h2>4. Oscarvinnere<a class="headerlink" href="#oscarvinnere" title="Permalink to this heading">#</a></h2>
+<section id="bruk-en-liste-av-dictionaries-strukturen-for-a-beskrive-noen-filmer-som-har-vunnet-oscar-for-beste-film-https-no-wikipedia-org-wiki-oscar-for-beste-film-hvilke-attributter-skal-tas-med-ar-tittel-regissor">
+<h3>4.1 Bruk en liste av dictionaries-strukturen for å beskrive noen filmer som har vunnet Oscar for beste film (https://no.wikipedia.org/wiki/Oscar_for_beste_film). Hvilke attributter skal tas med? År, tittel, regissør, …?<a class="headerlink" href="#bruk-en-liste-av-dictionaries-strukturen-for-a-beskrive-noen-filmer-som-har-vunnet-oscar-for-beste-film-https-no-wikipedia-org-wiki-oscar-for-beste-film-hvilke-attributter-skal-tas-med-ar-tittel-regissor" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="skriv-ut-alle-filmene">
+<h3>4.2 Skriv ut alle filmene<a class="headerlink" href="#skriv-ut-alle-filmene" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="skriv-ut-filmdetaljer-fra-et-gitt-ar">
+<h3>4.3 Skriv ut filmdetaljer fra et gitt år<a class="headerlink" href="#skriv-ut-filmdetaljer-fra-et-gitt-ar" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="hvordan-vil-du-har-lagt-til-skuespillere-som-har-spilt-i-filmene">
+<h3>4.4 Hvordan vil du har lagt til skuespillere som har spilt i filmene?<a class="headerlink" href="#hvordan-vil-du-har-lagt-til-skuespillere-som-har-spilt-i-filmene" title="Permalink to this heading">#</a></h3>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./excercises"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ti-heltall">1. Ti heltall</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lag-en-liste-med-til-heltall">1.1 Lag en liste med til heltall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-den-femte-element-i-listen">1.2 Skriv ut den femte element i listen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-for-lokke-for-a-skrive-ut-alle-tallene">1.3 Bruk en for-løkke for å skrive ut alle tallene</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-resultatet-av-tallene-multiplisert-med-seg-selv">1.4 Skriv ut resultatet av tallene multiplisert med seg selv</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-tallene-som-er-storre-enn-en-oppgitt-tall">1.5 Skriv ut tallene som er større enn en oppgitt tall</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regner-ut-summen-av-tallene-i-listen">1.6 Regner ut summen av tallene i listen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finn-gjennomsnittet-av-tallene">1.7 Finn gjennomsnittet av tallene</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finn-den-storste-tall-i-listen">1.8 Finn den største tall i listen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplikasjonstabell">2. Multiplikasjonstabell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#brageprisen">3. Brageprisen</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-dict-for-a-lagre-data-om-de-siste-seks-vinnere-av-brageprisen-https-no-wikipedia-org-wiki-brageprisen-arstall-er-nokkelen-og-navnet-pa-vinneren-er-verdien">3.1 Bruk en dict for å lagre data om de siste seks vinnere av Brageprisen (https://no.wikipedia.org/wiki/Brageprisen). Årstall er nøkkelen og navnet på vinneren er verdien.</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-for-lokke-for-a-skrive-ut-arstall-og-vinneren">3.2 Bruk en for-løkke for å skrive ut årstall og vinneren</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-vinneren-av-brageprisen-i-2020">3.3 Skriv ut vinneren av  Brageprisen i 2020</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finn-ut-om-nina-lykke-har-vunnet-prisen">3.4 Finn ut om Nina Lykke har vunnet prisen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oscarvinnere">4. Oscarvinnere</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-en-liste-av-dictionaries-strukturen-for-a-beskrive-noen-filmer-som-har-vunnet-oscar-for-beste-film-https-no-wikipedia-org-wiki-oscar-for-beste-film-hvilke-attributter-skal-tas-med-ar-tittel-regissor">4.1 Bruk en liste av dictionaries-strukturen for å beskrive noen filmer som har vunnet Oscar for beste film (https://no.wikipedia.org/wiki/Oscar_for_beste_film). Hvilke attributter skal tas med? År, tittel, regissør, …?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-alle-filmene">4.2 Skriv ut alle filmene</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skriv-ut-filmdetaljer-fra-et-gitt-ar">4.3 Skriv ut filmdetaljer fra et gitt år</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hvordan-vil-du-har-lagt-til-skuespillere-som-har-spilt-i-filmene">4.4 Hvordan vil du har lagt til skuespillere som har spilt i filmene?</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Massey, Preminger & Soelseth
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+Denne interaktive l&aelig;reboka er lisensiert gjennom <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License.</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1205 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>6. Funksjoner &#8212; Databehandling og -analyse</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'kapittel6';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="7. Vasking av data med OpenRefine" href="kapittel7.html" />
+    <link rel="prev" title="5. Løkker, lister, tupler, og dict’er" href="kapittel5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Databehandling og -analyse med Python og OpenRefine
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Del I - Kom i gang!</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel1.html">1. Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel2.html">2. Jupyter Notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del II - Grunnleggende Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel3.html">3. Variabler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel4.html">4. Betinget programmering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel5.html">5. Løkker, lister, tupler, og dict’er</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Funksjoner</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del III - Databehandling- og analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel7.html">7. Vasking av data med OpenRefine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel8.html">8. Dataanalyse med Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel9.html">9. Visualisering med Plotly</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del IV - Innlasting og forbehandling av data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel10.html">10. Innhenting av data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/kapittel6.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>6. Funksjoner</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-funksjoner">Hva er funksjoner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#en-analogi-fra-matlagingens-verden">En analogi fra matlagingens verden</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-pa-en-egendefinert-funksjon">Eksempel på en egendefinert funksjon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typer-funksjoner">Typer funksjoner</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#innebygde-funksjoner">Innebygde funksjoner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noen-innebygde-python-funksjoner">Noen innebygde Python-funksjoner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-pa-en-innebygd-retur-funksjon">Eksempel på en innebygd retur-funksjon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-egendefinerte-funksjoner">Enkle egendefinerte funksjoner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#egendefinerte-funksjoner-med-parametre">Egendefinerte funksjoner med parametre</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#egendefinerte-funksjoner-med-returverdi">Egendefinerte funksjoner med returverdi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-i-komplekse-datatyper-og-moduler">Funksjoner i komplekse datatyper og moduler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasser-objekter-og-datatyper">Klasser, objekter og datatyper</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-for-datatypen-tekststreng">Funksjoner for datatypen tekststreng</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-for-datatypen-liste">Funksjoner for datatypen liste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-for-datatypen-dict">Funksjoner for datatypen dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-definert-i-moduler">Funksjoner definert i moduler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempelprogram-som-bruker-klasser-og-moduler">Eksempelprogram som bruker klasser og moduler</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="funksjoner">
+<h1>6. Funksjoner<a class="headerlink" href="#funksjoner" title="Permalink to this heading">#</a></h1>
+<p>Det vi har gått gjennom i de foregående kapitlene gir oss, i prinsippet, alt vi trenger
+for å skrive enkle programmer. Vi kan lagre og manipulere
+data i variabler, kontrollere gangen i programmene med
+if-tester og håndtere grupper av objekter med
+løkker og lister eller dict’er. For små og relativt oversiktlige oppgaver er
+dette tilstrekkelig. Når oppgaven blir større og litt mer komplisert
+(som programmeringsoppgaver ofte er), blir programmene våre store,
+uoversiktlige og vanskelige å vedlikeholde. Da kan vi ta i bruk <strong>funksjoner</strong>.</p>
+<section id="hva-er-funksjoner">
+<h2>Hva er funksjoner<a class="headerlink" href="#hva-er-funksjoner" title="Permalink to this heading">#</a></h2>
+<p>En funksjon i et program er en sekvens av instruksjoner, med navn, som utfører en bestemt
+oppgave, og som andre deler av programmet kan <em>kalle på</em> <!--\index{funksjoner!kall}--> (i betydning rope på) når den bestemte oppgaven
+skal utføres. <!-- \index{funksjoner}--> Funksjoner gir oss
+muligheten til å strukturere våre programmer. De gjør det også
+lettere å <!-- \index{gjenbruk} --> gjenbruke <strong>programmeringsinnsats</strong>. Det vil
+si at man bruker gammel programkode som noen har
+skrevet tidligere, til å løse nye problemer. I dette kapitlet ser vi
+stort sett på bruk av funksjoner som noen andre har skrevet for oss. Vi vier også litt plass til å vise
+hvordan man lager funksjoner, om ikke annet, for bedre å forstå funksjonene vi bruker.</p>
+<section id="en-analogi-fra-matlagingens-verden">
+<h3>En analogi fra matlagingens verden<a class="headerlink" href="#en-analogi-fra-matlagingens-verden" title="Permalink to this heading">#</a></h3>
+<p>Forestill deg en bestemt oppgave som ikke
+har noe med programmering å gjøre, nemlig det å lage hvit saus. Hvit saus
+kan brukes til forskjellige retter, men lages nokså likt for alle
+disse. Det er derfor naturlig å definere laging av hvit saus som en
+egen <strong>deloppgave</strong> i matlagingen. Overført til
+programmering, snakker vi om å skrive en funksjon som lager
+hvit saus, og som ulike program som “fiskeBolleMiddag” eller
+“blomkålsGrateng” kan bruke. Vi kommer tilbake til dette eksemplet underveis i kapitlet.</p>
+</section>
+<section id="eksempel-pa-en-egendefinert-funksjon">
+<h3>Eksempel på en egendefinert funksjon<a class="headerlink" href="#eksempel-pa-en-egendefinert-funksjon" title="Permalink to this heading">#</a></h3>
+<p>Vi har allerede brukt noen <em>Python</em>-funksjoner, og såvidt introdusert
+begrepet (se <!--\index{len}--> <code class="docutils literal notranslate"><span class="pre">len</span></code>-funksjonen i forrige kapittel. Funksjonen kan gjerne ses på som et
+hjelpeprogram, med navn. Eller en <strong>byggeblokk</strong>.</p>
+<p>I cellegruppen nedenfor definerer vi vår første funksjon, med <em>navn</em> og <em>innhold</em>, og kjører den. Når vi kjører celle [1], skrives ikke noen ting ut. I celle [2] <em>kaller</em> vi på funksjonen, og da blir linje 3 i definisjonen i celle [1] (innholdet i funksjonen) utført.
+I celle [3] kaller vi funksjonen tre ganger. Dette gjør vi for å illustrere at en funksjon som er definert èn gang, kan kalles på mange ganger, selv om det akkurat her ikke representerer en stor besparelse. Dette er ikke den eneste fordelen med bruk av funksjoner, men om vi hadde hatt en funksjon hvis innhold er på 100 linjer, ville denne fordelen ha vært tydeligere. Da ville vi sluppet å skrive linjene hver gang vi vil ha innholdet utført.</p>
+<p><span id="printHallo1"></span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># celle [1]</span>
+<span class="linenos">2</span><span class="k">def</span> <span class="nf">printHallo</span><span class="p">():</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hallo&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># celle [2]</span>
+<span class="linenos">2</span><span class="n">printHallo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hallo
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># celle [3]</span>
+<span class="linenos">2</span><span class="n">printHallo</span><span class="p">()</span>
+<span class="linenos">3</span><span class="n">printHallo</span><span class="p">()</span>
+<span class="linenos">4</span><span class="n">printHallo</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hallo
+Hallo
+Hallo
+</pre></div>
+</div>
+</div>
+</div>
+<!--
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.75\linewidth]{Images/funksjoner/printHallo1.png}
+\end{center}
+\caption{Definisjon og kjøring av en funksjon} 
+\label{printHallo1} 
+\end{figure}
+-->
+<p>For å oppsummere::</p>
+<ul class="simple">
+<li><p>Funksjonen defineres (celle [1]) med Python ordet <code class="docutils literal notranslate"><span class="pre">def</span></code> og med navn, etterfulgt av innhold.</p></li>
+<li><p>Navnet <em>skal</em> etterfølges av parenteser <code class="docutils literal notranslate"><span class="pre">()</span></code>, i dette tilfellet tomme.</p></li>
+<li><p>Hver gang funksjonen kalles, utføres instruksjonen(e) spesifisert i den.</p></li>
+</ul>
+<p>✍️ <strong>Oppgave:</strong>  Med utgangspunkt i cellene over, lag din egen funksjon i din egen notebook. Gi funksjonen et eget navn og eget innhold.</p>
+<!--
+%Programbiten i eksempel~\vref{kallPrintHallo} \emph{kaller}
+%funksjonen definert i eksempel~\vref{printHallo}.
+-->
+<p>Å skrive en funksjon er det samme som å lage en ny
+<em>Python</em>-kommando til eget bruk. Funksjoner skrives ofte i separate
+filer. Disse filene gjøres tilgjengelig for forskjellige programmer
+som bruker dem. Funksjoner kan imidlertid også
+skrives i den samme notebook som bruker (kaller på) dem<a class="footnote-reference brackets" href="#rekkefolge" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. Funksjonen kan til og med skrives i samme celle, men da foran programbitene som
+kaller på dem.</p>
+<p><code class="docutils literal notranslate"><span class="pre">printHallo</span></code> i eksempelet over er en
+<em>egendefinert</em> funksjon. Vi skrev den selv og den utgjør en
+<strong>lokal utvidelse</strong> vi har gjort i <em>Python</em>-språket til bruk i konteksten (cellen eller notebooken) den er definert i. Andre kontekster enn denne kan
+ikke bruke slike lokale utvidelser, med mindre vi gjør
+disse <em>eksplisitt tilgjengelige</em> for dem.</p>
+<p><strong>Innebygde funksjoner</strong> er, derimot,
+tilgjengelig for alle som programmerer i Python. Disse er vanlig å ta i bruk når man jobber med dataanalyser.</p>
+</section>
+<section id="typer-funksjoner">
+<h3>Typer funksjoner<a class="headerlink" href="#typer-funksjoner" title="Permalink to this heading">#</a></h3>
+<p>Funksjoner, uavhengig om de er egendefinerte eller innebygde, kan deles inn i tre hovedkategorier</p>
+<ul class="simple">
+<li><p>rene kommandoer: utfører nøyaktig samme instruksjoner hver gang den kalles, slik som <code class="docutils literal notranslate"><span class="pre">printHallo</span></code> i  eksempelet ovenfor</p></li>
+<li><p>funksjoner med parametre som spesifiserer handlingen</p></li>
+<li><p>funksjoner (med eller uten parametre) som <em>returnerer</em> verdier.</p></li>
+</ul>
+<p>Dersom vi alltid lager samme mengde med hvit saus, og den alltid skal
+smake likt, blir funksjonen <code class="docutils literal notranslate"><span class="pre">lagHvitSaus()</span></code> en ren kommando.
+Når kokken i huset sier
+“lag hvit saus, er du snill”,
+vet du
+nøyaktig hva du skal gjøre.</p>
+<p>Virkeligheten er ofte mer sammensatt. Mengden hvit saus vil kanskje
+avhenge av hvor mange som skal spise middag, eller andre forhold.
+Kokken i huset vil muligens si: “Lag 1 liter hvit saus” eller,
+hvis dere venter gjester, “lag 5 liter hvit saus”. Mengden hvit
+saus er et <strong>parameter</strong>. Den <em>spesifiserer</em> oppgaven
+nærmere.</p>
+<p>For begge eksemplene ovenfor er utfallet gitt, og trenger ikke
+spesifiseres nærmere. Resultatet av funksjonskallet blir en mengde
+hvit saus, som kan brukes der og da. Er du derimot en kokk i en
+restaurant, kan det hende du må lage tre forskjellige varianter hvitsaus i
+løpet av en time, til forskjellige retter som er bestilt. Da vil
+hver av mengdene saus måtte spesifiseres som et konkret
+resultat av <!--\index{funksjoner!kall--> <strong>funksjonskallet</strong>
+<code class="docutils literal notranslate"><span class="pre">lagHvitSaus</span></code>. Da skriver vi funksjonen slik at den, før den
+avsluttes, leverer fra seg en verdi som kelneren – eller
+kjøkkensjefen – tar imot for å bruke til den bestemte retten. Dette kalles å <strong>returnere</strong> en verdi.</p>
+</section>
+</section>
+<section id="innebygde-funksjoner">
+<span id="innebygde"></span><h2>Innebygde funksjoner<a class="headerlink" href="#innebygde-funksjoner" title="Permalink to this heading">#</a></h2>
+<!--
+\index{Innebygde Python-funksjoner}\index{funksjoner!innebygd}
+-->
+<p>Innebygde <em>Python</em>-funksjoner er funksjoner som alle kan bruke. Mange av instruksjonene vi bruker ofte (for eksempel
+<code class="docutils literal notranslate"><span class="pre">print</span></code>), er innebygde funksjoner. Noen har skrevet dem, og plassert dem i et felles <!--\index{funksjoner!bibliotek}--> <strong>funksjonsbibliotek</strong>. Funksjoner i slike bibliotek (engelsk: “libraries”) utfører oppgaver som de fleste
+programmerere trenger ofte.  Noen av disse brukes så ofte at de
+oppleves som en del av <!--\index{kjernespråket}-->”kjernespråket”, men de er egentlig ikke det. I motsetning til <em>nøkkelord</em> som <code class="docutils literal notranslate"><span class="pre">if</span></code>,
+<code class="docutils literal notranslate"><span class="pre">else</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code> og <code class="docutils literal notranslate"><span class="pre">for</span></code>, er ikke <code class="docutils literal notranslate"><span class="pre">print()</span></code>, <code class="docutils literal notranslate"><span class="pre">len()</span></code> og
+andre slike en del av kjernespråket. De er navn på innebygde funksjoner.</p>
+<p>⚠️ <strong>Merk!</strong>  Funksjonsbibliotek fungerer som utvidelser til <em>Python</em>.</p>
+<section id="noen-innebygde-python-funksjoner">
+<h3>Noen innebygde Python-funksjoner<a class="headerlink" href="#noen-innebygde-python-funksjoner" title="Permalink to this heading">#</a></h3>
+<p>De fleste innebygde funksjoner i Python har parametre, og bruker derfor
+argumenter. Et  eksempel vi kjenner fra før er <code class="docutils literal notranslate"><span class="pre">print(&quot;en</span> <span class="pre">tekststreng&quot;)</span></code>, en funksjon som skriver ut (verdien til) argumentet.</p>
+<p>Den funksjonen vi så langt har brukt oftest er, uten tvil, funksjonen
+<code class="docutils literal notranslate"><span class="pre">print()</span></code>. <code class="docutils literal notranslate"><span class="pre">print()</span></code> er en enkel funksjon, og kalles på med ett eller flere
+<strong>argumenter</strong>. Dett er verdiene som skal printes, gjerne representert med variabler. Funksjonens handling er å skrive
+verdien(e) ut til <strong>output</strong>.</p>
+<p>⚠️ <strong>Merk!</strong> Argumentet til <code class="docutils literal notranslate"><span class="pre">print</span></code> kan enten være direkteverdier<a class="footnote-reference brackets" href="#direkteverdier" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> eller variabler, men det er uansett <em>verdien</em> i variabelen som printes.</p>
+<p>I eksemplet nedenfor brukes
+<code class="docutils literal notranslate"><span class="pre">print()</span></code> i noen vanlige situasjoner.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">tall</span><span class="o">=</span><span class="mi">5</span>
+<span class="linenos">2</span><span class="n">tekst</span><span class="o">=</span><span class="s2">&quot;et eksempel&quot;</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;et eksempel&quot;</span><span class="p">)</span> <span class="c1"># Et tekstargument som direkteverdi </span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="n">tekst</span><span class="p">)</span> <span class="c1"># Et tekstargument lagt i en variabel</span>
+<span class="linenos">5</span><span class="nb">print</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>     <span class="c1"># Et tallargument som direkteverdi</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="n">tall</span><span class="p">)</span>  <span class="c1"># Et tallargument lagt i en variabel</span>
+<span class="linenos">7</span><span class="nb">print</span><span class="p">(</span><span class="n">tekst</span><span class="p">,</span> <span class="n">tall</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>et eksempel
+et eksempel
+5
+5
+et eksempel 5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="eksempel-pa-en-innebygd-retur-funksjon">
+<h3>Eksempel på en innebygd retur-funksjon<a class="headerlink" href="#eksempel-pa-en-innebygd-retur-funksjon" title="Permalink to this heading">#</a></h3>
+<p>En annen funksjon vi har allerede sett i bruk, er funksjonen <code class="docutils literal notranslate"><span class="pre">len()</span></code>. Den anvendes på flerverdi-“ting”.
+Disse “ting” kan være lister, dict’er, til og med tekststrenger. <code class="docutils literal notranslate"><span class="pre">len()</span></code> <strong>returnerer</strong> lengden av verdien den anvendes på.  Se eksemplene nedenfor.
+Legg merke til at fordi <code class="docutils literal notranslate"><span class="pre">len()</span></code> returnerer en verdi, kan et kall til den anses som en slags “dynamisk” variabel. For eksempel kan <strong>funksjonskallet</strong> være argument til <code class="docutils literal notranslate"><span class="pre">print()</span></code>.  Det vil si at vi kombinerer to ulike funksjoner slik at den ene gir en output av noe den andre funksjonen har returnert som verdi.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;Michael&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong>  Kopier innholdet i cellen over i din egen celle og be den istedet printe navnet “Nina”. Kan du tenke deg til hva tallet i output er en lengde på?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">studenter</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Arne&quot;</span><span class="p">,</span> <span class="s2">&quot;Gerd&quot;</span><span class="p">,</span> <span class="s2">&quot;Mona&quot;</span><span class="p">]</span>
+<span class="n">fodselsdager</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;arne&quot;</span><span class="p">:</span><span class="s2">&quot;12. juni&quot;</span><span class="p">,</span> <span class="s2">&quot;Gerd&quot;</span><span class="p">:</span> <span class="s2">&quot;20. desember&quot;</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">studenter</span><span class="p">))</span> <span class="c1">#Lengden av en liste</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fodselsdager</span><span class="p">))</span> <span class="c1"># Lengden av en dict</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;Michael&quot;</span><span class="p">))</span> <span class="c1"># Lengden av en tekststreng</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+2
+7
+</pre></div>
+</div>
+</div>
+</div>
+<p>Innebygde funksjoner er sentralt i Del III, når vi skal gjøre datanalyse med <em>Pandas</em>, som er et av de mest brukte funksjonsbibliotekene når man skal jobbe med større datasett.</p>
+<p>Under følger en nærmere detalj-beskrivelse av hvordan ulike typer funksjoner fungerer med utgangspunkt i hvordan lage egne. Her går vi nærmere gjennom <strong>parametre</strong>, <strong>argumenter</strong> og <strong>returneringer</strong>.</p>
+</section>
+</section>
+<section id="enkle-egendefinerte-funksjoner">
+<h2>Enkle egendefinerte funksjoner<a class="headerlink" href="#enkle-egendefinerte-funksjoner" title="Permalink to this heading">#</a></h2>
+<!--
+\index{funksjoner!definisjon}\index{funksjoner!egendefinert}
+-->
+<p>Vi skriver egendefinerte funksjoner</p>
+<ul class="simple">
+<li><p>når vi identifiserer en oppgave som gjøres ofte (og det ikke finnes en innebygd funksjon som gjør samme nytten)</p></li>
+<li><p>når vi ønsker å gjøre våre programmer lettere å forstå.
+Med andre ord, ganske ofte.</p></li>
+</ul>
+<p>Når vi skal skrive en egendefinert funksjon, pakker vi
+instruksjonene inn i en blokk som ser slik ut</p>
+<p><img alt="funksjonsdefinisjon" src="_images/funksjon_jb.png" /></p>
+<p>Funksjonen døpes med navn og legges et sted som er tilgjengelig for
+programmet (eller notebok-cellen) som trenger den. Det kan være enten i
+samme cellen som selve koden ligger i, en annen celle i samme notebook, eller i en spesiell fil (et
+<strong>funksjonsbibliotek</strong> eller en mindre <strong>modul</strong>) som gjøres tilgjengelig for programmet.
+Programmet kan <!--\index{funksjoner!kall}--><em>kalle</em> (rope på) funksjonen for å utføre
+handlingen spesifisert med instruksjonene.</p>
+<p>I eksempelet nedenfor  definerer vi funksjonen
+<code class="docutils literal notranslate"><span class="pre">skrivOpphavsRett</span></code>.  Denne ligner på <code class="docutils literal notranslate"><span class="pre">printHallo</span></code> som vi skrev
+tidligere. Når den kalles, skriver den en fast tekststreng til en
+tekst, en copyright-seksjon.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span> <span class="nf">skrivOpphavsRett</span><span class="p">():</span>
+<span class="linenos">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot; Denne teksten er beskyttet av opphavsrett. </span>
+<span class="linenos">3</span><span class="s2">     Dersom du ønsker å kopiere fra den eller bruke den </span>
+<span class="linenos">4</span><span class="s2">     til andre formål enn personlig bruk, må du</span>
+<span class="linenos">5</span><span class="s2">             kontakte Michael Preminger. &quot;&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Her er en tekst som ska beskyttes.&quot;</span><span class="p">)</span>
+<span class="linenos">8</span><span class="n">skrivOpphavsRett</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Her er en tekst som ska beskyttes.
+ Denne teksten er beskyttet av opphavsrett. 
+     Dersom du ønsker å kopiere fra den eller bruke den 
+     til andre formål enn personlig bruk, må du
+             kontakte Michael Preminger. 
+</pre></div>
+</div>
+</div>
+</div>
+<p>⚠️ <strong>Merk!</strong> Fra utskriften  ser man at teksten
+som er kodet i funksjonsdefinisjonen <code class="docutils literal notranslate"><span class="pre">Denne</span> <span class="pre">teksten</span> <span class="pre">er</span> <span class="pre">beskyttet...</span></code> kommer <em>etter</em> innholdet på filen <code class="docutils literal notranslate"><span class="pre">Her</span> <span class="pre">er</span> <span class="pre">en</span> <span class="pre">tekst</span> <span class="pre">...</span></code>, selv om det i programmet står <em>før</em>
+sistnevnte.</p>
+<p>Når funksjonen blir definert (altså: at linjene med <strong>funksjonsdefinisjonen</strong> blir kjørt) utføres det
+egentlig ingen ting. I definisjonen står bare handlingene som
+funksjonen skal utføre <em>dersom og når den blir kalt</em>. Disse handlingene blir lagret i minne i tilknytning til funksjonsnavnet, slik at når cellen over
+begynner å kjøre, blir først innholdet til teksten skrevet ut, og
+deretter blir funksjonen kalt
+, slik at opphavsrettsteksten skrives
+ut. Altså, er det setningen på linjen
+8 som utløser det som ble <strong>avtalt</strong>
+på linjene 1-5.</p>
+<section id="egendefinerte-funksjoner-med-parametre">
+<span id="funkmedpar"></span><h3>Egendefinerte funksjoner med parametre<a class="headerlink" href="#egendefinerte-funksjoner-med-parametre" title="Permalink to this heading">#</a></h3>
+<p>Vi har allerede nevnt at parametre kan
+brukes til å spesifisere funksjonens handlinger.
+Et <strong>parameter</strong> er en spesiell type variabel. Parametre
+gjør funksjonene mer fleksible og anvendelige.</p>
+<p>Funksjonen <code class="docutils literal notranslate"><span class="pre">skrivOpphavsRett()</span></code> gjør nøyaktig det samme
+hver gang den kalles. Har Michael Preminger mange tekster han
+ønsker å opphavsrettsmerke, skriver han funksjonen èn gang (det har
+han gjort …), gjør funksjonen tilgjengelig for programmene han
+bruker, og
+kaller den for hver nettside som skal beskyttes. Allerede her ligger
+en stor besparelse.</p>
+<p>Men mer kan oppnås. Det er vanlig å hevde opphavsrett til tekster. Det vil si at det er
+flere, ikke bare Michael Preminger, son kan tenkes å ville gjøre det
+på samme måte. Funksjonen i eksemplet nedenfor kan brukes av hvem som
+helst til å beskytte sine dokumenter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span> <span class="nf">skrivOpphavsRett2</span><span class="p">(</span><span class="n">fornavn</span><span class="p">,</span> <span class="n">etternavn</span><span class="p">):</span>
+<span class="linenos">2</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;&quot; Denne teksten er beskyttet av opphavsrett. </span>
+<span class="linenos">3</span><span class="s2">     Dersom du ønsker å kopiere fra den eller bruke den </span>
+<span class="linenos">4</span><span class="s2">     til andre formål enn personlig bruk, må du</span>
+<span class="linenos">5</span><span class="s2">             kontakte &quot;&quot;&quot;</span> <span class="o">+</span> <span class="n">fornavn</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">etternavn</span><span class="o">+</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Her er en tekst som ska beskyttes.&quot;</span><span class="p">)</span>
+<span class="linenos">7</span><span class="n">skrivOpphavsRett2</span><span class="p">(</span><span class="s2">&quot;Jens&quot;</span><span class="p">,</span> <span class="s2">&quot;Olsen&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Her er en tekst som ska beskyttes.
+ Denne teksten er beskyttet av opphavsrett. 
+     Dersom du ønsker å kopiere fra den eller bruke den 
+     til andre formål enn personlig bruk, må du
+             kontakte Jens Olsen.
+</pre></div>
+</div>
+</div>
+</div>
+<p>I eksemplet ovenfor blir <code class="docutils literal notranslate"><span class="pre">fornavn</span></code> og <code class="docutils literal notranslate"><span class="pre">etternavn</span></code> på linje 1 <!--\index{funksjoner!paramettre}--><strong>parametre</strong>, og  “Jens” og “Olsen” (linje 7) <!--\index{funksjoner!argumenter}--><strong>argumenter</strong>. Parametrene
+gjør at funksjonen defineres èn gang, og kan deretter brukes av
+forskjellige opphavspersoner, representert ved argumentene.
+Referansene <code class="docutils literal notranslate"><span class="pre">fornavn</span></code> og <code class="docutils literal notranslate"><span class="pre">etternavn</span></code> på linje 5 i funksjonsdefinisjonen, gjør at
+argumentverdiene
+(i vårt eksempel <em>Jens</em> hhv, <em>Olsen</em>) blir
+skrevet ut.</p>
+<p>I eksemplet nedenfor brukes den samme funksjonen, denne gangen med verdiene servert funksjonen i <em>variabler</em> heller enn direkte tekstverdier. For funksjonen er dette hipp som happ.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fnavn</span><span class="o">=</span><span class="s2">&quot;Jens&quot;</span>
+<span class="linenos">2</span><span class="n">enavn</span><span class="o">=</span><span class="s2">&quot;Olsen&quot;</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Her er en tekst som skal beskyttes.&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">skrivOpphavsRett2</span><span class="p">(</span><span class="n">fnavn</span><span class="p">,</span> <span class="n">enavn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Her er en tekst som skal beskyttes.
+ Denne teksten er beskyttet av opphavsrett. 
+     Dersom du ønsker å kopiere fra den eller bruke den 
+     til andre formål enn personlig bruk, må du
+             kontakte Jens Olsen.
+</pre></div>
+</div>
+</div>
+</div>
+<p>⚠️ <strong>Merk!</strong>  Definisjonen av <code class="docutils literal notranslate"><span class="pre">skrivOpphavsRett2</span></code> er å finne i cellen over denne cellen.</p>
+<p>✍️ <strong>Oppgave:</strong> Kopier innholdet fra cellene over og hevd opphavsrett til din egen tekst. Bruk gjerne variabler og ikke direkte tekstverdier for navnet ditt.</p>
+<p>Funksjoner kan ha så mange parametre som programmereren finner
+nødvendig. Funksjonen
+<code class="docutils literal notranslate"><span class="pre">skrivOpphavsrett2</span></code> har to parametre med hver sitt
+unike navn. Ved kall til funksjonen, har hver parameter  sitt argument, og rekkefølgen av argumentene skal gjenspeile rekkefølgen i parametrene.</p>
+<!--
+\medskip
+\medskip
+%\lstMakeShortInline[language=Python,basicstyle=\ttfamily]|
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.0\linewidth]{Images/funksjoner/opphavsrett2_vars.png}
+\end{center}
+\caption{Kall til SkrivOpphavsRett2() med variabler som argumenter.} 
+\label{opphavsrett2_vars} 
+\end{figure}
+%\lstDeleteShortInline|
+%\lstDeleteShortInline!
+%\subsection{Teste på motsatt (negert) betingelse: $!=$  - %operatoren}
+
+%\lstMakeShortInline[language=Python,basicstyle=\ttfamily]!
+-->
+</section>
+<section id="egendefinerte-funksjoner-med-returverdi">
+<h3>Egendefinerte funksjoner med returverdi<a class="headerlink" href="#egendefinerte-funksjoner-med-returverdi" title="Permalink to this heading">#</a></h3>
+<p>Funksjoner med <strong>returverdi</strong> kan sammenlignes med å interagere med en
+drikkeautomat. En drikkeautomat tar imot argumenter (pengebeløp og
+produktvalg), og gir tilbake en kopp, med innhold (og mengde) som
+styres av argumentverdiene.</p>
+<p>På tilsvarende måte kan en funksjon produsere en verdi mens den
+kjører. Kommandoen <code class="docutils literal notranslate"><span class="pre">return</span></code> sørger for at verdien gjøres tilgjengelig for programmet som kalte på funksjonen.</p>
+<p>En funksjon med en returverdi kan kalles som i eksemplet nedenfor.</p>
+<p><img alt="returfunksjon" src="_images/funksjon_jb.png" /></p>
+<p>I eksemplet nedenfor ser du to funksjoner som håndterer to parameterverdier på to forskjellige måter. Den ene, i linje 1, printer resultatet direkte og er dermed en handling, og den andre, linje 5 som <em>returnerer</em> resultatet og kan dermed ses på som en dynamisk variabel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span> <span class="nf">printInvertertForm</span><span class="p">(</span><span class="n">fornavn</span><span class="p">,</span> <span class="n">etternavn</span><span class="p">):</span>
+<span class="linenos">2</span>    <span class="n">invertert</span><span class="o">=</span><span class="n">etternavn</span><span class="o">+</span><span class="s2">&quot;, &quot;</span><span class="o">+</span><span class="n">fornavn</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="n">invertert</span><span class="p">)</span>
+<span class="linenos">4</span>    
+<span class="linenos">5</span><span class="k">def</span> <span class="nf">returnerInvertertForm</span><span class="p">(</span><span class="n">fornavn</span><span class="p">,</span> <span class="n">etternavn</span><span class="p">):</span>
+<span class="linenos">6</span>    <span class="n">invertert</span><span class="o">=</span><span class="n">etternavn</span><span class="o">+</span><span class="s2">&quot;, &quot;</span><span class="o">+</span><span class="n">fornavn</span>
+<span class="linenos">7</span>    <span class="k">return</span> <span class="n">invertert</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I eksemplet nedenfor kjøres de to funksjone hhv. èn og to ganger.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">printInvertertForm</span><span class="p">(</span><span class="s2">&quot;Michael&quot;</span><span class="p">,</span> <span class="s2">&quot;Preminger&quot;</span><span class="p">)</span>
+<span class="linenos">2</span><span class="c1"># print er i linja over, returnert er i linjene under</span>
+<span class="linenos">3</span><span class="n">inv1</span> <span class="o">=</span> <span class="n">returnerInvertertForm</span><span class="p">(</span><span class="s2">&quot;Michael&quot;</span><span class="p">,</span> <span class="s2">&quot;Preminger&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">fornavn</span><span class="o">=</span><span class="s2">&quot;Jens&quot;</span>
+<span class="linenos">5</span><span class="n">etternavn</span><span class="o">=</span><span class="s2">&quot;Olsen&quot;</span>
+<span class="linenos">6</span><span class="n">inv2</span><span class="o">=</span><span class="n">returnerInvertertForm</span><span class="p">(</span><span class="n">fornavn</span><span class="p">,</span> <span class="n">etternavn</span><span class="p">)</span>
+<span class="linenos">7</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;returnert:&quot;</span><span class="p">,</span> <span class="n">inv1</span><span class="p">)</span>
+<span class="linenos">8</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;returnert:&quot;</span><span class="p">,</span> <span class="n">inv2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Preminger, Michael
+returnert: Preminger, Michael
+returnert: Olsen, Jens
+</pre></div>
+</div>
+</div>
+</div>
+<p>For å oppsummere eksemplene:
+Kommandoen <code class="docutils literal notranslate"><span class="pre">return</span></code> i linje 7 i funksjonsdefinisjonen ovenfor har følgende rolle:</p>
+<ul class="simple">
+<li><p>funksjonen avgir verdien i angitt variabel til programmet som kalte den</p></li>
+<li><p>funksjonen avsluttes, og programmet kjører videre, utstyrt med den nye verdien (se variablene <code class="docutils literal notranslate"><span class="pre">inv1</span></code> og <code class="docutils literal notranslate"><span class="pre">inv2</span></code>), som det kan bruke videre.</p></li>
+</ul>
+<p>Funksjonen <code class="docutils literal notranslate"><span class="pre">minstAv</span></code> nedenfor har to parametre, og tar derfor to argumenter. Den returnerer et tall, som er dèt med minst verdi av de to argumentene.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span> <span class="nf">minstAv</span><span class="p">(</span><span class="n">tall1</span><span class="p">,</span> <span class="n">tall2</span><span class="p">):</span>
+<span class="linenos">2</span>    <span class="k">if</span> <span class="n">tall1</span> <span class="o">&lt;</span> <span class="n">tall2</span><span class="p">:</span>
+<span class="linenos">3</span>        <span class="k">return</span> <span class="n">tall1</span>
+<span class="linenos">4</span>    <span class="k">else</span><span class="p">:</span>
+<span class="linenos">5</span>        <span class="k">return</span> <span class="n">tall2</span>
+<span class="linenos">6</span>        
+<span class="linenos">7</span><span class="nb">print</span><span class="p">(</span><span class="n">minstAv</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Med utgangspunkt i funksjonen over, gjør endringer slik at den printer det største av to tall istedet.</p>
+<p>Vi sa tidligere at en funksjon som returnerer en verdi kan ses på som en dynamisk variabel.
+Av det følger at en slik funksjon har også en datatype. Typen returverdi definerer hvilken type funksjonen har.
+Vi sier at funksjonen <code class="docutils literal notranslate"><span class="pre">returnerInvertertForm()</span></code> er en <strong>tekstfunksjon</strong>, mens <code class="docutils literal notranslate"><span class="pre">minstAv()</span></code> er en <strong>tallfunksjon</strong>.</p>
+<!--
+
+
+   
+
+\begin{comment}
+-->
+</section>
+</section>
+<section id="funksjoner-i-komplekse-datatyper-og-moduler">
+<h2>Funksjoner i komplekse datatyper og moduler<a class="headerlink" href="#funksjoner-i-komplekse-datatyper-og-moduler" title="Permalink to this heading">#</a></h2>
+<p>De fleste som programmerer i <em>Python</em> bruker funksjoner som er definert i moduler og i komplekse datatyper. Slike datatyper er definert i python som klasser og objekter. Sistnevnte er ikke en del som denne boka ser det nødvendig å dekke utfyllene, men vi tar allikevel en kort gjennomgang under, særlig fordi ulike datatyper kommer med funksjoner, som det kan være greit å vite om.</p>
+<!--
+-->
+<section id="klasser-objekter-og-datatyper">
+<h3>Klasser, objekter og datatyper<a class="headerlink" href="#klasser-objekter-og-datatyper" title="Permalink to this heading">#</a></h3>
+<p>Hvorfor kommer ulike datatyper med noen “ferdige” funksjoner “på kjøpet”?</p>
+<p>Dette har å gjøre med <strong>objektorientert programmering</strong>. Objektorientert programmering springer ut av ønsket om at programmer skal representere verden som “agenter” (forenklede representasjoner av reelle ting i verden) som interagerer (“snakker”) med hverandre. For eksempel kan en representasjon av en person “kjøpe” en representasjon av en bil, ved at eier-egenskapen til sistnenvte endres til å være denne personen (representert ved navn eller personnummer, for eksempel).</p>
+<p>Bil-representasjonen er <em>forenklet</em> til behovet, og trenger, for dette formålet her, ikke ha andre egenskaper enn “eier”. Representasjonen av denne bilen trenger ikke ha egenskaper som farge eller vekt, hvis alt programmet trenger å vite er hvem som eier denne bilen. Deri ligger forenklingen.</p>
+<p>Disse representasjonene er definert i Python som <em>objekter</em> av <em>klasser</em>.</p>
+<p>Enda et eksempel: et program som skal holde orden på en skole, må ha representasjoner (klasser) for lærere, elever, rom og bygninger. Så kan man opprette objekter (representasjoner av <em>konkrete</em> lærere, elever og rom) basert på disse klassene.</p>
+<p>Så langt har vi forholdt oss til slike klasser som komplekse datatyper. Dette kan vi fortsatt gjøre, selv om vi har innført begrepet <em>klasse</em>. En klasse er, altså, en modell (mal, om du vil) for typer objekter. Vi sier at klasser har egenskaper (variabler) og oppførsel (funksjoner).</p>
+<p>Eksempel på komplekse datatyper som vi allerede har møtt i denne boka, er tekststrenger, lister og dicter. Alle disse datatypene har variabler og funksjoner koblet til dem. Variablene er egenskapene, og funksjonene (oppførselen) kalles ofte <strong>metoder</strong>, og muliggjør handlinger som er forbundet med disse typene (veldig ofte innebærer dette å endre verdier i variablene).  I databehandling og -analyse er det funksjoner som kalles metoder vi ofte tyr til for å få til det vi vil.</p>
+</section>
+<section id="funksjoner-for-datatypen-tekststreng">
+<h3>Funksjoner for datatypen tekststreng<a class="headerlink" href="#funksjoner-for-datatypen-tekststreng" title="Permalink to this heading">#</a></h3>
+<p>En sekvens med tegn (bokstaver, tall eller spesialtegn) som angis mellom enkle eller doble anførselstegn, antas av <em>Python</em> å være en verdi (objekt) av datatypen (klassen) tekstreng, og en god del funksjoner er tilgjengelig for disse. Se for eksempel metoden <code class="docutils literal notranslate"><span class="pre">replace</span></code> i cellen nedenfor.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="s2">&quot;Jeg liker epler&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;epler&quot;</span><span class="p">,</span> <span class="s2">&quot;bananer&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Jeg liker bananer&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Det er dog vanligere å se slike funksjoner anvendt på en variabel med en tekststreng som verdi, som vist nedenfor.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">tekst</span> <span class="o">=</span> <span class="s2">&quot;Jeg liker epler&quot;</span>
+<span class="linenos">2</span><span class="n">ny_tekst</span> <span class="o">=</span> <span class="n">tekst</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;epler&quot;</span><span class="p">,</span> <span class="s2">&quot;bananer&quot;</span><span class="p">)</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">ny_tekst</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jeg liker bananer
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">replace()</span></code> er en av flere metoder som er definert for tekststreng-typen. Se ellers dokumentasjonen til <code class="docutils literal notranslate"><span class="pre">str</span></code> i <a href="https://docs.python.org/3/library/stdtypes.html#textseq">Python’s formelle dokumentasjon</a>  eller i  <a href="https://www.w3schools.com/python/python_strings.asp">W3Schhols</a> .</p>
+</section>
+<section id="funksjoner-for-datatypen-liste">
+<h3>Funksjoner for datatypen liste<a class="headerlink" href="#funksjoner-for-datatypen-liste" title="Permalink to this heading">#</a></h3>
+<p>Bruken av lister er forklart og eksemplifisert i <a href="./kapittel5.html">et tidligere kapittel</a>. Nedenfor her fokuseres det på funksjoner (metoder) definert for denne typen. En funksjon vi har brukt en del er funsjonen <code class="docutils literal notranslate"><span class="pre">append()</span></code>, som legger en ny innførsel bakerst i listen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">liste</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eple&quot;</span><span class="p">,</span> <span class="s2">&quot;banan&quot;</span><span class="p">,</span> <span class="s2">&quot;appelsin&quot;</span><span class="p">]</span>
+<span class="linenos">2</span><span class="n">liste</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mango&quot;</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">liste</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;eple&#39;, &#39;banan&#39;, &#39;appelsin&#39;, &#39;mango&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Men hva gjør vi om vi ønsker å “forlenge” listen med noen flere frukter?
+for eksempel <code class="docutils literal notranslate"><span class="pre">liste2</span> <span class="pre">=</span> <span class="pre">[&quot;klementin&quot;,</span> <span class="pre">&quot;pære&quot;,</span> <span class="pre">&quot;drue&quot;]</span></code> ?</p>
+<p>Vi kan prøve med append:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">liste</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eple&quot;</span><span class="p">,</span> <span class="s2">&quot;banan&quot;</span><span class="p">,</span> <span class="s2">&quot;appelsin&quot;</span><span class="p">]</span>
+<span class="linenos">2</span><span class="n">liste2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;klementin&quot;</span><span class="p">,</span> <span class="s2">&quot;pære&quot;</span><span class="p">,</span> <span class="s2">&quot;drue&quot;</span><span class="p">]</span>
+<span class="linenos">3</span><span class="n">liste</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liste2</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">liste</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;eple&#39;, &#39;banan&#39;, &#39;appelsin&#39;, [&#39;klementin&#39;, &#39;pære&#39;, &#39;drue&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Som du ser av utskriften, ble <code class="docutils literal notranslate"><span class="pre">liste2</span></code> lagt til som den siste  <strong>innførselen</strong> i <code class="docutils literal notranslate"><span class="pre">liste</span></code>.  Det var ikke det vi ville.</p>
+<p>For å få det slik vi ønsker, bruker vi metoden (funksjonen) <code class="docutils literal notranslate"><span class="pre">.extend()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">liste</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eple&quot;</span><span class="p">,</span> <span class="s2">&quot;banan&quot;</span><span class="p">,</span> <span class="s2">&quot;appelsin&quot;</span><span class="p">]</span>
+<span class="linenos">2</span><span class="n">liste2</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;klementin&quot;</span><span class="p">,</span> <span class="s2">&quot;pære&quot;</span><span class="p">,</span> <span class="s2">&quot;drue&quot;</span><span class="p">]</span>
+<span class="linenos">3</span><span class="n">liste</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">liste2</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">liste</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;eple&#39;, &#39;banan&#39;, &#39;appelsin&#39;, &#39;klementin&#39;, &#39;pære&#39;, &#39;drue&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>⚠️ <strong>Merk!</strong>  Det er en viktig forskjell på <code class="docutils literal notranslate"><span class="pre">str.replace()</span></code> og <code class="docutils literal notranslate"><span class="pre">list.append()</span></code> eller <code class="docutils literal notranslate"><span class="pre">list.extend()</span></code>. Mens de to sistnevnte er <strong>handlinger</strong>, altså de anvendes på listen de kjøres på slik at den opprinnelige listen endres, er <code class="docutils literal notranslate"><span class="pre">str.replace()</span></code> slik at den returnerer en ny streng. Den opprinnelige strengen endres ikke, men en kopi, med endringen, lages og returneres.</p>
+</section>
+<section id="funksjoner-for-datatypen-dict">
+<h3>Funksjoner for datatypen dict<a class="headerlink" href="#funksjoner-for-datatypen-dict" title="Permalink to this heading">#</a></h3>
+<p>Vi har allerede definert dict som en datatype som holder flere verdier pekt til av nøkler. Liksom tekststreng og liste, har også dict-typen funksjoner (metoder) knyttet til seg. Eksempler er <code class="docutils literal notranslate"><span class="pre">dict.keys()</span></code>, <code class="docutils literal notranslate"><span class="pre">dict.values()</span></code> og <code class="docutils literal notranslate"><span class="pre">dict.items()</span></code>, som returnerer innholdet i dicte’en på forskjellige former. I eksemplene nedenfor anvendes disse på en enkel dict. Legg spesielt merke til at items() legger dicten ut som tupler, en tuppel per dict-innførsel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">dicten</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;en&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;tre&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="linenos">2</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dicten</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>en
+to
+tre
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dicten</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<span class="linenos">2</span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+2
+3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dicten</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">2</span>    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;en&#39;, 1)
+(&#39;to&#39;, 2)
+(&#39;tre&#39;, 3)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="funksjoner-definert-i-moduler">
+<h3>Funksjoner definert i moduler<a class="headerlink" href="#funksjoner-definert-i-moduler" title="Permalink to this heading">#</a></h3>
+<p>En <strong>modul</strong> er en “pakke” med klasser og funksjoner. Disse er enten <em>innebygd</em> i <em>Python</em>, eller kan installeres med kommandoen <code class="docutils literal notranslate"><span class="pre">pip</span></code>. For å bruke disse i en Notebook eller <code class="docutils literal notranslate"><span class="pre">.py</span></code>-fil<a class="footnote-reference brackets" href="#pyfiler" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>, må <code class="docutils literal notranslate"><span class="pre">import</span></code>-kommandoen brukes.</p>
+<p><code class="docutils literal notranslate"><span class="pre">math</span></code>- modulen er et eksempel på en modul som har mange funksjoner som tilbyr matematiske operasjoner på tall-variabler. I cellen nedenfor er det noen enkle eksempler på bruken av <code class="docutils literal notranslate"><span class="pre">math</span></code>-modulen. Legg merke til at disse både tar parametre og returnerer verdier (det finnes også slike funksjoner til List og Dict - typene som ikke vises her).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span> <span class="nn">math</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;heltallet over 1.4 =&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="mf">1.4</span><span class="p">))</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;heltallet under 1.5 =&quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;kvadratroten av 4 = &quot;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>heltallet over 1.4 = 2
+heltallet under 1.5 = 1
+kvadratroten av 4 =  2.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="eksempelprogram-som-bruker-klasser-og-moduler">
+<h3>Eksempelprogram som bruker klasser og moduler<a class="headerlink" href="#eksempelprogram-som-bruker-klasser-og-moduler" title="Permalink to this heading">#</a></h3>
+<p>Eksemplet nedenfor viser et eksempel på et program som bruker en modul (<code class="docutils literal notranslate"><span class="pre">io</span></code>) og to innebygde klasser (<code class="docutils literal notranslate"><span class="pre">str</span></code> og <code class="docutils literal notranslate"><span class="pre">list</span></code>) til å lese en fil med tall i, og skrive en ny fil.</p>
+<p>Modulen <code class="docutils literal notranslate"><span class="pre">io</span></code> har funksjoner (blant annet <code class="docutils literal notranslate"><span class="pre">open()</span></code> og <code class="docutils literal notranslate"><span class="pre">close()</span></code> som vi bruker), og klasser, blant annet en filklasse (<code class="docutils literal notranslate"><span class="pre">TextIOWrapper</span></code>) som vi bruker to objekter av: <code class="docutils literal notranslate"><span class="pre">innfil</span></code> og <code class="docutils literal notranslate"><span class="pre">utfil</span></code>. <code class="docutils literal notranslate"><span class="pre">TextIOWrapper</span></code> har metodene <code class="docutils literal notranslate"><span class="pre">readlines()</span></code> som  returnerer linjene i filen <code class="docutils literal notranslate"><span class="pre">innfil</span></code> som en liste av <code class="docutils literal notranslate"><span class="pre">str</span></code> - objekter, og <code class="docutils literal notranslate"><span class="pre">writelines()</span></code> som tar en liste av <code class="docutils literal notranslate"><span class="pre">str</span></code> - objekter og lagrer denne til filen “fleretall.txt” representert av <code class="docutils literal notranslate"><span class="pre">utfil</span></code>-objektet. <code class="docutils literal notranslate"><span class="pre">close()</span></code> metoden lagrer og lukker filen. For å gjenskape dette eksemplet trenger du tekstfilen “mangetall.txt” som har tallene 1 - 10 inkludert, på hver sin linje, i samme mappe som programmet kjører fra.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">io</span>
+<span class="linenos"> 2</span><span class="n">innfil</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;./mangetall.txt&#39;</span><span class="p">)</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1"># Les alle linjene </span>
+<span class="linenos"> 5</span><span class="n">talliste</span><span class="o">=</span><span class="n">innfil</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="k">for</span> <span class="n">tall</span> <span class="ow">in</span> <span class="n">talliste</span><span class="p">:</span>
+<span class="linenos"> 8</span>    <span class="nb">print</span><span class="p">(</span><span class="n">tall</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="c1"># strip() viser tallet uten linjeskift</span>
+<span class="linenos"> 9</span>    
+<span class="linenos">10</span><span class="n">talliste</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;11&quot;</span><span class="p">)</span>
+<span class="linenos">11</span><span class="n">utfil</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;./fleretall.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+<span class="linenos">12</span><span class="n">utfil</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">talliste</span><span class="p">)</span>
+<span class="linenos">13</span><span class="n">utfil</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></div>
+</div>
+</div>
+</div>
+<p>I dette siste eksemplet kom det plutselig en god del nye <strong>metoder</strong>, samt at koden også leser av en bestemt fil. Mye nytt introduseres plutselig i dette eksempelet. Meningen er ikke at du skal nå lære deg alle disse funksjonene, men istedet få et innblikk i noe du vil kunne gjøre etter å ha gjennomført bokas del III. Men da skal vi ta i bruk funksjonsbiblioteket <em>Pandas</em> og jobbe med spesifikke datasett knyttet til litteratur. Fordelen med <em>Pandas</em> er at du kan se hvordan ting endrer seg i et datasett ettersom du bruker ulike funksjoner for å håndtere datasettet og videre foreta analyser. Du vil i bokas del III bli godt kjent med en håndfull ulike funksjoner som du vil bruke ofte. Vi håper gjennomgangen over vil være til hjelp for å skjønne hva som faktisk skjer når du bruker funksjoner.</p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="rekkefolge" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Cellen må da bli kjørt før cellen med funksjonskallet</p>
+</aside>
+<aside class="footnote brackets" id="direkteverdier" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Vi minner om at en direkteverdi er en fast verdi (tall eller tekststreng)</p>
+</aside>
+<aside class="footnote brackets" id="pyfiler" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>En .py-fil er en fil med python-kommandoer som kan enten kjøres direkte fra operativsystemet, eller kan importeres inn i en notebook for at funksjonene definert i den skal kunne brukes i notebook’en. Det er, altså, relativt enkelt å lage egne moduler, altså skrive funksjoner i .py-filer og bruke disse i notebooks. Se et eksempel <a href="https://www.digitalocean.com/community/tutorials/how-to-write-modules-in-python-3">her</a>.</p>
+</aside>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kapittel5.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">5. Løkker, lister, tupler, og dict’er</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kapittel7.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">7. Vasking av data med OpenRefine</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-funksjoner">Hva er funksjoner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#en-analogi-fra-matlagingens-verden">En analogi fra matlagingens verden</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-pa-en-egendefinert-funksjon">Eksempel på en egendefinert funksjon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#typer-funksjoner">Typer funksjoner</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#innebygde-funksjoner">Innebygde funksjoner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noen-innebygde-python-funksjoner">Noen innebygde Python-funksjoner</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempel-pa-en-innebygd-retur-funksjon">Eksempel på en innebygd retur-funksjon</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-egendefinerte-funksjoner">Enkle egendefinerte funksjoner</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#egendefinerte-funksjoner-med-parametre">Egendefinerte funksjoner med parametre</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#egendefinerte-funksjoner-med-returverdi">Egendefinerte funksjoner med returverdi</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-i-komplekse-datatyper-og-moduler">Funksjoner i komplekse datatyper og moduler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#klasser-objekter-og-datatyper">Klasser, objekter og datatyper</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-for-datatypen-tekststreng">Funksjoner for datatypen tekststreng</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-for-datatypen-liste">Funksjoner for datatypen liste</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-for-datatypen-dict">Funksjoner for datatypen dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#funksjoner-definert-i-moduler">Funksjoner definert i moduler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempelprogram-som-bruker-klasser-og-moduler">Eksempelprogram som bruker klasser og moduler</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Massey, Preminger & Soelseth
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+Denne interaktive l&aelig;reboka er lisensiert gjennom <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License.</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
