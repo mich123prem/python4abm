@@ -1,0 +1,919 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>3. Variabler &#8212; Databehandling og -analyse</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'kapittel3';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Betinget programmering" href="kapittel4.html" />
+    <link rel="prev" title="2. Jupyter Notebooks" href="kapittel2.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Databehandling og -analyse med Python og OpenRefine
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Del I - Kom i gang!</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel1.html">1. Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel2.html">2. Jupyter Notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del II - Grunnleggende Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Variabler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel4.html">4. Betinget programmering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel5.html">5. Løkker, lister, tupler, og dict’er</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel6.html">6. Funksjoner</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del III - Databehandling- og analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel7.html">7. Vasking av data med OpenRefine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel8.html">8. Dataanalyse med Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel9.html">9. Visualisering med Plotly</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del IV - Innlasting og forbehandling av data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel10.html">10. Innhenting av data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/kapittel3.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>3. Variabler</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#om-variabler-og-verdier">Om variabler og verdier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempler-pa-verdier">Eksempler på verdier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-variabler">Hva er variabler?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variabelnavn">Variabelnavn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verditilordning">Verditilordning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datatyper">Datatyper</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#om-a-arbeide-med-variabler">Om å arbeide med variabler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-operasjoner-med-variabler">Enkle operasjoner med variabler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aritmetiske-operasjoner-med-tallvariabler">Aritmetiske operasjoner med tallvariabler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-operasjoner-pa-tekststrenger">Enkle operasjoner på tekststrenger</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datastrukturer-og-samlinger">Datastrukturer og samlinger</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variabler-og-minne-i-datamaskinen">Variabler og minne i datamaskinen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppgaver">Oppgaver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noter">Noter</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="variabler">
+<h1>3. Variabler<a class="headerlink" href="#variabler" title="Permalink to this heading">#</a></h1>
+<p>Før du går i gang med å programmere (“kode”) er det viktig å lære hva som skjer når vi skriver programkode. En essensiell del av programmeringsspråket er håndtering av <em>variabler</em>. Vi vil i dette kapitlet vise hvordan disse fungerer.</p>
+<section id="om-variabler-og-verdier">
+<h2>Om variabler og verdier<a class="headerlink" href="#om-variabler-og-verdier" title="Permalink to this heading">#</a></h2>
+<p>Et program forholder seg som regel til data det skal gjøre noe med.
+Når programmet starter ligger det kanskje noen ubearbeidede data i filer og databaser. Programmet skal lese inn, bearbeide og gjerne lagre (data som nå er bearbeidet) til samme eller andre filer og databaser. Disse data er <strong>verdier</strong>, gjerne tall (datoer, priser osv.)  eller tekster (navn, adresser osv.). Under kjøring må disse verdiene ligge i programmets minne. Disse verdiene leses inn i (og flyttes mellom)  <strong>variabler</strong>. For de som er særlig interessert, gir vi, i avsnittet <a class="reference internal" href="#variablerminne"><span class="std std-ref">Variabler og minne i datamaskinen</span></a>, en illustrert forklaring på hvordan variabler håndteres teknisk.</p>
+<section id="eksempler-pa-verdier">
+<h3>Eksempler på verdier<a class="headerlink" href="#eksempler-pa-verdier" title="Permalink to this heading">#</a></h3>
+<p>En <strong>verdi</strong> kan som sagt være et tall eller en tekst.</p>
+<ul class="simple">
+<li><p><em>Michael</em> er et eksempel på en tekstverdi</p></li>
+<li><p><em>12.5</em>, <em>-15</em> og <em>100000</em> er eksempler på tallverdier<a class="footnote-reference brackets" href="#desimaltall-i-python" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
+</ul>
+</section>
+<section id="hva-er-variabler">
+<h3>Hva er variabler?<a class="headerlink" href="#hva-er-variabler" title="Permalink to this heading">#</a></h3>
+<p>Forestill deg et program som skal legge sammen to tall. På skjermen får du opp to tomme bokser. Du får beskjed om taste antall katter du har sett i dag i den første boksen, og så får du beskjed om å taste antall hunder du har sett i dag i den andre boksen. Du bruker tastaturet ditt og taster inn. Så kommer det opp på skjermen hvor mange katter og hunder du har sett totalt i dag.</p>
+<p>Dette programmet
+utgjøres av en rekkefølge på fire handlinger.</p>
+<p><img alt="&quot;Fire handling som utgjør et tenkt program&quot;" src="_images/tastatur.png" /></p>
+<p>Handlingene skrives nedenfor i
+et <em>kvasispråk</em>, som ligner norsk (ikke i <em>Python</em>).</p>
+<ol class="arabic simple">
+<li><p>Hent det første tallet (en verdi) fra tastaturet.</p></li>
+<li><p>Hent det andre tallet (en annen verdi) fra tastaturet.</p></li>
+<li><p>Legg det første tallet til det andre tallet og produser et resultat (enda en verdi).</p></li>
+<li><p>Skriv resultatet ut til skjermen.</p></li>
+</ol>
+<p>Programmet henter to tall fra tastaturet, legger tallene sammen og sørger for
+at resultatet kan skrives til skjermen.</p>
+<p>Programmet kjører én linje av gangen, og hver
+linje utfører en deloppgave. Når linje 3 utføres, er
+linje 2 for lengst (hele 2 tusenedels sekunder!) ferdig
+utført, for ikke å snakke om linje 1. To spørsmål:</p>
+<ol class="arabic simple">
+<li><p>Hvordan skal linje 3 finne de tallene den skal legge sammen?</p></li>
+<li><p>Hvor skal summen tas vare på inntil den skrives ut?</p></li>
+</ol>
+<p>Betrakt følgende programbit:</p>
+<ol class="arabic simple">
+<li><p>Hent det første tallet fra tastaturet. Legg det et avtalt sted i maskinenes minne.</p></li>
+<li><p>Hent det andre tallet fra tastaturet. Legg det et (annet) avtalt sted i maskinenes minne.</p></li>
+<li><p>Legg det første tallet, <em>som ligger i det første avtalte stedet</em>, til det andre tallet, som ligger i det andre avtalte stedet, og produser et resultat. Resultatet legges i et tredje avtalt sted.</p></li>
+<li><p>Skriv tallet fra det tredje avtalte stedet ut til skjermen.</p></li>
+</ol>
+<p>Slike <strong>avtalte steder</strong> representerer programmets <em>husk</em>, og
+vi kaller dem <strong>variabler</strong>. En variabel har et <em>navn</em>, en referanse, slik at det
+går an å ha en avtale mellom linjene 1 og 2, og linje 3 om hvor (hos
+hvilke variabelnavn) data skal legges/hentes.</p>
+<p>En variabel er, med andre ord, en plassholder, med navn, hvor det kan lagres en verdi
+over en viss tid. Verdien blir <em>innholdet</em> i denne
+plassholderen.
+Et program kan ha mange variabler, og hver av disse har en unik referanse
+(navn). Navnet gjør det mulig for programmet å aksessere variablene:</p>
+<ul class="simple">
+<li><p>for å avlese deres verdier</p></li>
+<li><p>evt. legge nye verdier i dem.</p></li>
+</ul>
+<p>Oppsummert:</p>
+<ul class="simple">
+<li><p>En variabel - en plass i maskinens minne hvor vi kan lagre en verdi.</p></li>
+<li><p>En variabel har et navn som programmet kan bruke når det enten avleser dens verdi eller skriver en ny verdi til den.</p></li>
+</ul>
+</section>
+<section id="variabelnavn">
+<h3>Variabelnavn<a class="headerlink" href="#variabelnavn" title="Permalink to this heading">#</a></h3>
+<p>Variabelnavnet, som gis av programmereren, bør uttrykke verdiens
+<strong>rolle</strong>. <em>Python</em> bryr seg ikke om hva
+variablene heter, bare navnene er unike, men de som skal lese programmeringen som er gjort
+bør kunne forstå av navnet hva som er variabelens rolle. God navngiving er krevende, det krever konsistens og
+disiplin,  men har mange fordeler. Gode variabelnavn gjør dokumentasjon av programkoden tilgjengelig for andre,
+og minsker behovet for mange forklarende kommentarer.</p>
+<p>Se på følgende variabler:</p>
+<ul class="simple">
+<li><p><em>pris</em> med verdien 12;</p></li>
+<li><p><em>antall_maaneder</em>, også den med verdien 12;</p></li>
+</ul>
+<p>Variablene <em>pris</em> og <em>antall_maaneder</em> har
+samme verdi (tallet 12), men helt forskjellige <em>roller</em>.
+Navnene bør, så langt det er praktisk mulig, uttrykke disse rollene.
+For å navngi variabler bruker vi ofte ord, på engelsk eller norsk.</p>
+<p>⚠️ <strong>Merk!</strong> Variabler kan ikke begynne med tall.
+Variablene <em>Fornavn</em> og <em>fornavn</em> er to forskjellige variabler.
+Variabler kan ikke inneholde mellomrom i navnet.</p>
+</section>
+<section id="verditilordning">
+<h3>Verditilordning<a class="headerlink" href="#verditilordning" title="Permalink to this heading">#</a></h3>
+<p>Som allerede nevnt, utgjør verdier innholdet i variablene. Det er flere
+måter variabler kan anta verdier på. Den enkleste måten er
+<strong>direkte tilordning</strong><a class="footnote-reference brackets" href="#direkte-tilordning" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>: <code class="docutils literal notranslate"><span class="pre">pris</span> <span class="pre">=</span> <span class="pre">10</span></code>. Samme variabel (med samme
+navn) kan senere tilordnes en annen verdi: <code class="docutils literal notranslate"><span class="pre">pris</span> <span class="pre">=</span> <span class="pre">12</span></code>. Altså kan
+verdien <em>variere</em>. Noen flere eksempler:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fornavn</span> <span class="pre">=</span> <span class="pre">&quot;Michael&quot;</span></code>    (på norsk: <em>fornavn</em> settes lik <em>Michael</em>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">etternavn</span> <span class="pre">=</span> <span class="pre">&quot;Preminger&quot;</span></code>  (på norsk: <em>etternavn</em> settes lik <em>Preminger</em>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pris</span> <span class="pre">=</span> <span class="pre">4.25</span></code>  (på norsk: <em>pris</em> settes lik <em>4.25</em>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">antall_maaneder</span> <span class="pre">=</span> <span class="pre">12</span></code>  (på norsk: <em>antall_maaneder</em> settes lik <em>12</em>)</p></li>
+</ul>
+<p>Legg merke til det uthevete <em>settes lik</em>. I Python betyr likhetstegnet <em>=</em> at det
+settes lik. Det betyr ikke <em>er lik</em> og heller ikke <em>lik</em>.</p>
+<p>✍️ <strong>Oppgave:</strong> Lag en ny celle og skriv inn en verditilordning. Kjør cellen. Lag en ny celle og skriv inn variabelnavnet og kjør cellen. Erstatt så verdien med en annen verdi og kjør begge cellene på nytt.</p>
+</section>
+<section id="datatyper">
+<h3>Datatyper<a class="headerlink" href="#datatyper" title="Permalink to this heading">#</a></h3>
+<p>Som det fremkommer av eksemplene over, kan variabler lagre
+forskjellige <em>typer</em> data. <em>Michael</em>  er en verdi av typen
+tekststreng, <em>4.25</em> er en verdi av typen desimaltall og <em>12</em> er en verdi
+av typen heltall.</p>
+<p>Her er en oversikt over de ulike datatypene:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Datatype</p></th>
+<th class="head"><p>Eksempel</p></th>
+<th class="head"><p>Forklaring</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;Michael&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;42&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;42.5&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;True&quot;</span></code></p></td>
+<td><p>Tekststreng</p></td>
+</tr>
+<tr class="row-odd"><td><p>Int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">42</span></code></p></td>
+<td><p>Hele tall</p></td>
+</tr>
+<tr class="row-even"><td><p>Float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">42.5</span></code></p></td>
+<td><p>Desimaltall, omtales som <strong>flyttall</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Uttrykkes som enten <code class="docutils literal notranslate"><span class="pre">True</span></code> eller <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>Merk!</strong>  verdier av typen tekststreng skrives med anførselstegn
+(<code class="docutils literal notranslate"><span class="pre">fornavn</span> <span class="pre">=</span> <span class="pre">&quot;Michael&quot;</span></code>). Verdier av typen tall
+skrives uten anførselstegn (<code class="docutils literal notranslate"><span class="pre">pris</span> <span class="pre">=</span> <span class="pre">4.25</span></code>). Det betyr at 42 kan være enten et heltall eller en tekststreng, avhengig av om man har brukt <strong>fnutter</strong> (anførselstegn).</p>
+<!--
+For å avslutte den korte innføringen til verdier, innfører vi også
+*direkteverdi* (englesk:*literal*). En direkteverdi
+er en verdi som er gjengitt ordrett i programmet. Eksempler vi har
+brukt er *Michael* og *4.25*. En direkteverdi brukes ofte til å
+sette en førsteverdi til en variabel. Direkteverdier av typen
+tekststreng skrives med anførselstegn i Python-programmer
+(`fornavn = "Michael"`). Direkteverdier av typen tall
+skrives uten anførselstegn (`pris = 4.25`). Det betyr at 42 kan være enten et heltall eller en tekststreng, avhengig av om man har brukt **fnutter**.
+-->
+<!-- David: Noe om bruk av " eller ' for å merke tekststrenger? -->
+</section>
+</section>
+<section id="om-a-arbeide-med-variabler">
+<h2>Om å arbeide med variabler<a class="headerlink" href="#om-a-arbeide-med-variabler" title="Permalink to this heading">#</a></h2>
+<p>Variabler oppstår, lever og dør innenfor programmets levetid, noen variabler er knyttet til
+programmet som helhet, andre til visse funksjoner eller andre <strong>byggeblokker</strong>
+<a class="footnote-reference brackets" href="#byggeblokker" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> i programmet.</p>
+<p>Programmet kan avlese verdien i den aktuelle minneposisjonen, eller
+forandre den (skrive en ny verdi). Variabelen <em>fornavn</em> kan altså ha forskjellige verdier i løpet av dens
+<em>levetid</em><a class="footnote-reference brackets" href="#levetid" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a> (derav betegnelsen <em>variabel</em>).
+<em>fornavn</em> kan ha verdien <em>Michael</em>, denne kan endres til <em>Lars</em>, deretter til <em>Erik</em>, osv.</p>
+<p>Variabler <em>huskes</em> fra tidligere kjørte celler, og kan dermed brukes uten videre
+i senere celler.</p>
+<p>✍️ <strong>Oppgave:</strong> Opprett først en celle i notebook’en din, kopier innholdet i Celle 1 under over i din celle, og kjør cellen.</p>
+<p><strong>Celle 1</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">tall1</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="linenos">2</span><span class="n">tall2</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="n">tall3</span> <span class="o">=</span> <span class="n">tall1</span> <span class="o">+</span> <span class="n">tall2</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="n">tall3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>40
+</pre></div>
+</div>
+</div>
+</div>
+<p>I eksemplet under brukes variablene <em>tall1</em> og <em>tall2</em> definert i celle over.</p>
+<!-- Images/Jupyter/jupyter-variables-across-cells.png -->
+<p><strong>Celle 2</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">tall4</span> <span class="o">=</span> <span class="n">tall1</span> <span class="o">*</span> <span class="n">tall2</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">tall4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>375
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Opprett en ny celle under den forrige, kopier inn innholdet i Celle 2 over i cellen, men erstatt “tall1” med “tall10”, og kjør cellen.</p>
+<p>Feilmelding kan forekomme hvis du skriver variabelnavnet
+feil, f.eks. <em>tall10</em> istendenfor <em>tall1</em>. Da vil det komme en feilmelding.</p>
+<p>⚠️ <strong>Merk!</strong> Skrivefeil er den vanligste feilen i koding.</p>
+<p>Det er ikke alltid så lett å tolke feilmeldingene som kommer fra Python,
+men legg merke til at stedet feilen har oppstått (fil eller celle, linjenummer), markeres.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">tall4</span> <span class="o">=</span> <span class="n">tall10</span> <span class="o">*</span> <span class="n">tall2</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">tall4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tall4</span> <span class="o">=</span> <span class="n">tall10</span> <span class="o">*</span> <span class="n">tall2</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">tall4</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;tall10&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<!-- Images/Jupyter/jupyter-error-name-not-defined.png -->
+<p>En annen ting vi kan lære om kjøring av programmer fra å se på
+eksempelet overfor er følgende: Dataprogrammer kjører linje etter linje overfra og ned. For at programmet skal
+kjenne igjen en variabel, skal den ha vært definert en linje lenger opp. Eller den må være definert i en tidligere celle.</p>
+<p>⚠️ <strong>Merk!</strong>  Når du åpner notebook’en din på nytt, må du også kjøre cellene i notebooken på nytt. Kjører du da bare en spesifikk celle som bruker en variabel som er definert i en annen celle vil du få samme type feilmelding som over.</p>
+<p>✍️ <strong>Oppgave:</strong> Endre “tall10” til “tall1”. Kjør cellene på nytt. I menyen i notebook’en din vil du finne en knapp som gjør at den kjører gjennom alle celler. Sjekk om du finner den.</p>
+</section>
+<section id="enkle-operasjoner-med-variabler">
+<h2>Enkle operasjoner med variabler<a class="headerlink" href="#enkle-operasjoner-med-variabler" title="Permalink to this heading">#</a></h2>
+<section id="aritmetiske-operasjoner-med-tallvariabler">
+<h3>Aritmetiske operasjoner med tallvariabler<a class="headerlink" href="#aritmetiske-operasjoner-med-tallvariabler" title="Permalink to this heading">#</a></h3>
+<p>Variablene <em>pris</em> og <em>antall_maaneder</em> som vi introduserte tidligere er eksempler på tallvariabler,
+enten heltall (-200, -1, 0, 1, 500, 10000), eller flyttall (-1.5, 0.0, 0.5, 1.1, 10.0). Disse
+typer variabler kan det gjøres forskjellige matematiske operasjoner på, bl.a. <strong>aritmetikk</strong>. I eksemplet  under
+legger vi 1 til variabelen <em>pris</em> og lagrer resultatet i variabelen <em>nypris</em>.
+På samme måte kan vi også utføre andre operasjoner, slik som minus (-), ganging (*), deling (/) og til og med potens (**).</p>
+<!-- David: Jfr første setning i avsnitt overfor. Her brukes flyttall, mens tidligere
+            i avsnitt brukes desimaltall. Bruker denne samme betegnelse? --> 
+<!-- Images/variabler/nypris.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">pris</span> <span class="o">=</span> <span class="mf">4.25</span>
+<span class="linenos">2</span><span class="n">nypris</span> <span class="o">=</span> <span class="n">pris</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">nypris</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.25
+</pre></div>
+</div>
+</div>
+</div>
+<p>En operasjon vi ofte utfører i programmering, er inkrementering, altså øking av en
+variabelverdi med 1 (se neste eksempel). Her skjer følgende:</p>
+<ul class="simple">
+<li><p>Verdien i variabelen <em>i</em><a class="footnote-reference brackets" href="#heltallsvar" id="id5" role="doc-noteref"><span class="fn-bracket">[</span>5<span class="fn-bracket">]</span></a> kopieres til programmets arbeidsområde.</p></li>
+<li><p>Verdien pluss på 1</p></li>
+<li><p>Den påplussede verdien kopieres tilbake til variabelen <em>i</em>, og overskriver dens gamle verdi.</p></li>
+</ul>
+<p>Som en kortform for endring av verdi i en variabel basert på gammel verdi, har <em>Python</em> også
+operasjonen <code class="docutils literal notranslate"><span class="pre">+=</span></code>, som gjør det sammen.</p>
+<!-- Images/variabler/ink.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+<!-- Images/variabler/inkadd.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="enkle-operasjoner-pa-tekststrenger">
+<h3>Enkle operasjoner på tekststrenger<a class="headerlink" href="#enkle-operasjoner-pa-tekststrenger" title="Permalink to this heading">#</a></h3>
+<p>Tekststrenger er, som navnet tilsier rekker med påfølgende tegn, som vi av og til trenger
+å operere på. En typisk operasjon på to (eller flere) tekststrenger, ville være å sammenføye
+dem (<strong>konkatenere</strong> på mer teknisk språk). eksemplet under illustrerer slik <strong>sammenføying</strong>.</p>
+<p>Under kobler vi altså to verdier fra to variabler sammen til å utgjøre verdien i en ny variabel.</p>
+<!-- Images/variabler/tekststrenger.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fornavn</span> <span class="o">=</span> <span class="s2">&quot;Michael&quot;</span>
+<span class="linenos">2</span><span class="n">etternavn</span> <span class="o">=</span> <span class="s2">&quot;Preminger&quot;</span>
+<span class="linenos">3</span><span class="n">fulltnavn</span> <span class="o">=</span> <span class="n">fornavn</span> <span class="o">+</span> <span class="n">etternavn</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="n">fulltnavn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MichaelPreminger
+</pre></div>
+</div>
+</div>
+</div>
+<p>Her ser du at det mangler et mellomrom mellom fornavnet og etternavnet. Det må vi legge til på måten under:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fulltnavn</span> <span class="o">=</span> <span class="n">fornavn</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">etternavn</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="n">fulltnavn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Michael Preminger
+</pre></div>
+</div>
+</div>
+</div>
+<p>En sammenføying kan også skje direkte inne i en print,
+og trenger ikke mellomlagres i en variabel.</p>
+<!-- Images/variabler/printkonkat.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nb">print</span><span class="p">(</span><span class="n">fornavn</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">etternavn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Michael Preminger
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Med utgangspunkt i operasjonene som er vist over, prøv å lagק en operasjon som gir følgende print: <code class="docutils literal notranslate"><span class="pre">Preminger,</span> <span class="pre">Michael</span> <span class="pre">Preminger</span></code></p>
+</section>
+</section>
+<section id="datastrukturer-og-samlinger">
+<h2>Datastrukturer og samlinger<a class="headerlink" href="#datastrukturer-og-samlinger" title="Permalink to this heading">#</a></h2>
+<p>Før vi avslutter denne introduksjonen til variabler, er det viktig å kort introdusere <strong>datastrukturer</strong>
+og samlinger.</p>
+<p>I programmering brukes ordet datastruktur ofte  om to forskjellige ting:</p>
+<ul class="simple">
+<li><p>måten et program organiserer sine data</p></li>
+<li><p>samlinger, altså variabeltyper som kan holde flere verdier samtidig.</p></li>
+</ul>
+<p>Vi skal forbeholde bruken av termen <strong>datastruktur</strong> til det første punktet. Et veldig enkelt
+programs datastruktur kan være så enkel som tre variabler, hvorav to legges sammen for å
+lagre resultatet i den tredje. Andre programmer har en mer kompleks datastruktur, som består
+av flere variabler som hver kan holde mange verdier (som henger sammen på forskjellige måter)
+samtidig. Et program som skal holde orden på et universitet vil trenge en datastruktur
+som holder lister av studenter med navn og kulltilhørighet, lister av bygninger og
+tilhørende rom med deres roller (auditorier, toaletter, kontorer), osv. Slike program blir
+veldig kompliserte (umulige) dersom hvert objekt (student, foreleser, rom) er representert
+med èn variabel som har et navn. Vi kommer til å introdusere slike <strong>samlinger</strong> senere i del 2.</p>
+</section>
+<section id="variabler-og-minne-i-datamaskinen">
+<span id="variablerminne"></span><h2>Variabler og minne i datamaskinen<a class="headerlink" href="#variabler-og-minne-i-datamaskinen" title="Permalink to this heading">#</a></h2>
+<p>Til slutt i dette kapitlet vil vi kort nevne hva som skjer i de fysiske delene av maskinen når vi programmerer.
+Programmering er på sitt aller enkleste en rekke fysiske elektroniske signaler.  Alt en datamaskin <em>kan og husker</em> ligger lagret elektronisk i
+maskinens minne. Minnet er inndelt i blokker, og blokkene er inndelt
+i celler. Enhver celle har en <em>adresse</em>, som er cellens
+posisjon i blokken.</p>
+<!-- Images/variabler/FYSVARS1.png -->
+<p><img alt="minneblokk" src="_images/FYSVARS1.png" /></p>
+<p>Når vi skriver programkode, blir denne <em>tolket</em> til slike signaler av et program som heter <em>interpreter</em> (på norsk <em>tolker</em>).
+Ethvert (tolket) program som kjører i datamaskinen (for eksempel et
+<em>Python</em>-program) har en <em>minneblokk</em> som tolkerern administrerer. En variabel opptar èn eller
+flere celler i programmets minneblokk. Navnet på variabelen brukes
+av programmet istedenfor cellens adresse (posisjon) i programmets
+minneblokk.  Når vi i programmet bruker
+variabelnavnet (<em>bokstavkombinasjon</em>), blir navnet i maskinen
+<em>oversatt</em> til en adresse (posisjon) i minnet. Datamaskinen
+bruker denne posisjonen til å finne verdien.</p>
+<p>Som tidligere nevnt, har variabelnavnet ingen betydning for et program, så lenge det er unikt. Det er det som gjør at det får en unik adresse.</p>
+<!-- Images/variabler/FYSISK.png -->
+<p><img alt="fysiskminne" src="_images/FYSISK.png" /></p>
+</section>
+<section id="oppgaver">
+<h2>Oppgaver<a class="headerlink" href="#oppgaver" title="Permalink to this heading">#</a></h2>
+<p>Klikk  <a href="excercises/mi-oppgaver-variabler.ipynb">her</a> for en notebook med oppgaver. Oppgavefilen lastes da ned til din standardmappe for nedlastinger (til vanlig: <em>Downloads</em> eller <em>Nedlastinger</em>). Denne filen kan du så flytte til din Anaconda-mappe-hierarki, åpne og løse oppgavene (anbefalt å følge rekkefølgen i notebooken).</p>
+</section>
+<section id="noter">
+<h2>Noter<a class="headerlink" href="#noter" title="Permalink to this heading">#</a></h2>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="desimaltall-i-python" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Python bruker amerikansk notasjon på desimaltall. 12,5 skrives som 12.5.</p>
+</aside>
+<aside class="footnote brackets" id="direkte-tilordning" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Direkte tilordning er handlingen å ta en variabel (nyopprettet, eller som har en viss verdi), og få
+den til å anta en (ny) verdi. Den evt. gamle verdien er dermed slettet og glemt.</p>
+</aside>
+<aside class="footnote brackets" id="byggeblokker" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Vi omtaler funksjoner og andre <strong>byggeblokker</strong> i senere kapitler.</p>
+</aside>
+<aside class="footnote brackets" id="levetid" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>Levetiden til et program er tiden fra kjøringen starter til den avslutter.</p>
+</aside>
+<aside class="footnote brackets" id="heltallsvar" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">5</a><span class="fn-bracket">]</span></span>
+<p>Bokstaven <em>i</em> (og bokstavene <em>j</em> - <em>n</em>) ble i Fortran-språket, helt siden 50-tallet, brukt for å navngi variabler med typiske heltallsroller (for eksempel tellevariabler).
+<a href="https://fortran-lang.org/en/learn/intrinsics/type/#implicit-typing">https://fortran-lang.org/en/learn/intrinsics/type/#implicit-typing</a></p>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kapittel2.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">2. Jupyter Notebooks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kapittel4.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">4. Betinget programmering</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#om-variabler-og-verdier">Om variabler og verdier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eksempler-pa-verdier">Eksempler på verdier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-variabler">Hva er variabler?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variabelnavn">Variabelnavn</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verditilordning">Verditilordning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#datatyper">Datatyper</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#om-a-arbeide-med-variabler">Om å arbeide med variabler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-operasjoner-med-variabler">Enkle operasjoner med variabler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aritmetiske-operasjoner-med-tallvariabler">Aritmetiske operasjoner med tallvariabler</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-operasjoner-pa-tekststrenger">Enkle operasjoner på tekststrenger</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datastrukturer-og-samlinger">Datastrukturer og samlinger</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variabler-og-minne-i-datamaskinen">Variabler og minne i datamaskinen</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppgaver">Oppgaver</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noter">Noter</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Massey, Preminger & Soelseth
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+Denne interaktive l&aelig;reboka er lisensiert gjennom <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License.</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

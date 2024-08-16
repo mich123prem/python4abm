@@ -1,0 +1,1132 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>5. Løkker, lister, tupler, og dict’er &#8212; Databehandling og -analyse</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'kapittel5';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Funksjoner" href="kapittel6.html" />
+    <link rel="prev" title="4. Betinget programmering" href="kapittel4.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Databehandling og -analyse med Python og OpenRefine
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Del I - Kom i gang!</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel1.html">1. Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel2.html">2. Jupyter Notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del II - Grunnleggende Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel3.html">3. Variabler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel4.html">4. Betinget programmering</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Løkker, lister, tupler, og dict’er</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel6.html">6. Funksjoner</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del III - Databehandling- og analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel7.html">7. Vasking av data med OpenRefine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel8.html">8. Dataanalyse med Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel9.html">9. Visualisering med Plotly</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del IV - Innlasting og forbehandling av data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel10.html">10. Innhenting av data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/kapittel5.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>5. Løkker, lister, tupler, og dict’er</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lokker">Løkker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#while-lokken">while-løkken</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-av-logiske-uttrykk-i-if-tester-og-while-lokker">Bruk av logiske uttrykk i if-tester og while-løkker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-lokker">for-løkker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-av-for-lokker">Bruk av for-løkker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flerverdivariabler">Flerverdivariabler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lister">Lister</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kommandoen-len">kommandoen len()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kommandoen-list-append">Kommandoen list.append()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lister-og-lokker">Lister og løkker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tupler">Tupler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forskjellene-mellom-liste-og-tuppel">Forskjellene mellom liste og tuppel</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lister-av-tupler">Lister av tupler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dict-er">Dict’er</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flerverdivariabler-oppsummert">Flerverdivariabler oppsummert</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="lokker-lister-tupler-og-dict-er">
+<h1>5. Løkker, lister, tupler, og dict’er<a class="headerlink" href="#lokker-lister-tupler-og-dict-er" title="Permalink to this heading">#</a></h1>
+<p>I forrige kapittel så vi hvordan et program beslutter hvilke
+kodelinjer som skal og som ikke skal utføres, ved å teste på
+<strong>betingelser</strong>.
+Slike betingelser er mer eller mindre
+kompliserte <strong>logiske uttrykk</strong> som “koker ned” til verdiene
+<code class="docutils literal notranslate"><span class="pre">True</span></code> (sant) eller <code class="docutils literal notranslate"><span class="pre">False</span></code> (usant).</p>
+<p>Løkkeprogrammering er en
+videreføring av dette, ved at et program gjentar en sekvens med
+handlinger så lenge en <em>betingelse</em> er oppfylt.</p>
+<p>Dataprogrammer behandler ofte mange forekomster av
+noe. Mange studenter ved en avdeling, mange ansatte ved en
+institusjon, mange poster i en database, osv. Slike forekomster behandles
+ofte ganske likt (med vekt på “ganske”), slik at det går an å skrive
+en kodesnutt (noen linjer) èn gang, og la programmet utføre den mange
+ganger. En slik kodesnutt kaller vi en <strong>løkke</strong> (engelsk: “loop”).</p>
+<p>Databaser og datasett vil videre ofte bestå av samlinger av variabler. Slike <strong>samlinger</strong> kan være <strong>lister, tupler og dict’er</strong>. Disse vil også bli behandlet i dette kapitlet.</p>
+<section id="lokker">
+<h2>Løkker<a class="headerlink" href="#lokker" title="Permalink to this heading">#</a></h2>
+<p>Programmeringsspråket <em>Python</em> inneholder flere <strong>løkkestrukturer</strong>, hvorav de mest brukte er
+<code class="docutils literal notranslate"><span class="pre">for</span></code> og <code class="docutils literal notranslate"><span class="pre">while</span></code>-løkkene. I denne boken fokuserer vi på
+<code class="docutils literal notranslate"><span class="pre">for</span></code>-løkken, men starter med noen eksempler på
+<code class="docutils literal notranslate"><span class="pre">while</span></code>-løkker, da de har mye til felles med <code class="docutils literal notranslate"><span class="pre">if</span></code>.</p>
+<p>Alle oppgaver som involverer løkker kan, i
+prinsippet, gjennomføres ved hjelp av begge de ovennevnte
+strukturene. Forskjellige situasjoner er likevel best tjent med bruk av ulike løkketyper.</p>
+<section id="while-lokken">
+<h3>while-løkken<a class="headerlink" href="#while-lokken" title="Permalink to this heading">#</a></h3>
+<p>En <code class="docutils literal notranslate"><span class="pre">while</span></code>-løkke gjentar en handling uttrykt ved
+noen linjer med kode, så lenge et <em>logisk uttrykk</em> (for eksempel
+<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">5</span></code>) er sant. Ordet “while” er
+semantisk litt misvisende. På norsk kunne man heller si:
+<em>så lenge</em> <code class="docutils literal notranslate"><span class="pre">i</span></code> er mindre enn 5, gjenta disse
+instruksjonene.</p>
+<p>Eksempelet nedenfor viser en meget enkel <code class="docutils literal notranslate"><span class="pre">while</span></code>-løkke.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span> <span class="c1"># initialisering</span>
+<span class="linenos">2</span><span class="k">while</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">4</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>   <span class="c1"># Oppdatering </span>
+<span class="linenos">5</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nå er løkken slutt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er nå lik 0
+i er nå lik 1
+i er nå lik 2
+i er nå lik 3
+i er nå lik 4
+Nå er løkken slutt
+</pre></div>
+</div>
+</div>
+</div>
+<p>Linje  1 i eksemplet ovenfor tilordner
+variabelen <code class="docutils literal notranslate"><span class="pre">i</span></code> en oppstartverdi.
+Dette kalles <strong>initialisering</strong>, og i vårt tilfelle intialiseres <code class="docutils literal notranslate"><span class="pre">i</span></code> til 0.
+Linjene 3 - 4 utføres gjentatte ganger, så lenge
+“fortsettelsesbetingelsen” (det logiske uttrykket på linje 2) stemmer med virkeligheten.
+Linje 3 er vår “nyttehandling”. Den printer verdien som <strong>output</strong>.</p>
+<p>Linjen 5 oppdaterer variabelen <code class="docutils literal notranslate"><span class="pre">i</span></code>
+for hver omgang. Uten denne linjen blir betingelsen aldri usann
+(<code class="docutils literal notranslate"><span class="pre">False</span></code>), og løkken går evig. Etter fem omganger, når <code class="docutils literal notranslate"><span class="pre">i</span></code> har fått verdien <code class="docutils literal notranslate"><span class="pre">5</span></code>, er
+ikke betingelsen sann lenger, og løkken avslutter. Da fortsetter cellekjøringen,
+og linjen 5 kjøres.</p>
+<p>✍️ <strong>Oppgave:</strong> Kopier koden fra cellen over inn i en celle i din egen notebook. Erstatt 5 med et annet tall.</p>
+<p>⚠️ <strong>Merk!</strong> Ved å skrive <code class="docutils literal notranslate"><span class="pre">#</span></code> (etterfulgt av mellomrom) på en linje kan vi skrive inn kommentarer direkte i koden, uten at det påvirker hva selve programmet gjør. Det er ganske greit, særlig hvis man vil holde styr på hva hver del gjør.</p>
+</section>
+<section id="bruk-av-logiske-uttrykk-i-if-tester-og-while-lokker">
+<h3>Bruk av logiske uttrykk i if-tester og while-løkker<a class="headerlink" href="#bruk-av-logiske-uttrykk-i-if-tester-og-while-lokker" title="Permalink to this heading">#</a></h3>
+<p>Legg merke til at <code class="docutils literal notranslate"><span class="pre">if</span></code>-tester og <code class="docutils literal notranslate"><span class="pre">while</span></code>-løkker bruker nøyaktig samme
+type logiske uttrykk, <code class="docutils literal notranslate"><span class="pre">if</span></code>-tester, for å finne ut om en gruppe med
+instruksjoner i det hele tatt skal utføres, og <code class="docutils literal notranslate"><span class="pre">while</span></code>-løkker for å
+finne ut om noen linjer skal utføres én gang til (og én gang til…
+og én gang til…).</p>
+<p>Linjene i et program utføres èn
+etter èn. Koden i <code class="docutils literal notranslate"><span class="pre">while</span></code>-eksemplet kan forklares ved å “nøste opp” løkken;
+det som skjer bak kulissene er faktisk det samme som det her:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos"> 2</span><span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos"> 3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik &quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+<span class="linenos"> 4</span>    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># i blir 1</span>
+<span class="linenos"> 5</span><span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos"> 6</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik &quot;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos"> 7</span>    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># i blir 2</span>
+<span class="linenos"> 8</span><span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos"> 9</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik &quot;</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+<span class="linenos">10</span>    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># i blir 3</span>
+<span class="linenos">11</span><span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos">12</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik &quot;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">13</span>    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># i blir 4</span>
+<span class="linenos">14</span><span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos">15</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik &quot;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">16</span>    <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="c1"># i blir 5</span>
+<span class="linenos">17</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nå er løkken slutt, fordi i er lik &quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="c1"># 5   </span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er nå lik  0
+i er nå lik  1
+i er nå lik  2
+i er nå lik  3
+i er nå lik  4
+Nå er løkken slutt, fordi i er lik  5
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="for-lokker">
+<h2>for-løkker<a class="headerlink" href="#for-lokker" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> er den andre løkkestrukturen vi presenterer i dette kapitlet. I motsetning til <code class="docutils literal notranslate"><span class="pre">while</span></code>, som er en “enkel” løkkestruktur som eksplisitt sjekker verdier i enkle variabler, er <code class="docutils literal notranslate"><span class="pre">for</span></code>-løkken avhengig av – og fungerer naturlig med – en <strong>flerverdivariabel</strong>.</p>
+<p>Eksempelet nedenfor utfører samme oppgave som vårt første <code class="docutils literal notranslate"><span class="pre">while</span></code>-eksempel.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+<span class="linenos">2</span>    <span class="c1"># En eller flere Python instruksjoner</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nå er løkken slutt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er nå lik 0
+i er nå lik 1
+i er nå lik 2
+i er nå lik 3
+i er nå lik 4
+Nå er løkken slutt
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="sidebar">
+<p class="sidebar-title">tilsvarende while-løkke</p>
+<img alt="while-versjon" src="_images/while_sidebar.png" />
+</aside>
+<p>Det opprinnelige <code class="docutils literal notranslate"><span class="pre">while</span></code>-eksemplet er gjengitt i margen for sammenligning.</p>
+<p>Det første du ser, er at <code class="docutils literal notranslate"><span class="pre">for</span></code>-koden er mye kortere. Vi hopper over både initialiseringen (førstelinjen <code class="docutils literal notranslate"><span class="pre">i=0</span></code> og oppdateringen (linje 4 <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">i</span> <span class="pre">+</span> <span class="pre">1</span></code>).</p>
+<p>Legg merke til strukturen <code class="docutils literal notranslate"><span class="pre">range(0,5)</span></code> på linje 1. <code class="docutils literal notranslate"><span class="pre">range()</span></code> er en <em>Python</em>-struktur som konstruerer en <strong>flerverdivariabel</strong>. Denne består nå av verdiene 0, 1, 2, 3 og 4<a class="footnote-reference brackets" href="#range" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>,
+og <code class="docutils literal notranslate"><span class="pre">i</span></code> antar alle disse etter tur. <code class="docutils literal notranslate"><span class="pre">for</span></code> gjør at den kjører samme type løkke som <code class="docutils literal notranslate"><span class="pre">while</span></code>, hvor den går gjennom hver innførsel og printer verdien (se innrykk) til den når slutten.</p>
+<section id="bruk-av-for-lokker">
+<h3>Bruk av for-løkker<a class="headerlink" href="#bruk-av-for-lokker" title="Permalink to this heading">#</a></h3>
+<p>Både <code class="docutils literal notranslate"><span class="pre">for</span></code>- og <code class="docutils literal notranslate"><span class="pre">while</span></code>-løkker  kan, i prinsippet, brukes i alle
+situasjoner som krever løkker. Vi bruker ofte <code class="docutils literal notranslate"><span class="pre">for</span></code>-løkker når vi vet
+hvor mange ganger koden skal kjøre, for eksempel lengden på en liste. Altså hvor mange verdier en flerverdivariabel har. <code class="docutils literal notranslate"><span class="pre">while</span></code>-løkker brukes derimot når
+antallet ganger koden skal kjøres avhenger av ting som skjer underveis i koden.</p>
+<p>I denne boka bruker vi for det meste <code class="docutils literal notranslate"><span class="pre">for</span></code>-løkken, da den faller naturlig (både teknisk og semantisk) i arbeidet med flerverdivariabler.</p>
+</section>
+</section>
+<section id="flerverdivariabler">
+<h2>Flerverdivariabler<a class="headerlink" href="#flerverdivariabler" title="Permalink to this heading">#</a></h2>
+<p>En flerverdivariabel er en variabel med navn, som kan holde flere verdier samtidig, ved at verdiene er referert til med <strong>indekser</strong><a class="footnote-reference brackets" href="#indeks" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. I en <strong>liste</strong> eller <strong>tuppel</strong>, er indeksen et tall (0,1,2 osv.), mens i <strong>dictionaries</strong> (som vi ser på senere) kan indeksene være tekststrenger, eller andre typer variabler.</p>
+<section id="lister">
+<h3>Lister<a class="headerlink" href="#lister" title="Permalink to this heading">#</a></h3>
+<p>En liste er en struktur som tillater flere variabler å dele ett
+variabelnavn. Enhver slik variabel kaller vi en <strong>liste-innførsel</strong>
+(“list item” eller “list entry” på engelsk).</p>
+<p>Lister tillater oss å behandle grupper av studenter, tall, matvarer
+osv. på en <em>systematisk</em> måte.
+I en liste er hver liste-innførsel assosiert med et ordenstall. Liste-innførslene
+kan skrives slik: <code class="docutils literal notranslate"><span class="pre">studenter[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">studenter[1]</span></code>,
+<code class="docutils literal notranslate"><span class="pre">studenter[2]</span></code> … osv.</p>
+<p>Hver liste-innførsel kan få tilordnet en verdi, uavhengig av de
+andre innførslene. I eksemplet nedenfor oppretter vi en liten liste og fyller den
+med noen navn, og deretter printer vi disse.</p>
+<p>I eksemplet under gir vi navn til en liste (<code class="docutils literal notranslate"><span class="pre">studenter</span></code>), samtidig som vi legger tre innførsler i den.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">studenter</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Arne&quot;</span><span class="p">,</span> <span class="s2">&quot;Gerd&quot;</span><span class="p">,</span> <span class="s2">&quot;Mona&quot;</span> <span class="p">]</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Studentene heter&quot;</span><span class="p">,</span> <span class="n">studenter</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">studenter</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;og&quot;</span><span class="p">,</span> <span class="n">studenter</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Studentene heter Arne Gerd og Mona
+</pre></div>
+</div>
+</div>
+</div>
+<p>Rekkefølgen innførslene er angitt i bestemmer deres posisjon i listen. Dvs. at verdiene (“Arne”, osv.) er assosiert med indeksene (0, 1, 2) i og med rekkefølgen de er satt inn i skarpklammen.
+Hvis vi nå ønsker å bytte ut “Gerd” med “Khan”, kan vi overskrive <code class="docutils literal notranslate"><span class="pre">studenter[1]</span></code>, uten å røre de andre innførslene:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">studenter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Khan&quot;</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Studentene heter&quot;</span><span class="p">,</span> <span class="n">studenter</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">studenter</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;og&quot;</span><span class="p">,</span> <span class="n">studenter</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Studentene heter Arne Khan og Mona
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="kommandoen-len">
+<h3>kommandoen len()<a class="headerlink" href="#kommandoen-len" title="Permalink to this heading">#</a></h3>
+<p>Hvis vi forholder oss til listen <code class="docutils literal notranslate"><span class="pre">studenter</span></code> fra eksempelene ovenfor,
+og antar at vi har sett hele listen,
+ser vi at den har en lengde på 3, dvs. at den inneholder 3
+uavhengige variabler som kan tilordnes 3 uavhengige verdier. Men
+stort sett vet  ikke programmereren hvor lang en liste er. I tillegg
+er lister dynamiske, og lengden på en liste kan forandre seg i
+løpet av programmets levetid. Det er av
+og til viktig å vite hvor lang en viss liste er <em>i et gitt øyeblikk</em>.</p>
+<p><em>Python</em>-kommandoen <code class="docutils literal notranslate"><span class="pre">len(listenavn)</span></code> sørger for at innførslene i
+listen <code class="docutils literal notranslate"><span class="pre">listenavn</span></code> telles opp. <code class="docutils literal notranslate"><span class="pre">len()</span></code> er et eksempel på en
+<strong>funksjon</strong>. Funksjoner forklares nærmere i
+neste kapittel, men akkurat nå holder det å forholde seg til hva som skjer når vi bruker denne kommandoen.</p>
+<p>I eksemplet nedenfor finner vi ut størrelse (også kalt <strong>lengden</strong>) på listen <code class="docutils literal notranslate"><span class="pre">studenter</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">studenter</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Arne&quot;</span><span class="p">,</span> <span class="s2">&quot;Gerd&quot;</span><span class="p">,</span> <span class="s2">&quot;Mona&quot;</span> <span class="p">]</span>
+<span class="linenos">2</span><span class="n">antall_studenter</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">studenter</span><span class="p">)</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">antall_studenter</span><span class="p">,</span> <span class="s2">&quot;studenter er registert i listen &#39;studenter&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 studenter er registert i listen &#39;studenter&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Kopier koden inn i en celle i din egen notebook. Legg til navn på en student til etter “Mona”, og kjør cellen.</p>
+</section>
+<section id="kommandoen-list-append">
+<h3>Kommandoen list.append()<a class="headerlink" href="#kommandoen-list-append" title="Permalink to this heading">#</a></h3>
+<p>I forrige avsnitt hintet vi til at listene er “dynamiske”, i den forstand at lengden på
+listen typisk endrer seg underveis i programmets levetid. Det er flere måter å endre
+en listes lengde på. Her skal vi se på <code class="docutils literal notranslate"><span class="pre">list.append()</span></code>. Denne er relevant i de tilfellene vi ikke så enkelt har innførselene i en liste tilgjengelig og kan legge til et nytt navn direkte inn i lista, slik vi gjorde i oppgaven over.</p>
+<p>I eksempel under, linje 3, med <code class="docutils literal notranslate"><span class="pre">studenter.append(&quot;Leif&quot;)</span></code> legger vi en ny
+student “bakerst” i listen <code class="docutils literal notranslate"><span class="pre">studenter</span></code>. Punktumet mellom <code class="docutils literal notranslate"><span class="pre">studenter</span></code> og <code class="docutils literal notranslate"><span class="pre">append</span></code>
+forteller at <code class="docutils literal notranslate"><span class="pre">append</span></code> forholder seg til listen studenter. På norsk sier vi <em>studenter sin
+append “Leif”</em>. Noe av det som skiller <code class="docutils literal notranslate"><span class="pre">append()</span></code> fra <code class="docutils literal notranslate"><span class="pre">len()</span></code> er at <code class="docutils literal notranslate"><span class="pre">append()</span></code>
+ikke er en uavhengig kommando, men forholder seg til listen som skal suppleres.
+Funksjonen <code class="docutils literal notranslate"><span class="pre">append()</span></code> er en <strong>oppførsel</strong> av variabeltypen <code class="docutils literal notranslate"><span class="pre">list</span></code><a class="footnote-reference brackets" href="#metoder" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>. På norsk leses
+linje 3 slik: <em>studenter sin append “Leif”</em>, hvor ordet <em>sin</em> uttrykker at
+<code class="docutils literal notranslate"><span class="pre">append()</span></code> er noe som anvendes på en bestemt liste, i dette tilfellet <code class="docutils literal notranslate"><span class="pre">studenter</span></code>.</p>
+<p>Når vi konstruerte <code class="docutils literal notranslate"><span class="pre">studenter</span></code> som en <em>Python</em>-liste, fikk vi med på kjøpet muligheten
+til å anvende <code class="docutils literal notranslate"><span class="pre">append()</span></code> (og andre nyttige funksjoner) på den. Andre funksjoner vi kan anvende på lister vil vi komme tilbake til i senere kapitler.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">studenter</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Arne&quot;</span><span class="p">,</span> <span class="s2">&quot;Gerd&quot;</span><span class="p">,</span> <span class="s2">&quot;Mona&quot;</span> <span class="p">]</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lengden før append:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">studenter</span><span class="p">))</span>
+<span class="linenos">3</span><span class="n">studenter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Leif&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lengden etter append:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">studenter</span><span class="p">))</span>
+<span class="linenos">5</span><span class="n">studenter</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>lengden før append: 3
+lengden etter append: 4
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Arne&#39;, &#39;Gerd&#39;, &#39;Mona&#39;, &#39;Leif&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Merk at ved å bare skrive <code class="docutils literal notranslate"><span class="pre">studenter</span></code>, kommer det en egen <strong>output</strong> som oppgir innholdet i denne variabelen.</p>
+<p>✍️ <strong>Oppgave:</strong> Kopier koden i cellen over inn i en celle i din egen notebook. Erstatt <code class="docutils literal notranslate"><span class="pre">studenter</span></code> med <code class="docutils literal notranslate"><span class="pre">print(studenter)</span></code> istedet. Kan du tenke deg til hvorfor det blir forskjellig?</p>
+</section>
+<section id="lister-og-lokker">
+<h3>Lister og løkker<a class="headerlink" href="#lister-og-lokker" title="Permalink to this heading">#</a></h3>
+<p>Den virkelige fordelen med både flerverdivariabler og løkker kommer til syne når disse brukes
+sammen. Se spesielt på linje 5 i eksempel under. <code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">student</span> <span class="pre">in</span> <span class="pre">studenter</span></code> gjør at Python, etter tur, besøker
+hver innførel i <code class="docutils literal notranslate"><span class="pre">studenter</span></code>, tilordner den til løpevariabelen <code class="docutils literal notranslate"><span class="pre">student</span></code>, og bruker <code class="docutils literal notranslate"><span class="pre">print(student)</span></code>
+til å skrive innførselverdien.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">studenter</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Arne&quot;</span> <span class="p">,</span> <span class="s2">&quot;Gerd&quot;</span> <span class="p">,</span> <span class="s2">&quot;Mona&quot;</span> <span class="p">]</span>
+<span class="linenos">2</span><span class="n">antall_studenter</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">studenter</span><span class="p">)</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">antall_studenter</span><span class="p">,</span> <span class="s2">&quot;studenter er registert i listen &#39;studenter&#39;&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">studenter</span><span class="p">:</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Disse var de&quot;</span><span class="p">,</span> <span class="n">antall_studenter</span><span class="p">,</span> <span class="s2">&quot;studentene våre.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 studenter er registert i listen &#39;studenter&#39;
+Arne
+Gerd
+Mona
+Disse var de 3 studentene våre.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hvis vi nå legger en ekstra student til listen, kommer programmet til å telle og
+liste riktig, uten at vi innfører andre forandringer enn å legge Vetle til listen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">studenter</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Arne&quot;</span> <span class="p">,</span> <span class="s2">&quot;Gerd&quot;</span> <span class="p">,</span> <span class="s2">&quot;Mona&quot;</span><span class="p">,</span> <span class="s2">&quot;Vetle&quot;</span> <span class="p">]</span>
+<span class="linenos">2</span><span class="n">antall_studenter</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">studenter</span><span class="p">)</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="n">antall_studenter</span><span class="p">,</span> <span class="s2">&quot;studenter er registert i listen &#39;studenter&#39;&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">studenter</span><span class="p">:</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Disse var de&quot;</span><span class="p">,</span> <span class="n">antall_studenter</span><span class="p">,</span> <span class="s2">&quot;studentene våre.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4 studenter er registert i listen &#39;studenter&#39;
+Arne
+Gerd
+Mona
+Vetle
+Disse var de 4 studentene våre.
+</pre></div>
+</div>
+</div>
+</div>
+<p>For å avslutte dette lille underavsnittet besøker vi igjen eksemplet med
+<code class="docutils literal notranslate"><span class="pre">for</span></code>-løkke fra tidligere i kapittelet.
+Den eneste endringen er at vi lagrer <code class="docutils literal notranslate"><span class="pre">range(1,5)</span></code> i en listevariabel, istedenfor å opprette
+den unavngitte listen<a class="footnote-reference brackets" href="#range" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> “on the fly” i <code class="docutils literal notranslate"><span class="pre">for</span></code>-strukturen.
+variabelen <code class="docutils literal notranslate"><span class="pre">i</span></code> får her samme rolle som <code class="docutils literal notranslate"><span class="pre">student</span></code> i eksemplene ovenfor.</p>
+<!-- Images/Lokker/rangeliste.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">rangeliste</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="linenos">2</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rangeliste</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er nå lik&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nå er løkken slutt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er nå lik 1
+i er nå lik 2
+i er nå lik 3
+i er nå lik 4
+Nå er løkken slutt
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="tupler">
+<h2>Tupler<a class="headerlink" href="#tupler" title="Permalink to this heading">#</a></h2>
+<p>Tenk på en excel-tabell vist som tabell under. Enhver av dataradene i den
+har tre celler, hver med sin fastlagte rolle. Rollen bestemmes av posisjonen i raden.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Vare</p></th>
+<th class="head"><p>Pris</p></th>
+<th class="head"><p>Antall</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Fotballer</p></td>
+<td><p>95.00</p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shorts</p></td>
+<td><p>89.00</p></td>
+<td><p>12</p></td>
+</tr>
+<tr class="row-even"><td><p>Trøyer</p></td>
+<td><p>74.00</p></td>
+<td><p>15</p></td>
+</tr>
+</tbody>
+</table>
+<p>I eksemplet er den første cellen i hver rad av datatypen tekststreng (varenavnet), den andre et flyttall (stykkprisen)
+og det tredje et heltall (antallet). En slik <strong>dataorganisering</strong> (typisk også for en rad i en databasetabell)
+kaller vi en <strong>tuppel</strong>. I <em>Python</em> lager vi en tuppel med hjelp av parenteser.</p>
+<!-- Images/Lokker/enkel_tuppel.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">sportsvare</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Fotballer&quot;</span><span class="p">,</span> <span class="mf">95.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="n">sportsvare</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Fotballer&#39;, 95.0, 5)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Dersom vi ønsker å avlese en av verdiene, må vi angi dens posisjon i tuppelen (Se eksempel under).
+Som det meste annet i <em>Python</em> (og ellers i programmering), er den første telleposisjonen 0. 0,1,2 …</p>
+<!-- Images/Lokker/tuppel_pos.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nb">print</span><span class="p">(</span><span class="n">sportsvare</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fotballer
+</pre></div>
+</div>
+</div>
+</div>
+<p>På denne måten ligner tuppelen en liste, men med et par forskjeller. Viktigst er at listeinnførsler er som
+oftest av samme datatype (ikke strengt nødvendig, men vanlig), innførslenes posisjon er i utgangspunktet
+tilfeldig men kan sorteres på forskjellige måter, og lengden på listen er variabel. Tupler har fast lengde,
+innførslene har ofte forskjellig datatype og deres posisjon er fast og rollebestemt. Det er for eksempel
+ikke mulig med <em>tuppel.append</em>, da det ikke er naturlig å endre en tuppel midt i et program. Mer enn det,
+en tuppel kan faktisk ikke forandres etter at den er laget!</p>
+<p>Se under hva som skjer når vi prøver:</p>
+<!-- Images/Lokker/immutable.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">sportsvare</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Håndballer&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">13</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">sportsvare</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Håndballer&quot;</span>
+
+<span class="ne">TypeError</span>: &#39;tuple&#39; object does not support item assignment
+</pre></div>
+</div>
+</div>
+</div>
+<section id="forskjellene-mellom-liste-og-tuppel">
+<h3>Forskjellene mellom liste og tuppel<a class="headerlink" href="#forskjellene-mellom-liste-og-tuppel" title="Permalink to this heading">#</a></h3>
+<p>Som det ble sagt i siste avsnitt, er den viktigste forskjellen mellom disse to datatypene, deres rolle. Herunder listes noen strukturelle forskejjer på dem:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-left"><p>Liste</p></th>
+<th class="head text-left"><p>Tuppel</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>innførsel datatype</p></td>
+<td class="text-left"><p>lik (vanligvis)</p></td>
+<td class="text-left"><p>forskjellig (vanligvis)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>innførsel posisjon</p></td>
+<td class="text-left"><p>tilfeldig eller stigende/synkende sortert</p></td>
+<td class="text-left"><p>fast, rollebasert</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>lengde</p></td>
+<td class="text-left"><p>variabel</p></td>
+<td class="text-left"><p>fast</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>avgrensning</p></td>
+<td class="text-left"><p>[]</p></td>
+<td class="text-left"><p>()</p></td>
+</tr>
+</tbody>
+</table>
+<p>Mens en tuppel beskriver ofte et objekt ved å liste <em>attributter</em>, (eksempelvis en vare for hvilken det angis navn, pris og antall) i en fast rekkefølge, er en liste gjerne en “samling” av ettellerannet, for eksempel en samling av varer. Dette ser vi et eksempel på i neste avsnitt.</p>
+</section>
+</section>
+<section id="lister-av-tupler">
+<h2>Lister av tupler<a class="headerlink" href="#lister-av-tupler" title="Permalink to this heading">#</a></h2>
+<p>Flerverdivariabler kan lagre (samlinger av) forskjellige typer verdier. De kan til og med lagre samlinger
+av flerverdivariabler. Lister av lister, dict’er av lister, osv. Alt går, alt etter hvor det passer.
+I neste eksempel representerer vi exceltabellen fra tidligere som en
+liste med tupler.  Denne bygger vi opp ved å bruke <code class="docutils literal notranslate"><span class="pre">append()</span></code>. Det ytre par parenteser hører til
+<code class="docutils literal notranslate"><span class="pre">append()</span></code> og det indre paret til tuppelstrukturen.</p>
+<p><strong>Legg merke til at vi starter med en tom liste.</strong> dette gjør vi ofte, for eksempel når vi bygger lister fra eksterne datakilder. Her må nye innførsler legges med <code class="docutils literal notranslate"><span class="pre">append()</span></code>.
+Vi legger til en ny tuppel til lista for hvert produkt.</p>
+<!-- Images/Lokker/liste_med_tupler.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">sportsvarer</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#Liste med tupler</span>
+<span class="linenos">2</span><span class="n">sportsvarer</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;Fotballer&quot;</span><span class="p">,</span> <span class="mf">95.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="linenos">3</span><span class="n">sportsvarer</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;Shorts&quot;</span><span class="p">,</span> <span class="mf">89.0</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="linenos">4</span><span class="n">sportsvarer</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;Trøyer&quot;</span><span class="p">,</span> <span class="mf">74.0</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
+<span class="linenos">5</span><span class="nb">print</span><span class="p">(</span><span class="n">sportsvarer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(&#39;Fotballer&#39;, 95.0, 5), (&#39;Shorts&#39;, 89.0, 12), (&#39;Trøyer&#39;, 74.0, 15)]
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Kopier inn koden i en celle i din egen notebook. Legg til en ny tuppel med varenavn, pris og antall.</p>
+<p>Eksemplet under bruker en løkke for å skrive ut verdiene i listen
+<code class="docutils literal notranslate"><span class="pre">sportsvarer</span></code>. Legg merke til at variabelen <code class="docutils literal notranslate"><span class="pre">vare</span></code> antar hver av tuplene etter tur, og kan da
+brukes til å hente ut innførselverdiene fra tuppelen. Det vil si at vi her også gir hver tuppel variabelnavnet <code class="docutils literal notranslate"><span class="pre">vare</span></code> i linje 1 når vi bruker <code class="docutils literal notranslate"><span class="pre">for</span></code>-løkken.</p>
+<!-- Images/Lokker/skrive_liste_tupler.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">for</span> <span class="n">vare</span> <span class="ow">in</span> <span class="n">sportsvarer</span><span class="p">:</span>
+<span class="linenos">2</span>    <span class="nb">print</span><span class="p">(</span><span class="n">vare</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vare</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vare</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fotballer 95.0 5
+Shorts 89.0 12
+Trøyer 74.0 15
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Kopier inn koden i en celle i din egen notebook. Endre <code class="docutils literal notranslate"><span class="pre">vare</span></code> til et annet navn. Gjør i tillegg en endring i print slik at du kun printer en vare.</p>
+<p>De neste to eksempler beregner den samlede prisen på sportsvarene. Til dette oppretter
+vi en <strong>“samlevariabel”</strong> ved navn <code class="docutils literal notranslate"><span class="pre">samletpris</span></code>, som skal “akummulere” innkjøpsprisen. For hver vare
+legges det til innkjøpsprisen basert på antall varer ganget med stykkprisen til denne varen. To versjoner
+av dette eksemplet vises, hvor forskjellen ligger i hvordan oppdateringen av summen uttrykkes.
+På linje 3 i den nederste cellen bruker vi operatoren <code class="docutils literal notranslate"><span class="pre">+=</span></code> (<strong>addisjonstilordning</strong>, engelsk:
+“Addition assignment”) som betyr egentlig det samme som linje 3 i den øverste cellen. Vi adderer en ny verdi til verdien som allerede er i variabelen fra før.</p>
+<!-- Images/Lokker/addition_assignment.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">samletpris</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="linenos">2</span><span class="k">for</span> <span class="n">vare</span> <span class="ow">in</span> <span class="n">sportsvarer</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="n">samletpris</span> <span class="o">=</span> <span class="n">samletpris</span> <span class="o">+</span> <span class="p">(</span><span class="n">vare</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">vare</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="linenos">4</span><span class="n">samletpris</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2653.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">samletpris</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="linenos">2</span><span class="k">for</span> <span class="n">vare</span> <span class="ow">in</span> <span class="n">sportsvarer</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="n">samletpris</span> <span class="o">+=</span> <span class="p">(</span><span class="n">vare</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">vare</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="linenos">4</span><span class="n">samletpris</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2653.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="dict-er">
+<h2>Dict’er<a class="headerlink" href="#dict-er" title="Permalink to this heading">#</a></h2>
+<p><strong>Dict’er</strong> er em betegnelse for noe som egentlig har et lengre navn, nemlig <strong>dictionaries</strong>.
+Mens lister er tallindeksert og har en naturlig rekkefølge, kan dict’er indekseres på hva som helst, men typisk er tekststrenger. Dette gjør dict’en til en meget kraftig struktur som kan lagre mer enn èn type data om hver innførsel. Betrakt eksemplet under. Som du ser i første linje, markeres en dict med <code class="docutils literal notranslate"><span class="pre">{}</span></code>-klammer.</p>
+<!-- Images/Lokker/dict.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fodselsdager</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="linenos">2</span><span class="n">fodselsdager</span><span class="p">[</span><span class="s2">&quot;Arne&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;12. juni&quot;</span>
+<span class="linenos">3</span><span class="n">fodselsdager</span><span class="p">[</span><span class="s2">&quot;Gerd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;10. oktober&quot;</span>
+<span class="linenos">4</span><span class="n">fodselsdager</span><span class="p">[</span><span class="s2">&quot;Mona&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;10. oktober&quot;</span>
+<span class="linenos">5</span><span class="n">fodselsdager</span><span class="p">[</span><span class="s2">&quot;Vetle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;12. juni&quot;</span>
+<span class="linenos">6</span><span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">fodselsdager</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="linenos">7</span>    <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="s2">&quot;har fødselsdag&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Arne har fødselsdag 12. juni
+Gerd har fødselsdag 10. oktober
+Mona har fødselsdag 10. oktober
+Vetle har fødselsdag 12. juni
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hver av innførslene holder både studentens navn som <strong>nøkkel</strong> og vedkommendes fødselsdag som
+<em>verdi</em>. Derfor er det en konvensjon å bruke <code class="docutils literal notranslate"><span class="pre">k</span></code> (eng. <em>key</em>) og <code class="docutils literal notranslate"><span class="pre">v</span></code> (eng. <em>value</em>), som vi gjør på
+linje 6 (teknisk sett kunne vi brukt andre navn, og gjør det av og til når det passer).</p>
+<p><code class="docutils literal notranslate"><span class="pre">items()</span></code> er en funksjon som er hendig å bruke med dict’er.
+Her gir <code class="docutils literal notranslate"><span class="pre">fodselsdager.items()</span></code> oss både nøkkelen og verdien i alle dictens innførsler,
+slik at <code class="docutils literal notranslate"><span class="pre">for</span></code> kan “besøke” dem etter tur, og <code class="docutils literal notranslate"><span class="pre">k</span></code> og <code class="docutils literal notranslate"><span class="pre">v</span></code> antar hhv. nøkkelen og
+verdien for hver besøkt innførsel for å gjøre noe med de.</p>
+<p>Hvis du er kjent med databaser, kan det hjelpe å tenke på indeksene som primærnøkler
+i en entitetstabell. Dette innebærer, for både lister og dict’er, at indeksen (også kalt
+nøkkelen) er unik.</p>
+<p>✍️ <strong>Oppgave:</strong> Kopier inn koden i en celle i din egen notebook. Legg inn ditt eget navn og din egen fødselsdag i denne dicten. Kjør cellen.</p>
+</section>
+<section id="flerverdivariabler-oppsummert">
+<h2>Flerverdivariabler oppsummert<a class="headerlink" href="#flerverdivariabler-oppsummert" title="Permalink to this heading">#</a></h2>
+<p>Flerverdivariabler er altså variabler som har ett navn med kan få flere verdier.
+De tre typene er lister, tupler og dicter.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Tegn</p></th>
+<th class="head text-left"><p>Navn</p></th>
+<th class="head text-left"><p>Beskrivelse</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+<td class="text-left"><p>Liste</p></td>
+<td class="text-left"><p>en rekkefølge av innførsler , som oftest av samme type, og som typisk endrer størrelse (og gjerne rekkefølge) i løpet av et programs levetid, <code class="docutils literal notranslate"><span class="pre">[innførsel0,</span> <span class="pre">innførsel1,</span> <span class="pre">innførsel2,</span> <span class="pre">osv.]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">()</span></code></p></td>
+<td class="text-left"><p>Tuppel</p></td>
+<td class="text-left"><p>en rekkefølge av innførsler hvor innførslene typisk har faste roller og gjerne annerledes datatyper, for eksempel <code class="docutils literal notranslate"><span class="pre">(tekst0,</span> <span class="pre">heltall1,</span> <span class="pre">flyttall2,</span> <span class="pre">tekst3,</span> <span class="pre">osv.)</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{}</span></code></p></td>
+<td class="text-left"><p>Dict</p></td>
+<td class="text-left"><p>En dict er en mengde innførsler hvor nøklene er unike. <code class="docutils literal notranslate"><span class="pre">{nøkkel_a:verdi_a,</span> <span class="pre">nøkkel_1:verdi_1,</span> <span class="pre">nøkkel_x:verdi_x,</span> <span class="pre">osv.}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="range" role="note">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id4">2</a>)</span>
+<p><code class="docutils literal notranslate"><span class="pre">range(m,</span> <span class="pre">n)</span></code> gir en sekvens på n tall. Hvis <em>m</em> er 0 og <em>n</em> er 5, betyr det at den starter med 0 og lager en sekvens på totalt 5 tall. Sekvensen blir verdiene 0,1,2,3 og 4.</p>
+</aside>
+<aside class="footnote brackets" id="indeks" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Sier hvor noe er plassert i en <strong>samling</strong>, som for eksempel en liste.</p>
+</aside>
+<aside class="footnote brackets" id="metoder" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p>Slike funksjoner, som er en del av <strong>oppførselen</strong> til en variabeltype,  kalles av og til “metoder”.</p>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kapittel4.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">4. Betinget programmering</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kapittel6.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">6. Funksjoner</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lokker">Løkker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#while-lokken">while-løkken</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-av-logiske-uttrykk-i-if-tester-og-while-lokker">Bruk av logiske uttrykk i if-tester og while-løkker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#for-lokker">for-løkker</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-av-for-lokker">Bruk av for-løkker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flerverdivariabler">Flerverdivariabler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lister">Lister</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kommandoen-len">kommandoen len()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kommandoen-list-append">Kommandoen list.append()</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lister-og-lokker">Lister og løkker</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tupler">Tupler</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forskjellene-mellom-liste-og-tuppel">Forskjellene mellom liste og tuppel</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lister-av-tupler">Lister av tupler</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dict-er">Dict’er</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flerverdivariabler-oppsummert">Flerverdivariabler oppsummert</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Massey, Preminger & Soelseth
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+Denne interaktive l&aelig;reboka er lisensiert gjennom <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License.</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

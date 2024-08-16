@@ -1,0 +1,30 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+    - caption: Del I - Kom i gang!
+      chapters:
+      - file: kapittel1.md
+      - file: kapittel2.md
+    - caption: Del II - Grunnleggende Python
+      chapters:
+      - file: kapittel3.md
+      - file: kapittel4.md
+      - file: kapittel5.md
+      - file: kapittel6.md
+      - file: _build/jupyter_execute/kapittel1.ipynb
+      - file: _build/jupyter_execute/kapittel2.ipynb
+      - file: _build/jupyter_execute/kapittel3.ipynb
+      - file: _build/jupyter_execute/kapittel4.ipynb
+      - file: _build/jupyter_execute/kapittel5.ipynb
+      - file: _build/jupyter_execute/kapittel6.ipynb    
+    - caption: Del III - Databehandling- og analyse
+      chapters:
+      - file: kapittel7.md
+      - file: kapittel8.md
+      - file: kapittel9.md
+    - caption: Del IV - Innlasting og forbehandling av data
+      chapters:
+      - file: kapittel10.md

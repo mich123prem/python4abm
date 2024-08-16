@@ -1,0 +1,29 @@
+.clicker {
+  display: inline-block;
+  width: 10%;
+  height: 5%;
+  /*background-color: blue;
+  color:#FFF;
+}
+.clicker.hidden {
+  display: none;
+}
+.hiddendiv {
+  height: 0px;
+  /*background-color: green;*/
+  overflow: hidden;
+  transition: height 0.5s;
+}
+.hiddendiv.nr2 {
+  background-color: red;
+}
+
+#showdiv1:target ~ div a[href="#showdiv1"] {
+  display: none;
+}
+#showdiv1:target ~ div a[href="#hidediv1"] {
+  display: inline-block;
+}
+#showdiv1:target ~ div .hiddendiv.nr1 {
+  height: 130px;
+}

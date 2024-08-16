@@ -1,0 +1,1019 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>4. Betinget programmering &#8212; Databehandling og -analyse</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'kapittel4';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="5. Løkker, lister, tupler, og dict’er" href="kapittel5.html" />
+    <link rel="prev" title="3. Variabler" href="kapittel3.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Databehandling og -analyse med Python og OpenRefine
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Del I - Kom i gang!</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel1.html">1. Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel2.html">2. Jupyter Notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del II - Grunnleggende Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel3.html">3. Variabler</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Betinget programmering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel5.html">5. Løkker, lister, tupler, og dict’er</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel6.html">6. Funksjoner</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del III - Databehandling- og analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel7.html">7. Vasking av data med OpenRefine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel8.html">8. Dataanalyse med Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel9.html">9. Visualisering med Plotly</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del IV - Innlasting og forbehandling av data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel10.html">10. Innhenting av data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/kapittel4.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>4. Betinget programmering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#om-et-dataprograms-oppforsel">Om et dataprograms oppførsel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tenker-datamaskiner">Tenker datamaskiner?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-logiske-uttrykk-og-beslutningsstrukturer">Enkle logiske uttrykk og beslutningsstrukturer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logiske-uttrykk">Logiske uttrykk</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-testen">if-testen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-av-kolon-og-innrykk">Bruk av kolon (:) og innrykk</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logiske-uttrykk-og-testoperatorer">Logiske uttrykk og testoperatorer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beslutningsstrukturer-for-flere-valgalternativer">Beslutningsstrukturer for flere valgalternativer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-else-strukturen">If - else strukturen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#teste-pa-motsatt-negert-betingelse">Teste på motsatt (negert) betingelse: !=</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-elif-else-strukturen">if-elif-else-strukturen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nosting-av-tester">Nøsting av tester</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sammensatte-logiske-uttrykk">Sammensatte logiske uttrykk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logisk-og-and">Logisk OG (and)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logisk-eller-or">Logisk ELLER (or)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videre-lesning-for-spesielt-interesserte">Videre lesning for spesielt interesserte</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="betinget-programmering">
+<h1>4. Betinget programmering<a class="headerlink" href="#betinget-programmering" title="Permalink to this heading">#</a></h1>
+<p>I dette kapitlet skal vi se litt nærmere på hvordan man ved programmering kan få <strong>output</strong> som er valg foretatt av dataprogrammet på bakgrunn av at du ber om noe (“gir input”). Å forstå hvordan dette skjer gjør det lettere å forholde seg til større datasett der man er ute etter bestemte utvalg som ikke så lett kan sees og hentes ut manuelt. I dette kapitlet lærer du altså enda et sett med grunnstener. Nå går vi fra datatyper til <strong>operatorer</strong>.</p>
+<section id="om-et-dataprograms-oppforsel">
+<h2>Om et dataprograms oppførsel<a class="headerlink" href="#om-et-dataprograms-oppforsel" title="Permalink to this heading">#</a></h2>
+<p>Vi har sett at dataprogrammer kan betraktes som “levende” vesener
+(anførselstegnene er viktige!). Et program kjører linje etter linje,
+og hver linje kan forandre på programmets
+status (verdiene i programmets variabler).
+Dersom linje 5 er en kopi av linje
+3, er det ikke sikkert at begge linjer har
+nøyaktig samme utfall. Sannsynligvis ikke.
+I eksempel under oppstår det
+forskjellige verdier i variabelen <code class="docutils literal notranslate"><span class="pre">i</span></code> (hhv. 2 og 3), etter at hver av de
+to identiske linjene, 2 og 4, er kjørt.</p>
+<!-- Images/Betinget/linjer_kopi.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;linje 3:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">5</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;linje 5:&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linje 3: 2
+linje 5: 3
+</pre></div>
+</div>
+</div>
+</div>
+<p>Det er heller ikke slik at våre programmer
+behøver å oppføre seg likt hver gang de kjøres. Det
+avhenger av omstendigheter som programmet er ment å reagere på, og
+det er dette som gjør programmer så nyttige.</p>
+<section id="tenker-datamaskiner">
+<h3>Tenker datamaskiner?<a class="headerlink" href="#tenker-datamaskiner" title="Permalink to this heading">#</a></h3>
+<p>Nei. Datamaskiner tenker ikke. Allikevel er programmene som kjøres
+på dem ofte meget avanserte. Hemmeligheten er at våre programmer
+foretar <em>beslutninger</em> basert på valgalternativer. Disse
+valgalternativene er ofte uttrykt ved <strong>variabelverdier</strong>. Alle
+programmeringsspråk, <em>Python</em> inkludert, er utstyrt med
+<strong>beslutningsstrukturer</strong>. Med disse strukturene kan
+programmet “velge” èn av flere kjøreveier.</p>
+<p>Å kjøre linje for linje er den enkleste formen for beslutningsstruktur. Men i hver linje kan vi legge til veivalg, til og med valg som gjør at avlesingen går tilbake til linje 1 igjen. Det er dette vi skal gi en introduksjon til her.</p>
+<!-- Doublebox -->
+<p>⚠️ <strong>Merk!</strong> Dataprogrammer “tenker” ikke.
+De tar beslutninger (foretar valg), basert på klart formulerte betingelser.</p>
+</section>
+</section>
+<section id="enkle-logiske-uttrykk-og-beslutningsstrukturer">
+<h2>Enkle logiske uttrykk og beslutningsstrukturer<a class="headerlink" href="#enkle-logiske-uttrykk-og-beslutningsstrukturer" title="Permalink to this heading">#</a></h2>
+<section id="logiske-uttrykk">
+<h3>Logiske uttrykk<a class="headerlink" href="#logiske-uttrykk" title="Permalink to this heading">#</a></h3>
+<p>Under ser vi et kort program.
+Uttrykket <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">==</span> <span class="pre">0</span></code> på linje 2 kaller vi et <strong>logisk uttrykk</strong>. Dette er noe litt annet enn å tilordne en variabel en verdi.
+På norsk lyder den  <code class="docutils literal notranslate"><span class="pre">i</span></code> <em>er lik</em> <code class="docutils literal notranslate"><span class="pre">0</span></code>. Dette uttrykket kan ha èn av to verdier,
+<code class="docutils literal notranslate"><span class="pre">True</span></code> eller <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>Legg merke til <code class="docutils literal notranslate"><span class="pre">=</span></code> på linje 1  og <code class="docutils literal notranslate"><span class="pre">==</span></code> på linje 2.
+<code class="docutils literal notranslate"><span class="pre">=</span></code> (<code class="docutils literal notranslate"><span class="pre">i</span></code> <em>settes lik</em> <code class="docutils literal notranslate"><span class="pre">0</span></code>) er en <strong>tilordning</strong>, og forandrer variabelens
+verdi (dersom den ikke var <code class="docutils literal notranslate"><span class="pre">0</span></code> fra før). <code class="docutils literal notranslate"><span class="pre">==</span></code> er et sammenligningsuttrykk,
+og sjekker at verdiene på høyre og venstre side er like, <em>uten å forandre verdien</em>.
+<em>Python</em> har flere slike sammenligningsuttrykk, og vi ser på disse litt senere.</p>
+<!-- Images/Betinget/logisk1.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="nb">print</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="if-testen">
+<h3>if-testen<a class="headerlink" href="#if-testen" title="Permalink to this heading">#</a></h3>
+<p>If-testen er den mest grunnleggende beslutningsstrukturen i både <em>Python</em> og
+de fleste andre programmeringsspråk. La oss starte med et enkelt eksempel.
+Under ser vi et kort program. Linje 2, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">i</span> <span class="pre">==</span> <span class="pre">0:</span></code> er en test, et spørsmål
+til systemet. Vi spør “om <code class="docutils literal notranslate"><span class="pre">i</span></code> er lik <code class="docutils literal notranslate"><span class="pre">0</span></code>”, og videre ber vi om at den printer noe hvis det er riktig. Dersom det
+logiske uttrykket er <code class="docutils literal notranslate"><span class="pre">True</span></code>, kjøres line 3, hvis <code class="docutils literal notranslate"><span class="pre">False</span></code> kjøres den ikke.</p>
+<!-- Images/Betinget/enkelif1.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er 0!&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er 0!
+Takk og farvel.
+</pre></div>
+</div>
+</div>
+</div>
+<p>I neste eksempel ser vi en kjøring hvor <code class="docutils literal notranslate"><span class="pre">i</span></code> ble satt til
+<code class="docutils literal notranslate"><span class="pre">1</span></code>, og linje 3 derfor “hoppes over”. Legg merke til at uttrykket <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">==</span> <span class="pre">0</span></code>,
+som bare er et testuttrykk ikke forandrer verdien i <code class="docutils literal notranslate"><span class="pre">i</span></code>, i motsetning til
+<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">=</span> <span class="pre">0</span></code> som er en tilordning som kan forandre verdien.</p>
+<!-- Images/Betinget/enkelif2.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er 0!&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Takk og farvel.
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Kopier inn koden i cellen over i en celle i din egen notebook. Gjør en endring hvor du setter <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">i</span> <span class="pre">==</span> <span class="pre">1:</span></code> på linje 2. Kjør cellen.</p>
+</section>
+<section id="bruk-av-kolon-og-innrykk">
+<h3>Bruk av kolon (:) og innrykk<a class="headerlink" href="#bruk-av-kolon-og-innrykk" title="Permalink to this heading">#</a></h3>
+<p>I motsetning til de fleste andre programmeringsspråk, er programstrukturen i <em>Python</em>
+uttrykt i programkodens<a class="footnote-reference brackets" href="#programkode" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>  oppsett (engelsk: “layout”), og nivået av en gruppe kodelinjer
+bestemmes av mengden innrykk. Under ser du at kodelinjene 3, 4 og 5, som er rykket inn i forhold til if-testen,
+kjøres eller hoppes over samlet.</p>
+<!-- Images/Betinget/innrykktrue.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+<span class="linenos">4</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;er&quot;</span><span class="p">)</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0!&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i
+er
+0!
+Takk og farvel.
+</pre></div>
+</div>
+</div>
+</div>
+<!-- Images/Betinget/innrykkfalse.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+<span class="linenos">4</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;er&quot;</span><span class="p">)</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0!&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Takk og farvel.
+</pre></div>
+</div>
+</div>
+</div>
+<p>⚠️ <strong>Merk!</strong> Kolon og innrykk <em>må</em> være på plass. Kombinasjonen gjør at akkurat de print-operasjonene <em>kun</em> er koblet til <code class="docutils literal notranslate"><span class="pre">if</span></code>-spørsmålet i linjen over.  Legg merke til følgende feilsituasjonen:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">3</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+<span class="linenos">4</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;er&quot;</span><span class="p">)</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0!&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">)</span>
+    <span class="o">^</span>
+<span class="ne">IndentationError</span>: expected an indented block after &#39;if&#39; statement on line 2
+</pre></div>
+</div>
+</div>
+</div>
+<p>Prøv gjerne å fjerne eller kolon for å se hva som da skjer.</p>
+</section>
+<section id="logiske-uttrykk-og-testoperatorer">
+<h3>Logiske uttrykk og testoperatorer<a class="headerlink" href="#logiske-uttrykk-og-testoperatorer" title="Permalink to this heading">#</a></h3>
+<p>Som tidligere nevnt er et logisk uttrykk et spørsmål,
+som besvares med <code class="docutils literal notranslate"><span class="pre">True</span></code> eller
+<code class="docutils literal notranslate"><span class="pre">False</span></code>. Et logisk uttrykk kan anta forskjellige former, og
+tester ofte på variabelverdier. Variabelverdier blir til på
+forskjellige måter. De kan hentes fra databaser eller filer, eller de kan
+settes av programmet under kjøring. I eksemplene foran har vi sett
+logiske uttrykk som tester om en variabel har en bestemt verdi (<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">==</span> <span class="pre">1</span></code>).</p>
+<p>Disse uttrykkene tester på tallverdier, men både tall- og tekstvariabler kan
+brukes i logiske uttrykk. Tegn som <code class="docutils literal notranslate"><span class="pre">==</span></code> og <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> kalles ofte for <strong>testoperatorer</strong>.</p>
+<p>Nedenfor tester vi om verdien i en variabel er større enn 5 eller ikke:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er større enn 5!&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er større enn 5!
+Takk og farvel.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Kort og godt er vi ute etter å vite om noe stemmer eller ikke, gjerne fordi det er vanskelig å vite ved å bare se på datasettet med det blotte øyet. Denne typen programmering kan vi også bruke hvis vi ønsker å ta ut noen spesifikke rader av et datasett for å lage et nytt datasett. Dette er noe vi vil komme tilbake til i <em>del III</em> av denne boka.</p>
+<!-- doublebox -->
+<p>⚠️ <strong>Merk!</strong> En beslutningsstruktur bruker en betingelse, uttrykt ved et logisk uttrykk,
+for å velge en bestemt kjørevei. Logiske uttrykk bruker variabler og
+testoperatorer.</p>
+<p><em>Python</em> støtter flere testoperatorer som kan brukes i logiske uttrykk.
+Nedenfor vises varianter av logiske uttrykk som bruker forskjellige
+testoperatorer.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Testoperator</p></th>
+<th class="head"><p>Beskrivelse</p></th>
+<th class="head"><p>Eksempler</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
+<td><p>om en variabelverdi er lik en bestemt verdi</p></td>
+<td><p>A. <code class="docutils literal notranslate"><span class="pre">tall</span> <span class="pre">==</span> <span class="pre">0</span></code> er sant (har verdien <code class="docutils literal notranslate"><span class="pre">True</span></code>) dersom <code class="docutils literal notranslate"><span class="pre">tall</span></code> har verdien 0 i testøyeblikket <br><br> B. <code class="docutils literal notranslate"><span class="pre">student</span> <span class="pre">==</span> <span class="pre">&quot;ja&quot;</span></code> er sant hvis variabelen <code class="docutils literal notranslate"><span class="pre">student</span></code> har tekstverdien <code class="docutils literal notranslate"><span class="pre">ja</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">==</span></code></p></td>
+<td><p>om en variabelverdi er lik en annen variabelverdi</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tall1</span> <span class="pre">==</span> <span class="pre">tall2</span></code> er sant hvis begge variabler har samme verdi</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;</span></code></p></td>
+<td><p>om en variabelverdi er mindre enn en annen verdi</p></td>
+<td><p>A. <code class="docutils literal notranslate"><span class="pre">tall1</span> <span class="pre">&lt;</span> <span class="pre">5</span></code>  er sant hvis verdien i <code class="docutils literal notranslate"><span class="pre">tall1</span></code> er eksempelvis <code class="docutils literal notranslate"><span class="pre">-1,</span> <span class="pre">0,</span> <span class="pre">4,</span> <span class="pre">4.9.</span></code>, Usant hvis <code class="docutils literal notranslate"><span class="pre">tall1</span></code> har verdien <code class="docutils literal notranslate"><span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">1000</span></code> e.l. <br><br> B. <code class="docutils literal notranslate"><span class="pre">tall2</span> <span class="pre">&lt;</span> <span class="pre">tall3</span></code> er sant når verdien i <code class="docutils literal notranslate"><span class="pre">tall2</span></code> er mindre enn verdien i <code class="docutils literal notranslate"><span class="pre">tall3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;</span></code></p></td>
+<td><p>om en variabelverdi er større enn en annen</p></td>
+<td><p>A. <code class="docutils literal notranslate"><span class="pre">tall1</span> <span class="pre">&gt;</span> <span class="pre">7</span></code> er sant når <code class="docutils literal notranslate"><span class="pre">tall1</span></code> er eksempelvis <code class="docutils literal notranslate"><span class="pre">10,</span> <span class="pre">40,</span> <span class="pre">1000000</span></code>. Usant når <code class="docutils literal notranslate"><span class="pre">tall1</span></code> har verdien <code class="docutils literal notranslate"><span class="pre">7,</span> <span class="pre">6,</span> <span class="pre">0</span></code> e.l. <br><br> B. <code class="docutils literal notranslate"><span class="pre">tall2</span> <span class="pre">&gt;</span> <span class="pre">tall1</span></code> er sant når verdien i <code class="docutils literal notranslate"><span class="pre">tall2</span></code> er større enn verdien i <code class="docutils literal notranslate"><span class="pre">tall1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">&lt;=</span></code></p></td>
+<td><p>om en variabelverdi er mindre enn eller lik en annen</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">var3</span> <span class="pre">&lt;=</span> <span class="pre">1</span></code> er sant hvis <code class="docutils literal notranslate"><span class="pre">var3</span></code> er eksempelvis <code class="docutils literal notranslate"><span class="pre">-1,</span> <span class="pre">0,</span> <span class="pre">1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;=</span></code></p></td>
+<td><p>om en variabelverdi er større enn eller lik en annen</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">var1</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code> er sant når <code class="docutils literal notranslate"><span class="pre">var1</span></code> er eksempelvis <code class="docutils literal notranslate"><span class="pre">1,</span> <span class="pre">5,</span> <span class="pre">9</span></code> sant også når <code class="docutils literal notranslate"><span class="pre">var1</span></code> har verdien <code class="docutils literal notranslate"><span class="pre">0</span></code>. Usant for negative verdier i <code class="docutils literal notranslate"><span class="pre">var1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="beslutningsstrukturer-for-flere-valgalternativer">
+<h2>Beslutningsstrukturer for flere valgalternativer<a class="headerlink" href="#beslutningsstrukturer-for-flere-valgalternativer" title="Permalink to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">If</span></code>-testen er en enkel struktur som bestemmer om et program skal
+eller ikke skal utføre en sekvens med handlinger. I mer kompliserte
+situasjoner foreligger det flere valgalternativer. Vi snakker da om
+en <strong>forgrening</strong>: programmet har flere mulige <em>grener</em>, og
+kan utføre èn av disse.</p>
+<section id="if-else-strukturen">
+<h3>If - else strukturen<a class="headerlink" href="#if-else-strukturen" title="Permalink to this heading">#</a></h3>
+<p>Ofte trenger programmet å vite eksplisitt hva det skal gjøre også
+dersom det logiske uttrykket er usant (har verdien <code class="docutils literal notranslate"><span class="pre">False</span></code>).
+Dette ordnes med en
+else-gren som settes rett etter if-grenen. I eksempelet under ser
+man at programmet velger om det skal kjøre linje 3 eller 5 basert på verdien i
+variabelen <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
+<!-- Images/Betinget/ifelseif.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er 0!&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="k">else</span><span class="p">:</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er ikke 0!&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er 0!
+Takk og farvel.
+</pre></div>
+</div>
+</div>
+</div>
+<!-- Images/Betinget/ifelseelse.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er 0!&quot;</span><span class="p">)</span>
+<span class="linenos">4</span><span class="k">else</span><span class="p">:</span>
+<span class="linenos">5</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i er ikke 0!&quot;</span><span class="p">)</span>
+<span class="linenos">6</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Takk og farvel.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>i er ikke 0!
+Takk og farvel.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="teste-pa-motsatt-negert-betingelse">
+<h3>Teste på motsatt (negert) betingelse: !=<a class="headerlink" href="#teste-pa-motsatt-negert-betingelse" title="Permalink to this heading">#</a></h3>
+<p>Noen applikasjoner krever at vi utfører en handling bare hvis en
+betingelse <em>ikke</em> er oppfylt. Dette kan i og for seg gjøres med en
+else-gren, men det er kanskje mer elegant å
+uttrykke betingelsen omvendt, med en <strong>negeringsoperator</strong>. <code class="docutils literal notranslate"><span class="pre">!=</span></code> leses
+på norsk <em>er ulik</em>.
+Se eksempel under.</p>
+<!-- Images/Betinget/negert.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">navn</span> <span class="o">=</span> <span class="s2">&quot;Michael&quot;</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Det er sant at du ikke heter Jens?&quot;</span><span class="p">)</span>
+<span class="linenos">3</span><span class="k">if</span> <span class="n">navn</span> <span class="o">!=</span> <span class="s2">&quot;Jens&quot;</span><span class="p">:</span>
+<span class="linenos">4</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ja, det er sant.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Det er sant at du ikke heter Jens?
+Ja, det er sant.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="if-elif-else-strukturen">
+<h3>if-elif-else-strukturen<a class="headerlink" href="#if-elif-else-strukturen" title="Permalink to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">elif</span></code> kan brukes når vi skal
+ha mer enn to grener i en betingelse. Med
+<code class="docutils literal notranslate"><span class="pre">if-elif-else</span></code> -strukturen kan vi tilrettelegge for håndtering av
+flere mulige utfall.</p>
+<p>I eksempel under er det lagt opp til tre
+alternativer. En <code class="docutils literal notranslate"><span class="pre">if</span></code>-gren og en <code class="docutils literal notranslate"><span class="pre">elif</span></code>-gren som oppgir to distinkte
+alternativer, og en <code class="docutils literal notranslate"><span class="pre">else</span></code>-gren som angir  <strong>standardhandlingen</strong> (engelsk: “default”), altså
+hvis ingen av de angitte betingelsene er oppfylt. Vi kan bruke så mange
+<code class="docutils literal notranslate"><span class="pre">elif</span></code>-grener vi bare ønsker.</p>
+<!-- Images/Betinget/tregjensidige.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">kategori</span> <span class="o">=</span> <span class="s2">&quot;ungdom&quot;</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">kategori</span> <span class="o">==</span> <span class="s2">&quot;ungdom&quot;</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="n">pris</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="linenos">4</span><span class="k">elif</span> <span class="n">kategori</span> <span class="o">==</span> <span class="s2">&quot;senior&quot;</span><span class="p">:</span>
+<span class="linenos">5</span>    <span class="n">pris</span> <span class="o">=</span> <span class="mi">250</span>
+<span class="linenos">6</span><span class="k">else</span><span class="p">:</span>
+<span class="linenos">7</span>    <span class="n">pris</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="linenos">8</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pris =&quot;</span><span class="p">,</span> <span class="n">pris</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pris = 200
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="nosting-av-tester">
+<h2>Nøsting av tester<a class="headerlink" href="#nosting-av-tester" title="Permalink to this heading">#</a></h2>
+<p>Med <strong>Nøsting</strong> (engelsk: “nesting”) av tester menes at vi utfører en test
+bare hvis det logiske uttrykket til en annen test har et visst utfall.</p>
+<p>Vi
+<em>nøster inn</em> èn betinget struktur som en gren av en annen struktur.
+I eksemplet under, utgjør linjene 3-6 if-grenen (linje 2).
+If-testen på linje 3 blir ikke kjørt hvis verdien i <code class="docutils literal notranslate"><span class="pre">barnealder</span></code> er 2 eller mindre.
+Merk deg også bruken av kolon etterfulgt 4-blank-innrykk<a class="footnote-reference brackets" href="#tab" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> hver gang et nytt
+nivå innføres (linje 2-3, 3-4, 5-6, 7-8).</p>
+<!--Images/Betinget/nosting.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">barnealder</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">barnealder</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="k">if</span> <span class="n">barnealder</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+<span class="linenos">4</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Barnet går i barnehagen.&quot;</span><span class="p">)</span>
+<span class="linenos">5</span>    <span class="k">else</span><span class="p">:</span>
+<span class="linenos">6</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Barnet går på skolen.&quot;</span><span class="p">)</span>
+<span class="linenos">7</span><span class="k">else</span><span class="p">:</span>
+<span class="linenos">8</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Barnet er for ungt.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Barnet går i barnehagen.
+</pre></div>
+</div>
+</div>
+</div>
+<p>✍️ <strong>Oppgave:</strong> Prøv å skrive om programkoden i if-elif-else-eksemplet
+som en nøstet struktur.</p>
+<!-- David: Hva med en oppgave om barnealder = 30? -->
+</section>
+<section id="sammensatte-logiske-uttrykk">
+<h2>Sammensatte logiske uttrykk<a class="headerlink" href="#sammensatte-logiske-uttrykk" title="Permalink to this heading">#</a></h2>
+<p>Av og til trenger vi å uttrykke mer kompliserte betingelser enn en
+enkel test kan uttrykke. Stort sett er det mulig å løse disse med
+de nøstede strukturene omtalt ovenfor, men dette kan resultere i
+lang og rotete programkode. Sammensatte logiske uttrykk,
+som bruker logiske kombinasjoner, er ofte mer elegante og resulterer
+i kortere, mer fokusert kode. Vi ser på to kombinasjoner:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">and</span></code> (logisk OG): to eller flere betingelser som skal stemme samtidig</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">or</span></code> (logisk ELLER): minst én av to eller flere betingelser skal stemme.</p></li>
+</ul>
+<p>Disse kombinasjonene kan være byggesteiner i sammensatte logiske
+uttrykk. Her ser vi på noen eksempler hvor én forekomst av en
+logisk operasjon utgjør testen.</p>
+<section id="logisk-og-and">
+<h3>Logisk OG (and)<a class="headerlink" href="#logisk-og-and" title="Permalink to this heading">#</a></h3>
+<p>Se eksempelet under. Dersom hele det kombinerte logiske
+uttrykket i <code class="docutils literal notranslate"><span class="pre">if</span></code>-grenen skal være sant, kreves det at begge
+deluttrykk er sanne <em>samtidig</em>. Hele det logiske uttrykk på linje 3 er sant
+hvis alderen er større enn 67 <em>samtidig som</em> kjønnet er kvinne.</p>
+<!-- Images/Betinget/logiskog.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">alder</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="linenos">2</span><span class="n">kjonn</span> <span class="o">=</span> <span class="s2">&quot;kvinne&quot;</span>
+<span class="linenos">3</span><span class="k">if</span> <span class="n">alder</span> <span class="o">&gt;</span> <span class="mi">67</span> <span class="ow">and</span> <span class="n">kjonn</span> <span class="o">==</span> <span class="s2">&quot;kvinne&quot;</span><span class="p">:</span>
+<span class="linenos">4</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Som kvinnelig pensjonist får du en blomst.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>En annen, typisk bruk av OG-kombinasjonen
+(<code class="docutils literal notranslate"><span class="pre">and</span></code>), er når man skal teste om verdien i en tallvariabel (for
+eksempel alder) befinner seg innenfor et gitt intervall. Dèt gjør den
+hvis den er <strong>større enn eller lik</strong> minstegrensen samtidig som
+det er <strong>mindre enn eller lik</strong> størstegrensen. Se eksempel under.</p>
+<!-- Images/Betinget/intervall.png  --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">barnealder</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="linenos">2</span><span class="k">if</span> <span class="n">barnealder</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">barnealder</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">:</span>
+<span class="linenos">3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Barnet går i barnehagen.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Barnet går i barnehagen.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="logisk-eller-or">
+<h3>Logisk ELLER (or)<a class="headerlink" href="#logisk-eller-or" title="Permalink to this heading">#</a></h3>
+<p>Et logisk uttrykk med to deluttrykk koblet med <code class="docutils literal notranslate"><span class="pre">or</span></code> er sant
+dersom minst ett av deluttrykkene er sant (eller dersom begge er
+sanne samtidig). Se eksempel under. Her
+får man rabatt enten man er
+en kvinne eller en senior (eller begge deler).</p>
+<!-- Images/Betinget/logiskeller.png --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">alder</span> <span class="o">=</span> <span class="mi">65</span>
+<span class="linenos">2</span><span class="n">kjonn</span> <span class="o">=</span> <span class="s2">&quot;kvinne&quot;</span>
+<span class="linenos">3</span><span class="k">if</span> <span class="n">alder</span> <span class="o">&gt;</span> <span class="mi">67</span> <span class="ow">or</span> <span class="n">kjonn</span> <span class="o">==</span> <span class="s2">&quot;kvinne&quot;</span><span class="p">:</span>
+<span class="linenos">4</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Enten kvinner eller pensjonist (eller både og)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Enten kvinner eller pensjonist (eller både og)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="videre-lesning-for-spesielt-interesserte">
+<h2>Videre lesning for spesielt interesserte<a class="headerlink" href="#videre-lesning-for-spesielt-interesserte" title="Permalink to this heading">#</a></h2>
+<p>I dette kapitlet har vi sett på de mest grunnleggende
+beslutningsstrukturene i Python.
+Det finnes noen andre <code class="docutils literal notranslate"><span class="pre">if</span></code>-baserte beslutningsstrukturer, og
+de som er særlig interesserte kan lese mer om dise her:</p>
+<p><a class="reference external" href="https://realpython.com/python-conditional-statements">https://realpython.com/python-conditional-statements</a></p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="programkode" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>“Programkode” eller “kode” brukes ofte når man snakker om programmets tekst.</p>
+</aside>
+<aside class="footnote brackets" id="tab" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>I <em>Jupyter Notebooks</em> får vi 4-blanke når vi trykker TAB-tasten</p>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kapittel3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3. Variabler</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kapittel5.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">5. Løkker, lister, tupler, og dict’er</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#om-et-dataprograms-oppforsel">Om et dataprograms oppførsel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tenker-datamaskiner">Tenker datamaskiner?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#enkle-logiske-uttrykk-og-beslutningsstrukturer">Enkle logiske uttrykk og beslutningsstrukturer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logiske-uttrykk">Logiske uttrykk</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-testen">if-testen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bruk-av-kolon-og-innrykk">Bruk av kolon (:) og innrykk</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logiske-uttrykk-og-testoperatorer">Logiske uttrykk og testoperatorer</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beslutningsstrukturer-for-flere-valgalternativer">Beslutningsstrukturer for flere valgalternativer</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-else-strukturen">If - else strukturen</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#teste-pa-motsatt-negert-betingelse">Teste på motsatt (negert) betingelse: !=</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-elif-else-strukturen">if-elif-else-strukturen</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nosting-av-tester">Nøsting av tester</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sammensatte-logiske-uttrykk">Sammensatte logiske uttrykk</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logisk-og-and">Logisk OG (and)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logisk-eller-or">Logisk ELLER (or)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#videre-lesning-for-spesielt-interesserte">Videre lesning for spesielt interesserte</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Massey, Preminger & Soelseth
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+Denne interaktive l&aelig;reboka er lisensiert gjennom <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License.</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

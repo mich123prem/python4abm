@@ -1,0 +1,559 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>1. Introduksjon &#8212; Databehandling og -analyse</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'kapittel1';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Jupyter Notebooks" href="kapittel2.html" />
+    <link rel="prev" title="Databehandling og -analyse med Python og OpenRefine" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Databehandling og -analyse med Python og OpenRefine
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Del I - Kom i gang!</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel2.html">2. Jupyter Notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del II - Grunnleggende Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel3.html">3. Variabler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel4.html">4. Betinget programmering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel5.html">5. Løkker, lister, tupler, og dict’er</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel6.html">6. Funksjoner</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del III - Databehandling- og analyse</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel7.html">7. Vasking av data med OpenRefine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel8.html">8. Dataanalyse med Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel9.html">9. Visualisering med Plotly</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del IV - Innlasting og forbehandling av data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel10.html">10. Innhenting av data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/kapittel1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>1. Introduksjon</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-programmering">Hva er programmering?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formalet-med-denne-boka">Formålet med denne boka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hvorfor-python-og-jupyter-notebooks">Hvorfor Python og Jupyter Notebooks?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppbygning-av-boka">Oppbygning av boka</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-1-kom-i-gang">Del 1: Kom i gang!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-2-grunnleggende-python">Del 2: Grunnleggende Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-3-databehandling-og-analyse">Del 3: Databehandling og -analyse</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-4-innhenting-av-data-fra-ulike-kilder">Del 4: Innhenting av data fra ulike kilder</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supplerende-kilder">Supplerende kilder</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <!-- DPX API-key 5f4tsj4og9l6snv : 817nd001bsoqzbh-->
+<section id="introduksjon">
+<h1>1. Introduksjon<a class="headerlink" href="#introduksjon" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p>“In academic research, but also in many sectors of business and other areas of society at large, data analysis unfolds via computer interfaces that display results that users often mistakenly regard as objective assessments. Such environments need knowledge workers who can grasp the processes of knowledge generation, from data collection through the various stages of analysis to visualization.” - Van Es &amp; Schäfer i <em>The Datafied Society</em><a class="footnote-reference brackets" href="#kilde1" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+</div></blockquote>
+<p>Denne læreboka gir en introduksjon - og er en praktisk guide - til det å bruke programmeringsspråket <em>Python</em>, å jobbe i brukergrensesnittet <em>Jupyter Notebooks</em>, samt å bruke programmet <em>OpenRefine</em>. Alle nødvendige verktøy for behandling og analyse av data.</p>
+<p>Boka fungerer særlig godt som en introduksjon til databehandling og analyse slik det gjøres innen <strong>digital humaniora og digital samfunnsvitenskap</strong> (på engelsk: <em>DHSS</em>). Boka er særlig rettet mot studenter som jobber med data som kommer fra – eller er relevante for – institusjoner innenfor informasjons- og kulturforvaltning (arkiver, biblioteker og museer), samt de som ønsker å studere digital kultur gjennom data fra nettet. Innføringen i programmeringen du får her skal gjøre deg i stand til å håndtere data, dette inkluderer hente, behandle, vaske, analysere og visualisere data.  Videre er boka ment for deg som enten ikke har noen erfaring med programmering eller som har litt erfaring men trenger et litt mer stabilt fundament.</p>
+<section id="hva-er-programmering">
+<h2>Hva er programmering?<a class="headerlink" href="#hva-er-programmering" title="Permalink to this heading">#</a></h2>
+<p>Med programmering mener vi det å skrive programmer («å kode») som en datamaskin kan tolke og utføre. Slike programmer skrives i et <strong>programmeringsspråk</strong>. Et programmeringsspråk er et språk som mennesker kan bruke (skrive og lese) og som en datamaskin kan tolke og utføre. Et programmeringsspråk er ikke et «ekte» språk på linje med norsk eller engelsk, men vil allikevel ofte inneholde flere engelske ord. I tillegg er et programmeringsspråk kjennetegnet av en <strong>rigid syntaks</strong> (rekkefølgen ord og tegn forekommer i). Ved å bruke programmeringsspråket kan vi derfor spesifisere for en datamaskin hvordan en bestemt oppgave skal utføres. Dette kan være oppgaver av svært ulik art; fra å gjøre en enkel matematisk utregning (2+2=4), til å lage et stort og komplisert dataspill. De digitale delene av våre liv er satt sammen gjennom programmeringsspråk, og det å forstå hvordan dette i praksis skjer gir oss en større innsikt i og forståelse av vår samtid.</p>
+<p>Denne boka skal ikke dekke alle mulige oppgaver man kan utføre med programmeringsspråk. Den skal primært dekke oppgaver relatert til behandling og analyse av data og datasett som man vil støte på innenfor digital humaniora og samfunnsvitenskap. Allikevel ser vi også behovet for at de første kapitlene fokuserer på noe av det grunnleggende ved hvordan programmeringsspråk fungerer slik at det vil bli lettere å skjønne hva som skjer «under overflaten». Boka introduserer derfor viktige grunnleggende aspekter ved <em>Python</em>-språket i del 2, før man tar steget videre i del 3 for arbeid direkte med data og datasett.</p>
+</section>
+<section id="formalet-med-denne-boka">
+<h2>Formålet med denne boka<a class="headerlink" href="#formalet-med-denne-boka" title="Permalink to this heading">#</a></h2>
+<p>Boka har som formål å vise hvordan <em>Python</em> kan brukes til å behandle og analysere <strong>strukturerte data</strong><a class="footnote-reference brackets" href="#definisjon" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>. Slike datasett kan bestå av metadata innsamlet fra sosiale medier, datasett med metadata om artefakter og samlinger, tekstkorpus, eller andre typer datasett som inneholder store mengder med informasjon, hvor man trenger hjelp fra en datamaskin til å foreta analysene.</p>
+<p>Her ønsker vi å gi en inngang til en verden som blir mer og mer digital, hvor informasjon først og fremst eksisterer som digitale data. På engelsk snakker man om en <em>«datafication»</em> av samfunnet vårt, og på grunn av dette har det blitt mer og mer viktig i sektorer som jobber med informasjons- og kulturforvaltning å kjenne til det å jobbe med data og datasett. <em>Python</em> (og særlig <em>Pandas</em>-pakken), <em>Jupyter Notebooks</em> og <em>OpenRefine</em> er alle verktøy som er i aktiv bruk i sektorene for informasjons- og kulturforvaltning, samt i humanistisk og samfunnsvitenskapelig forskning. Kunnskap og ferdigheter innen programmering er derfor en nødvendighet.</p>
+<p>Boka plasserer seg derfor i et felt som allerede har flere innganger. Den største og mest etablerte er digital humaniora, tett etterfulgt av digital samfunnsvitenskap. Deler av dette kalles også <em>«cultural analytics»</em> på engelsk fagspråk. Vår inngang overlapper med disse, noe annet hadde vært rart. Men vi henter også inspirasjon fra den lange tradisjonen med <a class="reference external" href="https://software-carpentry.org/">Software Carpentry</a> og <a class="reference external" href="https://librarycarpentry.org">Library Carpentry</a> som har utviklet seg fra ulike klynger i fag- og forskingsbiblioteker de siste 25 årene. <em>Library Carpentry</em> handler for eksempel om teknikker for å samle inn, vaske, representere og behandle data. <strong>Carpentry</strong> referer derfor til teknikker som kommer forutfor selve analysene (selv om man nok i praksis ser at man vil gå frem og tilbake). Dette er nødvendig kompetanse å inneha for å kunne gjøre seg kjent med et datasett før man faktisk foretar analyser.</p>
+</section>
+<section id="hvorfor-python-og-jupyter-notebooks">
+<h2>Hvorfor Python og Jupyter Notebooks?<a class="headerlink" href="#hvorfor-python-og-jupyter-notebooks" title="Permalink to this heading">#</a></h2>
+<p>Det finnes hundrevis av ulike typer programmeringsspråk. I denne boka er det <em>Python</em> som er programmeringsspråket det gis opplæring i. Grunnen er at Python er både relativt enkelt å lære seg, samtidig som det er meget vanlig å bruke. <em>Python</em> har også meget gode verktøy for å håndtere innhenting av data fra andre databaser eller datakilder. I tillegg kan språket brukes på alle tenkelige datamaskintyper og operativsystemer. En viktig tilleggspakke er <em>Pandas</em>. Denne paken gjør det særlig enkelt å jobbe med den type datasett og data som boken tar ugangspunkt i. Tenk på <em>Pandas</em> som en utvidelse til <em>Python</em>.</p>
+<p><em>Jupyter Notebooks</em> brukes som et grensesnitt for kjøring av <em>Python</em>. Hovedfordelen med <em>Jupyter Notebooks</em> er nettopp det at brukergrensesnittet er lett forståelig, og gjør det oversiktlig å se hva man har gjort og når. Her kan man både programmere og kommentere det man gjør. Fil-formatet kan videre enkelt sendes og åpnes av andre.</p>
+<p><em>Jupyter Notebooks</em> vil for mange kjøres gjennom et program (teknisk sett et større rammeverk) som heter <em>Anaconda</em>.</p>
+</section>
+<section id="oppbygning-av-boka">
+<h2>Oppbygning av boka<a class="headerlink" href="#oppbygning-av-boka" title="Permalink to this heading">#</a></h2>
+<section id="del-1-kom-i-gang">
+<h3>Del 1: Kom i gang!<a class="headerlink" href="#del-1-kom-i-gang" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Kapittel to</strong> gir en introduksjon til, og en gjennomgang av, hvordan man installerer og tilrettelegger <em>Anaconda</em>. Kapitlet gir videre en introduksjon til <em>Jupyter Notebooks</em> og har en gjennomgang av hvordan skrive og kjøre en veldig enkel programsnutt ved bruk av <em>Python</em>-språket i en slik notatbok.</p></li>
+</ul>
+</section>
+<section id="del-2-grunnleggende-python">
+<h3>Del 2: Grunnleggende Python<a class="headerlink" href="#del-2-grunnleggende-python" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Tredje, fjerde, femte og sjette kapittel</strong> introduserer de viktigste elementene i <em>Python</em> som et programmeringsspråk. Disse kapitlene gir deg fundamentet som du trenger for å kunne bruke og forstå programmeringsspråket.</p></li>
+</ul>
+</section>
+<section id="del-3-databehandling-og-analyse">
+<h3>Del 3: Databehandling og -analyse<a class="headerlink" href="#del-3-databehandling-og-analyse" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>syvende kapittel</strong> tar for seg <em>OpenRefine</em> som er et datavaskingsverktøy, og viser hvordan man kan ta ut datasett for vasking i <em>OpenRefine</em> og hente de inn igjen etterpå for å behandle og analyse de videre i <em>Jupyter Notebooks</em>.</p></li>
+<li><p><strong>Kapittel åtte</strong> tar for seg hvordan analysere data ved hjelp av <em>pandas</em>, og går gjennom hvordan gjøre enkle univariate (deskriptive) analyser og statistiske beskrivelser av strukturerte data.</p></li>
+<li><p><strong>Kapittel ni</strong> introduserer <em>Plotly</em> , et visualiseringsredskap for <em>Python</em>. Her skifter fokus fra det å analysere til det å visualisere data.</p></li>
+</ul>
+</section>
+<section id="del-4-innhenting-av-data-fra-ulike-kilder">
+<h3>Del 4: Innhenting av data fra ulike kilder<a class="headerlink" href="#del-4-innhenting-av-data-fra-ulike-kilder" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>tiende kapittel</strong> ser på noen eksempler av relevante datasamlinger som finnes digitalt og hvordan disse kan hentes inn som datasett og jobbes med i <em>Jupyter Notebook</em>. Her inngår også det å høste inn data fra nettet.</p></li>
+</ul>
+<blockquote>
+<div><p>Del 4 vil bli publisert høsten 2024</p>
+</div></blockquote>
+</section>
+</section>
+<section id="supplerende-kilder">
+<h2>Supplerende kilder<a class="headerlink" href="#supplerende-kilder" title="Permalink to this heading">#</a></h2>
+<p>Under er en liste over andre engelske introduksjoner og digitale bøker vi anbefaler.</p>
+<p><a class="reference external" href="https://melaniewalsh.github.io/Intro-Cultural-Analytics/welcome.html">Introduction to Cultural Analytics &amp; Python</a></p>
+<p><a class="reference external" href="https://www.humanitiesdataanalysis.org/">Humanities Data Analysis - Case Studies With Python</a></p>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="kilde1" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://library.oapen.org/handle/20.500.12657/31843">Schäfer, M. T., &amp; Van Es, K. (2017). The datafied society: Studying Culture Through Data.</a></p>
+</aside>
+<aside class="footnote brackets" id="definisjon" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Data ordent i Excel-kolonner er et enkelt eksempel på strukturerte data, der hver “celle” - tall eler tekst - har en rolle bestemt av kolonnen den står i.</p>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Databehandling og -analyse med Python og OpenRefine</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kapittel2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">2. Jupyter Notebooks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-programmering">Hva er programmering?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#formalet-med-denne-boka">Formålet med denne boka</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hvorfor-python-og-jupyter-notebooks">Hvorfor Python og Jupyter Notebooks?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#oppbygning-av-boka">Oppbygning av boka</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-1-kom-i-gang">Del 1: Kom i gang!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-2-grunnleggende-python">Del 2: Grunnleggende Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-3-databehandling-og-analyse">Del 3: Databehandling og -analyse</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#del-4-innhenting-av-data-fra-ulike-kilder">Del 4: Innhenting av data fra ulike kilder</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supplerende-kilder">Supplerende kilder</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Massey, Preminger & Soelseth
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+Denne interaktive l&aelig;reboka er lisensiert gjennom <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License.</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

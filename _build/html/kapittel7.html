@@ -1,0 +1,700 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>7. Vasking av data med OpenRefine &#8212; Databehandling og -analyse</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'kapittel7';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="8. Dataanalyse med Pandas" href="kapittel8.html" />
+    <link rel="prev" title="6. Funksjoner" href="kapittel6.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Databehandling og -analyse med Python og OpenRefine
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Del I - Kom i gang!</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel1.html">1. Introduksjon</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel2.html">2. Jupyter Notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del II - Grunnleggende Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel3.html">3. Variabler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel4.html">4. Betinget programmering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel5.html">5. Løkker, lister, tupler, og dict’er</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel6.html">6. Funksjoner</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del III - Databehandling- og analyse</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Vasking av data med OpenRefine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel8.html">8. Dataanalyse med Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kapittel9.html">9. Visualisering med Plotly</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Del IV - Innlasting og forbehandling av data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kapittel10.html">10. Innhenting av data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/kapittel7.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>7. Vasking av data med OpenRefine</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-vasking">Hva er vasking?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-openrefine">Hva er OpenRefine?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installer-openrefine">Installer OpenRefine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-openrefine">Start OpenRefine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opprett-et-nytt-prosjekt-i-openrefine">Opprett et nytt prosjekt i OpenRefine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#undersok-dataene">Undersøk dataene</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fasettering-og-filtrering">Fasettering og filtrering</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angre">Angre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagring-av-prosjekt-til-fil">Lagring av prosjekt til fil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flere-mater-a-vaske-pa">Flere måter å vaske på</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avgrens-radene-med-sok">Avgrens radene med søk</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#andre-avgrensninger">Andre avgrensninger</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#endre-verdier">Endre verdier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kolonner-med-flere-verdier">Kolonner med flere verdier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gruppering">Gruppering</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anbefalt-videre-litteratur">Anbefalt videre litteratur</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="vasking-av-data-med-openrefine">
+<h1>7. Vasking av data med OpenRefine<a class="headerlink" href="#vasking-av-data-med-openrefine" title="Permalink to this heading">#</a></h1>
+<div text-align="center">
+    <table>
+        <tbody>
+            <tr>
+                <td style="border-width: medium; border-color: black; padding: 5mm">
+                    Kapitlet bruker følgende datafiler:<br/>
+                    <a href="doaj-article-sample.csv">
+                        doaj-article-sample.csv
+                    </a><br/>
+                </td>
+            </tr>
+        </tbody>    
+    </table>
+</div>
+<br>
+<br>
+<p>I dette kapitlet introduserer vi et nytt verktøy som hjelper deg med å gjøre datasett klar for analyser. Dette er også noe man kan gjøre direkte med et programmeringsspråk, men mange vil nok foretrekke et forenklet brukergrensesnitt for gjøre det mer håndterbart. Derfor har vi valgt <em>OpenRefine</em>.</p>
+<section id="hva-er-vasking">
+<h2>Hva er vasking?<a class="headerlink" href="#hva-er-vasking" title="Permalink to this heading">#</a></h2>
+<p>Data kan inneholde feil. Hvis feilene ikke oppdages og rettes vil dette føre til feil i analyser, eller i senere bruk av data til andre formål. Retting av feil kalles gjerne for datavasking. Med vasking mener vi at vi forsøker å øke konsistensen i data et datasett består av. Det handler altså om datakvalitet. For eksempel, at alle datoer skrives i samme format, eller at stedsnavn er skrevet likt. Inkonsistens kan komme fra skrivefeil, men det kan også være forårsaket av ulik registreringspraksis på tvers av personer, organisasjoner og domener. Eller rett og slett innlesningsfeil fra digitaliseringsverktøy.</p>
+<p>Hovedprinsippet for vasking er <strong>«fitness for use»</strong>. Det vil si at du skal gjøre data bra nok til å bli brukt til formålet det skal brukes til. Det betyr at hva som er “feil” alltid er avhengig av konteksten. Skal du undersøke språkutvikling ved å se på skrivemåten av et stedsnavn over tid i digitaliserte kirkebøker, blir det helt feil å «vaske» datasettet for at stedsnavnet skal fremkomme likt. Er du heller interessert i å se på antall konfirmerte på stedet over tid er det derimot en stor fordel at stedsnavnet er konsistent.</p>
+<p>I dette kapitlet får du en innføring i å bruke <em>OpenRefine</em> til å identifisere inkonsistenser og rette de (i de tilfellene du trenger det), og forberede data for videre analyse.</p>
+</section>
+<section id="hva-er-openrefine">
+<h2>Hva er OpenRefine?<a class="headerlink" href="#hva-er-openrefine" title="Permalink to this heading">#</a></h2>
+<p><em>OpenRefine</em> er et verktøy som kan brukes til håndtering av store datasett. Med håndtering menes “vasking” (fjerning av inkonsistenser), omforming (endring av filformat) og til og med legger til data fra nettjenester, f.eks. <em>Wikidata</em><a class="footnote-reference brackets" href="#wikidata" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>. I dette kapitlet går vi detaljert gjennom en del av funksjonaliteten til <em>OpenRefine</em> som er relatert til vasking.</p>
+</section>
+<section id="installer-openrefine">
+<h2>Installer OpenRefine<a class="headerlink" href="#installer-openrefine" title="Permalink to this heading">#</a></h2>
+<p><em>OpenRefine</em> <a class="reference external" href="https://openrefine.org/download.html">laster du ned her</a>. Velg <em>Download</em> fra menyen. Hvis du har en Windows PC velg <em>Windows kit with embedded Java</em>, da <em>OpenRefine</em> forutsetter at programvaren <em>Java</em> er installert. Vet du at du har <em>Java</em> fra før av på din PC, kan du velge den vanlige versjonen.
+Du laster ned programmet som en zip-fil og må deretter pakke ut filen. Se instruks på websiden.</p>
+</section>
+<section id="start-openrefine">
+<h2>Start OpenRefine<a class="headerlink" href="#start-openrefine" title="Permalink to this heading">#</a></h2>
+<p><em>OpenRefine</em> fungerer på en lignende måte som <em>Jupyter Notebooks</em>. Grensesnittet til applikasjonen er en nettside. Data som behandles av <em>OpenRefine</em> ligger lokalt på din datamaskin.
+<em>OpenRefine</em> startes ved å dobbelklikke på <em>openrefine.exe</em></p>
+<p><a class="reference external" href="https://docs.openrefine.org/manual/running">for MacOS se her</a></p>
+<p><img alt="&quot;Dobbelklikk for å starte i Windows&quot;" src="_images/openrefine-start.png" /></p>
+<p>På samme måte som med <em>Jupyter Notebooks</em>, åpnes det et svart vindu som viser oppstarten av applikasjonen på datamaskinen. Etter hvert åpnes et nettleservindu med åpningssiden til <em>OpenRefine</em>. Legg merke til adressen (URLen) i nettleseren:  <em>http://127.0.0.1:3333/</em> . 127.0.0.1 er IP-adressen til den lokale datamaskinen, mens 3333 er portnummeret<a class="footnote-reference brackets" href="#port" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p><img alt="&quot;Åpningssiden til OpenRefine&quot;" src="_images/openrefine-start-page.png" /></p>
+<p>Hovedvalgene vises til venstre i nettsiden. De to viktigste er:</p>
+<ul class="simple">
+<li><p><strong>Open Project</strong>: fortsett med et tidligere opprettet prosjekt</p></li>
+<li><p><strong>Create Project</strong>: opprett et nytt prosjekt</p></li>
+</ul>
+</section>
+<section id="opprett-et-nytt-prosjekt-i-openrefine">
+<h2>Opprett et nytt prosjekt i OpenRefine<a class="headerlink" href="#opprett-et-nytt-prosjekt-i-openrefine" title="Permalink to this heading">#</a></h2>
+<p><em>OpenRefine</em> kan importere data i ulike formater fra ulike kilder. Her skal vi se på den enkleste fremgangsmåten, ved å ta utgangspunkt i en CSV-fil som finnes lagret på din lokale datamaskin.</p>
+<p>I denne introduksjonen skal vi bruke en CSV-fil med data om <strong>open access</strong>-artikler som er produsert av <em>Directory of Open Access Journals (DOAJ)</em>.</p>
+<p>Nedenfor vises CSV-filen (<em>doaj-article-sample.csv</em>) i teksteditoren <em>Notepad++</em>. Det betyr at den ser anderledes ut enn hvis vi åpner den i <em>Jupyter Notebook</em>.
+Legg merke til kolonnenavn i første linje (Title, Authors, DOI, …). Resten av linjene i filen er selve data, og utgjør rader hvor hver rad er data om en artikkel. Komma er brukt som <strong>skilletegn</strong> (“seperator” på engelsk fagspråk) mellom kolonner. I tilfelle vi har et komma i selve dataen inni en kolonne, markeres starten og slutten av verdien med anførselstegn, som i <em>Citation</em>-kolonnen.</p>
+<p><img alt="&quot;En CSV-fil med DOAJ metadata om tidskriftartikler i Notepad++&quot;" src="_images/openrefine-doaj-file-in-notepad-plus-plus-2.png" /></p>
+<p>Eksempelet brukt her er basert på <em>Library Carpentry</em> sin introduksjon til OpenRefine<a class="footnote-reference brackets" href="#lc-openrefine" id="id3" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a>.</p>
+<p>✍️ <strong>Oppgave:</strong> Last ned CSV-filen som ligger i datasett-boksen på toppen av denne siden. Velg så <em>Create Project</em> i åpningsvinduet.
+Klikk på <em>Choose Files</em>-knappen på startsiden, og finn frem til CSV-filen som skal behandles. Klikk på <em>Next</em>-knappen for å fortsette. Følg så instruksene videre på denne siden.</p>
+<p>Følgende vindu vises:</p>
+<p><img alt="&quot;Valg ved opprettelse av et nytt prosjekt i  OpenRefine&quot;" src="_images/openrefine-create-project.png" /></p>
+<p>Figuren overfor oppsummerer prosedyren ved etablering av et nytt prosjekt. OpenRefine tolker filen med data og
+presenterer en <em>forhåndsvisning</em> av data i øvre halvdel av vinduet, mens den  “gjetter seg frem til” innstillingene den antar vil være ønskelig for deg som bruker, som den viser i nedre halvdel.</p>
+<ol class="arabic simple">
+<li><p>innstillingene kan om nødvendig endres, og endringen vises umiddelbart i forhåndsvisningen. Prøv for eksempel å hake av “ignore first” og å fylle 1 eller 2 istendenfor 0, og se at den øverste linjen endrer seg. Still tilbake (dersom det er slik det skal være).</p></li>
+<li><p>Når innstillingene er riktige, velg <em>Create Project</em>-knappen for å opprette prosjekt.  Datafilen som prosjektet bygger på endres aldri, prosjektet kan derfor opprettes på nytt senere hvis du oppdager at innstillingene skulle ha vært annerledes, eller om du angrer på endringer du har gjort i dataene i prosjektet.</p></li>
+</ol>
+<p>Når prosjektet er opprettet vises hovedvinduet til <em>OpenRefine</em> (se under). Her vises de første ti radene med data. Det er mulig å bla frem (<em>next</em>) og tilbake (<em>previous</em>) for å se mer data.</p>
+<p>⚠️ <strong>Merk!</strong> Prosjektet henter inn data fra filen, men er ikke selve filen. Endringer som gjøres vil derfor ikke endre det som er i filen. Istedet må man til slutt lagre prosjektet som en ny CSV-fil. Dette vil vi komme tilbake til lengre ned i kapitlet.</p>
+<p><img alt="&quot;Hovedvinduet i  OpenRefine&quot;" src="_images/openrefine-main-window.png" /></p>
+</section>
+<section id="undersok-dataene">
+<h2>Undersøk dataene<a class="headerlink" href="#undersok-dataene" title="Permalink to this heading">#</a></h2>
+<section id="fasettering-og-filtrering">
+<h3>Fasettering og filtrering<a class="headerlink" href="#fasettering-og-filtrering" title="Permalink to this heading">#</a></h3>
+<p>Mestparten av arbeidet i <em>OpenRefine</em> utføres ved å velge fra kolonne-menyen som vises når du klikker på knappen som er plassert til venstre for kolonnenavnet. Her har vi valgt menyen til kolonnen <em>Language</em>.</p>
+<p><img alt="&quot;Kolonnemenyen&quot;" src="_images/openrefine-column-menu.png" /></p>
+<p>Velg <em>Text facet</em> som finnes under <em>Facet</em>-menyvalget. Da vises en liste over de unike verdiene fra <em>Language</em>-kolonnen med frekvens. Dette vises til venstre for selve data.</p>
+<p><img alt="&quot;Text facet i OpenRefine&quot;" src="_images/openrefine-text-facet.png" /></p>
+<p>Mens en kolonne uttrykker et aspekt ved dataene (“Language”), betyr altså en <strong>fasett</strong> i OpenRefine en <em>unik verdi</em> ved  dette aspektet<a class="footnote-reference brackets" href="#openrefine-facet" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
+<p>På bildet ser vi at datasettet inneholder to verdier for engelskspråklige artikler: forkortelsen <em>EN</em> og navnet <em>English</em>. Vi ser også at vi har 7 artikler på spansk (“ES”) og 1 på fransk (“FR”). Hvis vi lar musepekeren hvile over verdien, vises to valg til høyre for denne: <em>edit</em> og <em>include</em>. Hvis vi velger <em>include</em>, vises kun radene som har denne verdien.</p>
+<p>✍️ <strong>Oppgave:</strong> Følg instruksen over for å finne verdier for <em>Language</em>. Velg <em>reset</em> for å vise alle rader igjen, og gjenta handlingen for <em>FR</em>.</p>
+<p><img alt="&quot;Filtering i OpenRefine&quot;" src="_images/openrefine-text-facet-filter.png" /></p>
+<p>Vi kan også utføre masseendringer av verdier ved å la musepekeren hvile over verdien og velge <em>edit</em>. F.eks. kan vi endre verdien <em>English</em> til koden <em>EN</em>. Den opprinnelig verdien (“English”) vises. Erstatt den med den nye verdien (“EN”), og velg <em>Apply</em>-knappen. Dette er den enkleste formen for vasking av datasett fordi det innebærer å sørge for at fasetter som er synonyme med hverandre (Her: “EN” og “English”) blir til en spesifikk fasett (“EN”).</p>
+<p>✍️ <strong>Oppgave:</strong> Følg instruksen over og erstatt <em>English</em> med <em>EN</em>.</p>
+<p><img alt="&quot;Oppdater verdier fra Text Facet i OpenRefine&quot;" src="_images/openrefine-text-facet-edit-before.png" /></p>
+</section>
+</section>
+<section id="angre">
+<h2>Angre<a class="headerlink" href="#angre" title="Permalink to this heading">#</a></h2>
+<p>Det er mulig å angre på oppdateringer ved å velge <em>Undo / Redo</em> i <em>Facet</em>-vinduet.</p>
+<p><img alt="&quot;Angre oppdatering i OpenRefine&quot;" src="_images/openrefine-undo-redo.png" /></p>
+<p>Velg en tidligere fase i prosjektet for å rulle tilbake til det stadiet i redigeringen. I figure kan vi klikk på <em>0. Create project</em> for å gå tilbake til stadiet før oppdatering. Omvendt kan vi klikke på <em>1. Mass edit 107 cells in column Languange</em> for å uføre oppdateringen om igjen.</p>
+<p>⚠️ <strong>Merk!</strong> som nevnt tidligere er den opprinnelig CSV-filen uendret og vi kan alltid opprette et nytt prosjekt fra den samme filen hvis vi angrer på endringene vi ha gjort i <strong>prosjektet</strong> vi holder på med.</p>
+</section>
+<section id="lagring-av-prosjekt-til-fil">
+<h2>Lagring av prosjekt til fil<a class="headerlink" href="#lagring-av-prosjekt-til-fil" title="Permalink to this heading">#</a></h2>
+<p>Når vi har utført en oppdatering (også kalt “vasking”) og vil lagre resulatet i en fil, kan vi velge <em>Export</em>-knappen som finnes øverst til høyre. <em>OpenRefine</em> støtter mange ulike formater. Ofte vil vi lagre data i en CSV-fil, dvs. velge <em>Comma-separated value</em> fra listen. Filen får et filnavn som er likt navnet på prosjektet. Endre gjerne navnet etter behov. Det er lurt å bruke et annet navn enn det opprinnelige filnavnet for prosjektet.</p>
+<p><img alt="&quot;Lagre data i en fil i OpenRefine&quot;" src="_images/openrefine-export.png" /></p>
+<p>✍️ <strong>Oppgave:</strong> Følg instruksen over og lagre prosjektet som en CSV-fil med et nytt passende navn.</p>
+</section>
+<section id="flere-mater-a-vaske-pa">
+<h2>Flere måter å vaske på<a class="headerlink" href="#flere-mater-a-vaske-pa" title="Permalink to this heading">#</a></h2>
+<p>Under følger en videre gjennomgang av andre måter å vaske på.</p>
+<section id="avgrens-radene-med-sok">
+<h3>Avgrens radene med søk<a class="headerlink" href="#avgrens-radene-med-sok" title="Permalink to this heading">#</a></h3>
+<p>Velg <em>Text filter</em> under kolonnemenyen. Her får du opp et vindu under <em>Facet / Filter</em> der du kan søke etter rader som har en bestemt verdi. Vi kan legge til flere tekstfiltre for å avgrense ytterligere. Dette tilsvarer å utføre en boolsk OG-kombinasjon.</p>
+<p>I figuren vises en kombinasjon av et søk etter koden <em>EN</em> i Language-kolonnen og emnet <em>snow models</em> i <em>Subjects</em>-kolonnen. For å se radene som svarer til denne kombinasjonen, må du velge <em>Text filter</em> under både <em>Language</em>- og <em>Subjects</em>-kolonnene.
+Alle oppdateringer du velger å gjøre vil bare skje med de som passer til filtreringen din.</p>
+<p><img alt="&quot;Avgrens radene ved søk OpenRefine&quot;" src="_images/openrefine-text-filter.png" /></p>
+<p>En slik avgrensning kan brukes for å fjerne rader. Utfør avgrensning, deretter velg <em>Remove matching rows</em> fra <em>Edit rows</em>-meny under kolonnen <em>All</em>. Se under:</p>
+<p><img alt="&quot;Slett radene etter et søk i OpenRefine&quot;" src="_images/openrefine-delete-filtered.png" /></p>
+</section>
+<section id="andre-avgrensninger">
+<h3>Andre avgrensninger<a class="headerlink" href="#andre-avgrensninger" title="Permalink to this heading">#</a></h3>
+<p>Manglende data er et typisk datakvalitetsproblem. Det vil si at en celle i en kolonne ikke har data, selv om andre i samme kolonne har det. Hvordan kan vi finne radene som mangler data for en kolonne? Fra menyen til relevant kolonne  velg <em>Facet</em>, deretter velg <em>Customized facets</em>, og til slutt velg <em>Facet by blank (null or empty string)</em>. Legg merke til de andre avgrensningene som er mulige.</p>
+<p><img alt="&quot;Finn radene med manglende verdier i OpenRefine&quot;" src="_images/openrefine-facet-blank.png" /></p>
+<p>Resultatet viser enten <em>true</em>, dvs. at verdien mangler, eller <em>false</em>, det finnes en verdi. Vis de som har verdien <em>true</em> og bruk kolonnemenyen til <em>All</em>-kolonnen for å slette radene.</p>
+<p><img alt="&quot;Finn radene med manglende verdier i OpenRefine - resultatet&quot;" src="_images/openrefine-facet-blank-result.png" /></p>
+</section>
+<section id="endre-verdier">
+<h3>Endre verdier<a class="headerlink" href="#endre-verdier" title="Permalink to this heading">#</a></h3>
+<p>Ovenfor så vi hvordan vi kunne endre verdier etter bruk av <em>Text facet</em>. Alternativt kan vi bruke valgene som finnes under <em>Edit cells</em> i kolonnemenyen.</p>
+<p>Noen vanlige endringer finnes under <em>Common transforms</em>. F.eks:</p>
+<ul class="simple">
+<li><p>fjern ekstra mellomrom fra starten eller slutten av en tekst</p></li>
+<li><p>endre teksten til kun store bokstaver</p></li>
+<li><p>endre datatypen</p></li>
+<li><p>gjør verdien til blank</p></li>
+</ul>
+<p><img alt="&quot;Endre verdier med Common transforms i OpenRefine&quot;" src="_images/openrefine-common-transforms.png" /></p>
+<p>Det er også mulig å utføre mer skreddersydde endringer ved å velge <em>Transform…</em>. I den nederste delen av vinduet vises nåværende verdi til venstre og resultatet av endringen til høyre. Klikk på <em>OK</em>-knappen for å utfør endringen eller <em>Cancel</em> for å lukke vinduet uten å utføre oppdateringen. I eksempelet under erstatter vi tomme verdier (<em>null</em>) med tekststrengen <em>Ukjent</em>.</p>
+<p>⚠️ <strong>Merk!</strong> celler uten data er en særegen type celle i datasett. Det er i mange tilfeller lettere å utføre analyser om cellene som ikke har data får data som uttrykker at de er tomme, som det å legge inn tekststrengen <em>Ukjent</em>.</p>
+<p><img alt="&quot;Endre verdier med Transforms... i OpenRefine&quot;" src="_images/openrefine-transform.png" /></p>
+<p>Mens enkel vasking kan gjøres i enkle finn-og-erstatt-oppdateringer for å standardisere data, er det her altså mer kompliserte vaskinger som kan utføres. Da bruker man noe som heter <em>Transformations</em> i <em>OpenRefine</em>, som foretar manipuleringer.
+Denne manipuleringen innebærer blant annet:</p>
+<ul class="simple">
+<li><p>Å separere data som er i en kolonne inn i flere kolonner (f eks hvis en kolonne har flere verdier)</p></li>
+<li><p>Standardisere dataformat i en kolonne uten å endre verdier</p></li>
+<li><p>hente ut en del av en lengre tekst-streng og sette den inn i en egen ny kolonne</p></li>
+</ul>
+<p>Under følger noen eksempler på hvordan det gjøres.</p>
+</section>
+<section id="kolonner-med-flere-verdier">
+<h3>Kolonner med flere verdier<a class="headerlink" href="#kolonner-med-flere-verdier" title="Permalink to this heading">#</a></h3>
+<p>I utgangspunktet skal en kolonne bestå av enkelte verdier. Men hvordan kan vi håndtere situasjonen der en kolonne inneholder celler med flere verdier? Vi ser eksempler av dette i DOAJ-datasettet. Noen av artiklene har flere forfattere, f.eks. den første artikkel er skrevet av <em>Flavia Pennini</em> og <em>Angelo Plastino</em>. Artikkelen har også sju emner. Løsningen som er brukt i DOAJ-datasett er å legge alle verdier i samme celle, <em>adskilt med et eget skilletegn</em>, som vi her kaller <em>internt skilletegn</em>. Her brukes <strong>|</strong> som internt skilletegn. Innholdet i <em>Subjects</em>-kolonnen for den første artikkelen ser derfor slik ut:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Fisher</span> <span class="pre">information|quasi-probabilities|complementarity|Physics|QC1-999|Science|Q</span></code></p>
+<p>Hvis vi ønsker å vaske slike data  bruker vi gjerne følgende fremgangsmåte:</p>
+<ul class="simple">
+<li><p>splitt cellen inn i enkelte verdier</p></li>
+<li><p>vask de enkelte verdiene</p></li>
+<li><p>sett dem sammen igjen</p></li>
+</ul>
+<p>For å splitte en celle med et internt skilletegn, velger vi <em>Split multi-valued cells…</em> fra <em>Edit cells</em>-menyen, som finnes i kolonne-menyen. Endre “,” til “|” som skilletegn.</p>
+<p><img alt="&quot;Del opp flere verdier i samme celle i OpenRefine&quot;" src="_images/openrefine-split.png" /></p>
+<p><img alt="&quot;Resultatet etter oppdeling i OpenRefine&quot;" src="_images/openrefine-splitted.png" /></p>
+<p>Utfør endring.</p>
+<p>For å sette verdiene sammen igjen, velg <em>Join multi-valued cells…</em> fra <em>Edit cells</em>-menyen under kolonnemnenyen. Endre komma til ønsket skilletegn, f.eks. “|”.</p>
+<p><img alt="&quot;Sett sammen verdier etter oppdeling i OpenRefine&quot;" src="_images/openrefine-join.png" /></p>
+</section>
+<section id="gruppering">
+<h3>Gruppering<a class="headerlink" href="#gruppering" title="Permalink to this heading">#</a></h3>
+<p>Her kan man bruke en algoritme i OpenRefine som forsøker å lage grupperinger av ulike fasetter (“clustering” på engelsk fagspråk). Denne algoritmen er særlig god å bruke når data verdiene er navn på personer og organisasjoner. Det finnes for eksempel utallige måter å skrive “NTNU” på.
+Ved å bruke grupperingsalgoritmen vil du få opp forslag til grupperinger, som du så kan se gjennom og så velge å endre til.</p>
+<p>Merk at <em>OpenRefine</em> har flere ulike typer grupperingsalgoritmer og man må prøve seg frem for å finne den som fungerer best på dataen man selv har. Det er også viktig å gå gjennom og eventuelt fjerne de som har blitt grupper feil av algoritmen. Ikke stol blindt på forslagene.</p>
+<p>I eksemplet under er grupperingsalgoritmen utført på forfatter-kolonnen.</p>
+<p>Her separeres verdier. Så Fjernes mellomrom fra start og slutt.
+Velg <em>Cluster and edit…</em> fra <em>Edit cells</em>-menyen.</p>
+<p><img alt="&quot;Grupper lignende verdier i OpenRefine&quot;" src="_images/openrefine-cluster.png" /></p>
+<p>Her grupperes verdier som algoritmen sier ligner på hverandre. For navn kan den gruppere flere ulike variasjoner av samme navn. Dette kan være rekkefølge av ord f.eks. <em>Chandra Naveen</em> og <em>Naveen Chandra</em>. Det kan være et manglende punktum etter et forkortet navn, f.eks. <em>B. K. Revathi</em> og <em>B. K Revathi</em>. Her kan vi også bestemme hvilken verdi som skal representere grupperingen.</p>
+<p>⚠️ <strong>Merk!</strong> Bruk dette varsomt. <em>Chandra Naveen</em> og <em>Naveen Chandra</em> kan være to helt forskjellige personer. Til og med bare <em>Chandra Naveen</em> alene kan være flere personer som tilfeldigvis deler samme navn!</p>
+</section>
+</section>
+<section id="anbefalt-videre-litteratur">
+<h2>Anbefalt videre litteratur<a class="headerlink" href="#anbefalt-videre-litteratur" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Verborgh, R., &amp; De Wilde, M. (2013). <em>Using openrefine</em>. Packt Publishing Ltd.</p></li>
+</ul>
+<hr class="footnotes docutils" />
+<aside class="footnote brackets" id="wikidata" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://www.wikidata.org/">https://www.wikidata.org/</a></p>
+</aside>
+<aside class="footnote brackets" id="port" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p>Da en datamaskin kan kjøre og betjene mange forskjellige tjenester samtidig, brukes <em>port</em> som et skille mellom disse. Mens <em>Jupyter Notebooks</em> kjører på 127.0.0.1:8888, kjøres <em>OpenRefine</em> (samtidig) på 127.0.0.1:3333</p>
+</aside>
+<aside class="footnote brackets" id="lc-openrefine" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">3</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://librarycarpentry.org/lc-open-refine/">https://librarycarpentry.org/lc-open-refine/</a>. Introduksjon til <em>Library Carpentry</em> er gjort tilgengelig under en CC-BY 4.0 lisens.</p>
+</aside>
+<aside class="footnote brackets" id="openrefine-facet" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">4</a><span class="fn-bracket">]</span></span>
+<p>Legg merke til at denne definisjonen skiller seg noe fra fasettdefinisjonen brukt i fasettert klassifikasjon.</p>
+</aside>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kapittel6.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">6. Funksjoner</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kapittel8.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">8. Dataanalyse med Pandas</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-vasking">Hva er vasking?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hva-er-openrefine">Hva er OpenRefine?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installer-openrefine">Installer OpenRefine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-openrefine">Start OpenRefine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opprett-et-nytt-prosjekt-i-openrefine">Opprett et nytt prosjekt i OpenRefine</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#undersok-dataene">Undersøk dataene</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fasettering-og-filtrering">Fasettering og filtrering</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#angre">Angre</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lagring-av-prosjekt-til-fil">Lagring av prosjekt til fil</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flere-mater-a-vaske-pa">Flere måter å vaske på</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#avgrens-radene-med-sok">Avgrens radene med søk</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#andre-avgrensninger">Andre avgrensninger</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#endre-verdier">Endre verdier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kolonner-med-flere-verdier">Kolonner med flere verdier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gruppering">Gruppering</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anbefalt-videre-litteratur">Anbefalt videre litteratur</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Massey, Preminger & Soelseth
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p>
+Denne interaktive l&aelig;reboka er lisensiert gjennom <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons BY-NC-SA 4.0 License.</a>.
+</p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
