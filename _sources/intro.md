@@ -17,11 +17,10 @@ Del I gir en kort introduksjon til hvordan installere og ta i bruk det du trenge
 > Del IV vil ta for seg innhenting og scraping av data og vil være ferdig høsten 2024. 
 
 ### Kontakt oss
-
-* Opplever du problemer, har du spørsmål eller forslag kan du kontakte oss på **Github**, ved å trykke på Github-ikonet i toppmenyen.
+Kontaktpunkt er Camilla Holm Soelseth, som kan kontaktes på: camil @ oslomet.no 
 
 ### Hvordan sitere denne boka
-> SETT INN MED DOI FRA ZENODO 
+*Massey, D., Preminger, M., & Soelseth, C. H. (2024). Databehandling og -analyse med Python og OpenRefine (1.0). Zenodo. https://doi.org/10.5281/zenodo.13329396*
 
 ## Del 5: Call for Chapters
 > Her vil det komme informasjon om del V av boken, høsten 2024. Del 5 vil bestå av mer spesifikke og avanserte analysemetoder, og vi vil oppfordre interesserte til å sende inn bidrag gjennom en call for chapters i september 2024. 
